@@ -528,6 +528,49 @@
    "aspect": "16:9",
    "nostyle": true,
    "prompt": "Cinematic wide key art illustration for a video game, semi-realistic digital painting with clean readable shapes: a friendly Finnish man in his forties (white skate-style bicycle helmet with a bright headlamp, orange-tinted sport sunglasses, black short-sleeved cycling jersey, pink cycling tights, olive green backpack) riding a full-suspension mountain bike fast down a rocky root-covered trail in a dark Finnish spruce forest at late dusk; the headlamp beam cuts a cone of light through blue-violet twilight mist, a full moon rises over silhouetted pines, a small LoRa radio sensor box on a wooden post with a blinking LED and a thin antenna stands beside the trail, tiny fireflies glow near the ground, the last orange afterglow on the horizon; the rider seen from a three-quarter front view coming towards the viewer, dramatic and atmospheric composition with open dark sky in the upper left for a title. No text, no letters, no watermark, no frame."
+  },
+  {
+   "name": "bike_dh",
+   "kind": "sprite",
+   "aspect": "16:9",
+   "max": 640,
+   "prompt": "A complete modern downhill race mountain bike (DH bike, Commencal Supreme / Santa Cruz V10 style) seen exactly from the side, facing right (handlebar and fork on the right, saddle on the left), drawn WITHOUT WHEELS: no wheels, no tires, no rims, no spokes, no brake rotors, the front fork dropouts and the rear dropouts are empty and clearly visible. Matte black aluminium frame with a long low top tube and bold acid lime-green lettering on the down tube, a large black coil rear shock with a bright lime-green coil spring mounted in the middle of the frame, a high main pivot with a small idler pulley above the bottom bracket, a black dual-crown downhill suspension fork with two visible crowns above and below the head tube and lime-green adjuster knobs on the fork legs, a very short seatpost with a small black saddle slammed low near the top tube, a wide flat black handlebar with lime-green grips and a short stem, a black chainring with a chain guide, a short rear derailleur and a chain. Clean product illustration style. Also drawn WITHOUT crank arms and WITHOUT pedals: at the bottom bracket there is only the round chainring with the chain; no crank arms, no pedals at all.",
+   "anchors": {
+    "rear": [
+     0.047,
+     0.809
+    ],
+    "front": [
+     0.958,
+     0.825
+    ],
+    "saddle": [
+     0.281,
+     0.211
+    ],
+    "grip": [
+     0.695,
+     0.044
+    ],
+    "bb": [
+     0.375,
+     0.82
+    ]
+   }
+  },
+  {
+   "name": "wheel_dh",
+   "kind": "sprite",
+   "aspect": "1:1",
+   "max": 256,
+   "prompt": "A single downhill mountain bike wheel seen exactly from the side, perfectly circular and centered: a very wide black knobby downhill tire with big aggressive tread blocks and a thick reinforced sidewall, a wide black rim with a few small acid lime-green decals, black spokes and a black hub in the exact center. Nothing else."
+  },
+  {
+   "name": "keyart4",
+   "kind": "art",
+   "aspect": "16:9",
+   "nostyle": true,
+   "prompt": "Cinematic wide key art illustration for a video game, semi-realistic digital painting with clean readable shapes: a friendly Finnish man in his forties in a black full-face downhill helmet with goggles, black short-sleeved jersey, pink cycling tights and an olive green backpack, riding a matte black and lime-green downhill mountain bike, airborne off a rocky drop on a steep boulder-strewn trail descending a Finnish fell of pines, spruces and golden autumn birches; below him the trail plunges into a valley filled with morning mist, a calm lake and misty blue forested hills far below, a small LoRa radio sensor box on a wooden post with a thin antenna beside the landing; warm golden sunrise light from the side, long shadows and sun rays through the mist, the rider seen from the side in profile mid-air with a dynamic lean, wide landscape composition with open sky in the upper left for a title. No text, no letters, no watermark, no frame."
   }
  ],
  "styles": {
