@@ -1,0 +1,446 @@
+{
+ "model": "google/gemini-3.1-flash-image",
+ "fallback_model": "google/gemini-2.5-flash-image",
+ "style": "Semi-realistic digital painting of a Finnish boreal forest in natural daylight: true-to-life colors of spruce, pine, birch, moss, peat and granite, believable detail but simplified and clean enough to read at small size in a 2D side-scrolling video game, crisp edges, soft natural lighting from the upper left, strict side view. Not a photograph, no text, no letters, no watermark, no frame, no border.",
+ "sprite_rule": "Exactly one object, centered, fully visible with generous empty margin on all sides, nothing cropped. The entire background must be a perfectly flat, uniform, solid bright magenta color (#FF00FF): no gradient, no vignette, no cast shadow on the background, no ground plane, no horizon, no other objects.",
+ "assets": [
+  {
+   "name": "spruce1",
+   "kind": "sprite",
+   "aspect": "9:16",
+   "worldH": 150,
+   "prompt": "A tall Norway spruce tree (kuusi), dense dark green layered branches, slightly asymmetric natural shape, thin brown trunk visible at the bottom."
+  },
+  {
+   "name": "spruce2",
+   "kind": "sprite",
+   "aspect": "9:16",
+   "worldH": 131,
+   "prompt": "A younger, slightly wider Norway spruce tree (kuusi) with drooping dark green branch tiers and a short trunk at the bottom."
+  },
+  {
+   "name": "pine1",
+   "kind": "sprite",
+   "aspect": "9:16",
+   "worldH": 188,
+   "prompt": "A tall Scots pine tree (mänty): long bare trunk that is grey-brown below and warm orange-red near the top, sparse irregular green crown of flat rounded clumps at the very top."
+  },
+  {
+   "name": "pine2",
+   "kind": "sprite",
+   "aspect": "9:16",
+   "worldH": 169,
+   "prompt": "A crooked old Scots pine tree (mänty) with an orange-red upper trunk, a few thick bare side branches and a windswept flat green crown."
+  },
+  {
+   "name": "birch1",
+   "kind": "sprite",
+   "aspect": "9:16",
+   "worldH": 150,
+   "prompt": "A slender silver birch tree (koivu) with white bark marked by black horizontal streaks, light green airy foliage with drooping thin twigs."
+  },
+  {
+   "name": "birch2",
+   "kind": "sprite",
+   "aspect": "9:16",
+   "worldH": 125,
+   "prompt": "A small young silver birch tree (koivu), white trunk with dark marks, delicate yellow-green foliage, a couple of thin branches."
+  },
+  {
+   "name": "bush",
+   "kind": "sprite",
+   "aspect": "4:3",
+   "worldH": 28,
+   "prompt": "A low wild blueberry shrub (mustikanvarpu) with small dark green leaves and a few ripe blue berries, mossy base."
+  },
+  {
+   "name": "shroom",
+   "kind": "sprite",
+   "aspect": "1:1",
+   "worldH": 16,
+   "prompt": "A single fly agaric mushroom (kärpässieni): bright red cap with white dots, white stem, a bit of moss at the base."
+  },
+  {
+   "name": "stone1",
+   "kind": "sprite",
+   "aspect": "4:3",
+   "worldH": 22,
+   "prompt": "A rounded grey granite boulder with light lichen patches and a cap of green moss on top."
+  },
+  {
+   "name": "stone2",
+   "kind": "sprite",
+   "aspect": "4:3",
+   "worldH": 18,
+   "prompt": "A flattish grey-brown rock with lichen spots, partly covered by moss, lying on its side."
+  },
+  {
+   "name": "rock",
+   "kind": "sprite",
+   "aspect": "4:3",
+   "worldH": 30,
+   "prompt": "A large weathered grey granite boulder, angular, with cracks, pale lichen and a strip of green moss on the top, seen from the side."
+  },
+  {
+   "name": "log",
+   "kind": "sprite",
+   "aspect": "1:1",
+   "worldH": 28,
+   "prompt": "The round cut end of a fallen pine log seen straight from the side: circular cross-section with visible growth rings, rough brown bark around the edge."
+  },
+  {
+   "name": "reeds",
+   "kind": "sprite",
+   "aspect": "4:3",
+   "worldH": 34,
+   "prompt": "A clump of marsh sedge grass and two brown cattails (osmankäämi) growing from dark peat water, thin green blades."
+  },
+  {
+   "name": "cloud1",
+   "kind": "sprite",
+   "aspect": "16:9",
+   "worldH": 60,
+   "prompt": "A single soft fluffy white cumulus cloud with a slightly flat bottom and gentle grey-blue shading, floating alone. IMPORTANT: there is no sky and no landscape; the cloud is isolated on a flat solid bright magenta (#FF00FF) background that fills every other pixel of the image.",
+   "soft": true
+  },
+  {
+   "name": "cloud2",
+   "kind": "sprite",
+   "aspect": "16:9",
+   "worldH": 42,
+   "prompt": "A thin elongated wispy white cloud with soft edges.",
+   "soft": true
+  },
+  {
+   "name": "node",
+   "kind": "sprite",
+   "aspect": "9:16",
+   "worldH": 84,
+   "prompt": "A small outdoor LoRa radio sensor node mounted on a wooden post: a grey weatherproof plastic box near the top of the post, a small tilted dark-blue solar panel on top, a thin black whip antenna sticking straight up, a small LED on the box. The post goes down to the bottom edge of the image."
+  },
+  {
+   "name": "gateway",
+   "kind": "sprite",
+   "aspect": "9:16",
+   "worldH": 130,
+   "prompt": "A tall thin galvanized steel antenna mast for a LoRa gateway with guy wires, a larger grey electronics enclosure box mounted on it, a solar panel, a small omnidirectional antenna at the very top, and a red label on the box."
+  },
+  {
+   "name": "car",
+   "kind": "sprite",
+   "aspect": "16:9",
+   "worldH": 56,
+   "prompt": "A dark green 1980s boxy Volvo 245 station wagon seen exactly from the side, with a roof rack, slightly muddy, parked. IMPORTANT: no road, no ground, no grass, no landscape, no shadow on the ground; the car is isolated on a flat solid bright magenta (#FF00FF) background that fills every other pixel of the image."
+  },
+  {
+   "name": "cabin",
+   "kind": "sprite",
+   "aspect": "4:3",
+   "worldH": 98,
+   "prompt": "A small traditional Finnish red wooden cottage (punainen mökki) with white window frames and white corner boards, a dark shingle roof, a stone chimney and a wooden front door, seen exactly from the side."
+  },
+  {
+   "name": "hills",
+   "kind": "band",
+   "aspect": "21:9",
+   "prompt": "A wide band showing ONLY very distant forested hills seen from far away: three or four overlapping ridges in hazy blue-grey atmospheric perspective, each ridge a soft flat silhouette, the nearest ridge at the bottom edge of the image. Absolutely no foreground, no ground, no rocks, no individual trees, no bushes in front. The whole area above the ridges is a perfectly flat solid bright magenta (#FF00FF) sky; the ridges fill only the lower 40 percent. No sun, no clouds, no birds."
+  },
+  {
+   "name": "forest",
+   "kind": "band",
+   "aspect": "21:9",
+   "prompt": "A wide band of a mid-distance Finnish forest edge: spruce, pine and birch in soft greyed green, a few grey granite outcrops and heath in front, misty background hills. The whole area above the treetops is a perfectly flat solid bright magenta (#FF00FF); the landscape fills the lower two thirds. No sun, no clouds."
+  },
+  {
+   "name": "soil",
+   "kind": "tile",
+   "aspect": "1:1",
+   "prompt": "Seamless texture of dark brown forest soil seen in cross-section: peat, small pebbles, thin roots, painted in gouache with visible brush texture, evenly lit, no horizon, no objects, fills the whole image.",
+   "crop_top": 0.47
+  },
+  {
+   "name": "petri",
+   "kind": "portrait",
+   "aspect": "1:1",
+   "prompt": "Portrait illustration of a friendly Finnish man in his forties, short hair, clean-shaven, wearing a white bicycle helmet, orange-tinted sport sunglasses and a black cycling jersey, with a green backpack strap and a small antenna visible over his shoulder, smiling slightly, forest background, painted bust portrait."
+  },
+  {
+   "name": "bike_kuwahara",
+   "kind": "sprite",
+   "aspect": "16:9",
+   "max": 640,
+   "prompt": "A complete 1990s Kuwahara rigid hardtail mountain bike seen exactly from the side, facing right (handlebar and front fork on the right, saddle on the left), drawn WITHOUT WHEELS: no wheels, no tires, no rims, no spokes, the front fork dropouts and the rear dropouts are empty and clearly visible. Bright yellow steel frame with small red racing decals on the down tube, black rigid front fork, black seatpost and black saddle, flat silver handlebar with black grips and a silver stem, a round black chainring, a rear derailleur and a chain. Clean product illustration style. Also drawn WITHOUT crank arms and WITHOUT pedals: at the bottom bracket there is only the round chainring with the chain running to the rear derailleur; no crank arms, no pedals at all.",
+   "anchors": {
+    "rear": [
+     0.06,
+     0.78
+    ],
+    "front": [
+     0.97,
+     0.79
+    ],
+    "saddle": [
+     0.27,
+     0.06
+    ],
+    "grip": [
+     0.88,
+     0.045
+    ],
+    "bb": [
+     0.44,
+     0.82
+    ]
+   }
+  },
+  {
+   "name": "bike_intense",
+   "kind": "sprite",
+   "aspect": "16:9",
+   "max": 640,
+   "prompt": "A complete modern Intense full-suspension enduro mountain bike seen exactly from the side, facing right (handlebar and front fork on the right, saddle on the left), drawn WITHOUT WHEELS: no wheels, no tires, no rims, no spokes, the front fork dropouts and the rear dropouts are empty and clearly visible. Orange-red carbon frame fading to red with bright yellow lettering on the down tube, yellow rocker link, a visible rear shock absorber, black Fox suspension fork with orange adjuster knobs, black dropper seatpost with a black saddle that has a yellow-green top, wide black handlebar with orange grips, a round black chainring, rear derailleur and chain. Clean product illustration style. Also drawn WITHOUT crank arms and WITHOUT pedals: at the bottom bracket there is only the round chainring with the chain running to the rear derailleur; no crank arms, no pedals at all.",
+   "anchors": {
+    "rear": [
+     0.045,
+     0.79
+    ],
+    "front": [
+     0.955,
+     0.75
+    ],
+    "saddle": [
+     0.27,
+     0.07
+    ],
+    "grip": [
+     0.72,
+     0.035
+    ],
+    "bb": [
+     0.39,
+     0.8
+    ]
+   },
+   "erase": [
+    [
+     0.475,
+     0.772,
+     0.585,
+     0.832
+    ]
+   ]
+  },
+  {
+   "name": "wheel_kuwahara",
+   "kind": "sprite",
+   "aspect": "1:1",
+   "max": 256,
+   "prompt": "A single vintage mountain bike wheel seen exactly from the side, perfectly circular and centered: a narrow black knobby tire with a small tread, a polished silver aluminum rim, thin silver spokes and a small silver hub in the exact center. Nothing else."
+  },
+  {
+   "name": "wheel_intense",
+   "kind": "sprite",
+   "aspect": "1:1",
+   "max": 256,
+   "prompt": "A single modern enduro mountain bike wheel seen exactly from the side, perfectly circular and centered: a wide aggressive black knobby tire with big tread blocks, a black rim with a few small yellow decals, black spokes and a black hub in the exact center. Nothing else."
+  },
+  {
+   "name": "rider",
+   "kind": "sprite",
+   "aspect": "1:1",
+   "max": 512,
+   "prompt": "The upper body ONLY (from the waist up, no legs, no hips, no bicycle) of a fit Finnish man in his forties in a mountain-biking posture, seen exactly from the side, facing right and leaning forward as if seated on a bicycle: his torso tilts forward about 40 degrees, both arms reach forward and slightly down together toward where a handlebar would be, hands closed in olive-green cycling gloves gripping an invisible handlebar. He wears a white skate-style bicycle helmet with a beige chin strap, orange-tinted sport sunglasses, has short brown hair and is clean-shaven, a tight black short-sleeved cycling jersey, and a compact olive-green backpack on his back. The figure is cut off cleanly with a straight horizontal edge at the waist.",
+   "anchors": {
+    "hip": [
+     0.23,
+     0.79
+    ],
+    "head": [
+     0.62,
+     0.15
+    ],
+    "shoulder": [
+     0.51,
+     0.42
+    ],
+    "elbow": [
+     0.47,
+     0.665
+    ],
+    "hands": [
+     0.88,
+     0.87
+    ]
+   },
+   "parts": [
+    {
+     "name": "rider_farm",
+     "poly": [
+      [
+       0.36,
+       0.72
+      ],
+      [
+       0.57,
+       0.595
+      ],
+      [
+       0.66,
+       0.6
+      ],
+      [
+       1.0,
+       0.7
+      ],
+      [
+       1.0,
+       1.0
+      ],
+      [
+       0.36,
+       1.0
+      ]
+     ],
+     "anchors": {
+      "elbow": [
+       0.47,
+       0.665
+      ],
+      "hand": [
+       0.88,
+       0.87
+      ]
+     }
+    },
+    {
+     "name": "rider_uarm",
+     "poly": [
+      [
+       0.4,
+       0.4
+      ],
+      [
+       0.55,
+       0.355
+      ],
+      [
+       0.635,
+       0.45
+      ],
+      [
+       0.625,
+       0.585
+      ],
+      [
+       0.6,
+       0.6
+      ],
+      [
+       0.345,
+       0.76
+      ],
+      [
+       0.36,
+       0.6
+      ],
+      [
+       0.39,
+       0.5
+      ]
+     ],
+     "anchors": {
+      "shoulder": [
+       0.51,
+       0.42
+      ],
+      "elbow": [
+       0.47,
+       0.665
+      ]
+     }
+    }
+   ],
+   "fill": {
+    "poly": [
+     [
+      0.38,
+      0.36
+     ],
+     [
+      0.57,
+      0.33
+     ],
+     [
+      0.5,
+      0.56
+     ],
+     [
+      0.4,
+      0.74
+     ],
+     [
+      0.36,
+      0.78
+     ],
+     [
+      0.33,
+      0.72
+     ],
+     [
+      0.33,
+      0.4
+     ]
+    ],
+    "color": [
+     26,
+     26,
+     31
+    ]
+   },
+   "erase_poly": [
+    [
+     [
+      0.56,
+      0.47
+     ],
+     [
+      0.74,
+      0.47
+     ],
+     [
+      0.74,
+      0.66
+     ],
+     [
+      0.56,
+      0.64
+     ]
+    ]
+   ]
+  },
+  {
+   "name": "rider_farm",
+   "kind": "sprite",
+   "from": "rider"
+  },
+  {
+   "name": "rider_uarm",
+   "kind": "sprite",
+   "from": "rider"
+  },
+  {
+   "name": "keyart1",
+   "kind": "art",
+   "aspect": "16:9",
+   "nostyle": true,
+   "prompt": "Cinematic wide key art illustration for a video game, semi-realistic digital painting with clean readable shapes: a friendly Finnish man in his forties (white skate-style bicycle helmet, orange-tinted sport sunglasses, short brown hair, black short-sleeved cycling jersey, pink cycling tights, olive green backpack) riding a yellow vintage hardtail mountain bike along a narrow trail on a rocky ridge in a Finnish boreal forest of tall Scots pines, spruces and birches; beside the trail stands a small LoRa radio sensor box on a wooden post with a thin antenna and a tiny solar panel; far below a calm lake and misty blue forested hills; warm low evening sunlight from the side, long shadows, atmospheric depth, the rider seen from a three-quarter front view coming towards the viewer, dynamic and inviting composition with open space in the upper left for a title. No text, no letters, no watermark, no frame."
+  },
+  {
+   "name": "keyart2",
+   "kind": "art",
+   "aspect": "16:9",
+   "nostyle": true,
+   "prompt": "Cinematic wide key art illustration for a video game, semi-realistic digital painting with clean readable shapes: a friendly Finnish man in his forties (white skate-style bicycle helmet, orange-tinted sport sunglasses, short brown hair, black short-sleeved cycling jersey, pink cycling tights, olive green backpack) riding a yellow vintage hardtail mountain bike along a narrow trail on a rocky ridge in a Finnish boreal forest of tall Scots pines, spruces and birches; beside the trail stands a small LoRa radio sensor box on a wooden post with a thin antenna and a tiny solar panel; far below a calm lake and misty blue forested hills; soft morning light with mist between the trees, sun rays, the rider seen from the side in profile mid-ride with a slight lean, wide landscape composition with open sky in the upper part for a title. No text, no letters, no watermark, no frame."
+  }
+ ]
+}

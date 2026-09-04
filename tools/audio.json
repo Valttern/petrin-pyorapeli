@@ -1,0 +1,110 @@
+{
+ "clip_model": "google/lyria-3-clip-preview",
+ "song_model": "google/lyria-3-pro-preview",
+ "tracks": [
+  {
+   "name": "music_menu",
+   "kind": "clip",
+   "loop": true,
+   "lufs": -20,
+   "prompt": "Calm, warm acoustic instrumental: fingerpicked steel-string guitar and kantele (Finnish zither), gentle and unhurried, nostalgic Nordic folk mood, a quiet evening in a summer forest by a lake. No drums, no vocals. Consistent dynamics from start to end, no intro, no ending, no fade-out."
+  },
+  {
+   "name": "music_easy",
+   "kind": "song",
+   "loop": true,
+   "lufs": -17,
+   "prompt": "Upbeat, bright instrumental folk-pop for a bicycle adventure through a Finnish summer forest: acoustic guitar strumming, mandolin melody, light brushed drums, warm bass, playful and optimistic, 120 bpm. No vocals. Steady energy throughout, no slow intro, no fade-out ending.",
+   "max_len": 95
+  },
+  {
+   "name": "music_mid",
+   "kind": "song",
+   "loop": true,
+   "lufs": -16,
+   "prompt": "Driving instrumental indie folk-rock at 135 bpm: acoustic and clean electric guitar riffs, banjo, punchy drums, bass, determined adventurous mood like mountain biking fast on a rocky forest trail, Nordic melodic flavor. No vocals. Consistent energy, no slow intro, no fade-out ending.",
+   "max_len": 95
+  },
+  {
+   "name": "music_hard",
+   "kind": "song",
+   "loop": true,
+   "lufs": -15,
+   "prompt": "Intense, fast instrumental rock at 150 bpm: distorted guitar riff, driving drums, energetic bass, the adrenaline of a steep rocky downhill mountain bike run, Nordic melodic flavor with a touch of folk fiddle. No vocals. Consistent high energy from start to end, no slow intro, no fade-out ending.",
+   "max_len": 95
+  },
+  {
+   "name": "music_win",
+   "kind": "clip",
+   "loop": false,
+   "lufs": -17,
+   "max_len": 12,
+   "prompt": "Short triumphant celebratory instrumental fanfare: bright acoustic guitar, kantele, glockenspiel and a cheerful drum roll leading into a happy folk melody, the feeling of arriving at a lakeside cottage after a long ride. No vocals. Starts immediately at full energy."
+  }
+ ],
+ "voice_model": "openai/gpt-audio-mini",
+ "voice": "ash",
+ "voice_persona": "You are the voice of Petri, a 45-year-old Finnish mountain biker: a warm, slightly gruff Finnish man, natural spoken Finnish, no accent. Say EXACTLY the following Finnish line and nothing else, no extra words, no explanation. Delivery: {style}. Line: \"{text}\"",
+ "voices": [
+  {
+   "name": "voice_crash1",
+   "text": "Auts!",
+   "style": "a sharp pained yelp right as he falls off the bike"
+  },
+  {
+   "name": "voice_crash2",
+   "text": "Voi ei!",
+   "style": "dismayed, falling, short"
+  },
+  {
+   "name": "voice_crash3",
+   "text": "Ai ai ai!",
+   "style": "pained and grumbling after a crash, quick"
+  },
+  {
+   "name": "voice_crash4",
+   "text": "Hitto!",
+   "style": "annoyed grunt after crashing, short"
+  },
+  {
+   "name": "voice_land1",
+   "text": "Hup!",
+   "style": "a short effort grunt while absorbing a hard landing"
+  },
+  {
+   "name": "voice_land2",
+   "text": "Oho!",
+   "style": "surprised, short, bumped hard"
+  },
+  {
+   "name": "voice_start",
+   "text": "No niin, mennään!",
+   "style": "determined and cheerful, starting a ride"
+  },
+  {
+   "name": "voice_bog",
+   "text": "Hyi, suota!",
+   "style": "disgusted, bike sinking into a bog, quick"
+  },
+  {
+   "name": "voice_battery",
+   "text": "Akku vaihdettu.",
+   "style": "calm and satisfied, matter-of-fact"
+  },
+  {
+   "name": "voice_node",
+   "text": "Noodi paikallaan.",
+   "style": "pleased, matter-of-fact"
+  },
+  {
+   "name": "voice_done",
+   "text": "Jes! Mökillä!",
+   "style": "joyful, out of breath, arriving at the cottage"
+  },
+  {
+   "name": "voice_wall",
+   "text": "Vauhtia puuttui.",
+   "style": "muttering to himself, mildly annoyed"
+  }
+ ]
+}

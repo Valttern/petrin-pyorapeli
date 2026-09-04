@@ -1,0 +1,45 @@
+Generoidaan 23 assettia mallilla google/gemini-3.1-flash-image
+  spruce2    google/gemini-3.1-flash-image  1110 KB  cost $0.0673
+  pine1      google/gemini-3.1-flash-image  976 KB  cost $0.0673
+  pine2      google/gemini-3.1-flash-image  1073 KB  cost $0.0673
+  birch1     google/gemini-3.1-flash-image  1390 KB  cost $0.0673
+  birch2     google/gemini-3.1-flash-image  985 KB  cost $0.0673
+  bush       google/gemini-3.1-flash-image  1305 KB  cost $0.0673
+  shroom     google/gemini-3.1-flash-image  942 KB  cost $0.0673
+  stone1     google/gemini-3.1-flash-image  1186 KB  cost $0.0673
+  stone2     google/gemini-3.1-flash-image  1219 KB  cost $0.0673
+  rock       google/gemini-3.1-flash-image  1284 KB  cost $0.0673
+  log        google/gemini-3.1-flash-image  1332 KB  cost $0.0673
+  reeds      google/gemini-3.1-flash-image  1093 KB  cost $0.0673
+  cloud1     google/gemini-3.1-flash-image  900 KB  cost $0.0673
+  cloud2     google/gemini-3.1-flash-image  867 KB  cost $0.0673
+  gateway    google/gemini-3.1-flash-image  962 KB  cost $0.0673
+  car        google/gemini-3.1-flash-image  1036 KB  cost $0.0673
+  cabin      google/gemini-3.1-flash-image  932 KB  cost $0.0673
+  hills      google/gemini-3.1-flash-image  1027 KB  cost $0.0673
+  soil       google/gemini-3.1-flash-image  1791 KB  cost $0.0673
+  petri      google/gemini-3.1-flash-image  1463 KB  cost $0.0683
+Jälkikäsittely
+  spruce1    -> 261x512  32 KB
+  spruce2    -> 290x512  30 KB
+  pine1      -> 224x512  14 KB
+  pine2      -> 279x512  28 KB
+  birch1     -> 261x512  38 KB
+  birch2     -> 251x512  17 KB
+  bush       -> 512x366  54 KB
+  shroom     -> 392x512  35 KB
+  stone1     -> 512x368  60 KB
+  stone2     -> 512x301  52 KB
+  rock       -> 512x360  42 KB
+  log        -> 509x512  76 KB
+  reeds      -> 512x469  44 KB
+  cloud1     -> 512x286  35 KB
+  cloud2     -> 512x225  10 KB
+  node       -> 100x512  11 KB
+  gateway    -> 283x512  16 KB
+  car        -> 512x286  40 KB
+  cabin      -> 512x359  25 KB
+  hills      -> 1536x464  67 KB
+  forest     -> 1536x412  150 KB
+  soil       -> 512x512  495 KB
+  petri      -> 320x320  173 KB
