@@ -1321,7 +1321,7 @@ try{const bi=+localStorage.getItem('petri-pyorapeli-bike');if(bi===0||bi===1)gam
 function renderStyleToggle(){
   const el=$('#styleToggle'); if(!assetCount){el.classList.add('hidden');return;}
   el.classList.remove('hidden');
-  el.innerHTML=`<span class="lbl">Ulkoasu</span><div>${['kuvitettu','piirretty'].map(s=>`<button data-s="${s}" class="${game.style===s?'sel':''}">${s==='kuvitettu'?'Kuvitettu':'Piirretty'}</button>`).join(' ')}</div>`;
+  el.innerHTML=`<span class="lbl">DLSS 5</span><div>${['kuvitettu','piirretty'].map(s=>`<button data-s="${s}" class="${game.style===s?'sel':''}" title="${s==='kuvitettu'?'Kuvitettu grafiikka':'Piirretty grafiikka'}">${s==='kuvitettu'?'ON':'OFF'}</button>`).join(' ')}</div>`;
   el.querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>{game.style=b.dataset.s;try{localStorage.setItem('petri-pyorapeli-style',game.style);}catch(e){}renderStyleToggle();renderBikeList();}));
   const pt=ASSETS.petri; const im=$('#portrait'); if(pt){im.src=pt.img.src;im.classList.remove('hidden');}
   for(const [id,n] of [['#introArt','keyart1'],['#heroArt','keyart1'],['#doneArt','keyart2']]){const a=ASSETS[n],el=$(id);if(a&&el){el.src=a.img.src;el.classList.remove('hidden');}}
