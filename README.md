@@ -19,7 +19,7 @@ Koko peli on yksi tiedosto: **`index.html`**. Se toimii sellaisenaan selaimessa 
 
 Viisitoista proseduraalista reittiä viidessä vaikeustasossa (Helppo, Keskitaso, Vaikea, Iltahämärä, Yö) ja kaksi pyörää: vanha Kuwahara-jäykkäperä ja täysjousitettu Intense. Pää ei saa osua maahan. Parhaat ajat tallentuvat selaimeen.
 
-Iltahämärän ja yön reitit ajetaan otsalampun valossa: aurinko laskee, tähdet ja kuu nousevat, tulikärpäset, lepakot ja pöllöt heräävät, ja näkyvyys rajoittuu lampun keilaan. Esteet ovat Trials-henkisiä taitokynnyksiä: kalliohyllyt ja kannot (nosta keula: kallistus taakse ja kaasu), notkot (pudotus ja heti perään lähes pystysuora seinä, josta noustaan vain vauhdilla), hypyt kalliohyllyille (liian hitaana osut seinään), kaksoisrotkot, pudotusportaat, louhikkorinteet, juurakot ja kaatuneet rungot. Yön reiteillä tarkistuspisteitä on harvassa; Keskiyöllä vain noodit toimivat tarkistuspisteinä.
+Iltahämärän ja yön reitit ajetaan otsalampun valossa: aurinko laskee, tähdet ja kuu nousevat, tulikärpäset, lepakot ja pöllöt heräävät, ja näkyvyys rajoittuu lampun keilaan. Esteet ovat Trials-henkisiä taitokynnyksiä: kalliohyllyt ja kannot (nosta keula: kallistus taakse ja kaasu), notkot (pudotus ja heti perään lähes pystysuora seinä, josta noustaan vain vauhdilla), hypyt kalliohyllyille (seinän juuri on neljännesputki: vauhdilla ja paino edessä sen ajaa ylös, ilman painonsiirtoa pyörä kääntyy selälleen), syöksyhypyt (pitkä alamäki, iso kalliohyppyri ja rotko: polkien lento kantaa laskeutumisrinteeseen, rullaten jäät rotkoon), kaksoisrotkot, pudotusportaat, louhikkorinteet, juurakot ja kaatuneet rungot. Yön reiteillä tarkistuspisteitä on harvassa; Keskiyöllä vain noodit toimivat tarkistuspisteinä.
 
 ## Julkaisu
 

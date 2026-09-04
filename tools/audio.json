@@ -141,6 +141,11 @@
    "name": "voice_owl",
    "text": "Pöllö.",
    "style": "a soft amused remark to himself, noticing an owl"
+  },
+  {
+   "name": "voice_air",
+   "text": "Jiihaa!",
+   "style": "an exhilarated whoop mid-air during a huge jump, joyful, drawn out a little"
   }
  ]
 }
