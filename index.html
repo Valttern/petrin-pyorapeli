@@ -1335,6 +1335,8 @@ function getLevel(li){if(!game.levels[li])game.levels[li]=buildLevel(LEVELS[li])
 function startLevel(li){
   game.li=li;const lv=getLevel(li);
   lv.measured.fill(0);lv.measuredCount=0;
+  // seinien takana olevia aukion soluja ei voi ajaa läpi: ne lasketaan kartoitetuiksi heti, muuten 95 %:n raja ei täyty
+  for(let c=0;c<lv.cells;c++){const cx=(c+.5)*CELL; if(cx<lv.wallL+70||cx>lv.wallR-70){lv.measured[c]=1;lv.measuredCount++;}}
   for(let i=lv.nodes.length-1;i>=0;i--){const nd=lv.nodes[i];if(nd.player){lv.nodes.splice(i,1);continue;}if(nd.origLow){nd.state='low';}}
   recomputeCoverage(lv);
   clearStrips();game.level=lv;game.bike=new Bike(lv,bikeDef());game.t=0;game.time=0;game.started=false;
