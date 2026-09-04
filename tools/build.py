@@ -2,6 +2,7 @@
 """Upottaa assets/*.png data-URI:na index.html-tiedostoon merkkien /*ASSETS-START*/ ... /*ASSETS-END*/ väliin.
   python3 tools/build.py          # upota
   python3 tools/build.py --clear  # tyhjennä upotus (peli piirtää kaiken ohjelmallisesti)
+  python3 tools/build.py --out dev.html   # kirjoita upotettu versio toiseen tiedostoon (kehitystestaus), index.html ei muutu
 """
 import base64, json, sys
 from pathlib import Path
@@ -39,8 +40,12 @@ def main():
                     data[tr["name"]] = {"src": "data:audio/mpeg;base64," + base64.b64encode(p.read_bytes()).decode(), "kind": "audio", "loop": bool(tr.get("loop"))}
         payload = "window.ASSET_DATA=" + json.dumps(data, separators=(",", ":")) + ";"
         print(f"upotettu {len(data)} assettia, {sum(len(v['src']) for v in data.values())//1024} KB base64")
-    HTML.write_text(html[:i] + payload + html[j:], encoding="utf-8")
-    print(f"index.html {HTML.stat().st_size//1024} KB")
+    out = HTML
+    if "--out" in sys.argv:
+        out = Path(sys.argv[sys.argv.index("--out") + 1])
+        if not out.is_absolute(): out = ROOT / out
+    out.write_text(html[:i] + payload + html[j:], encoding="utf-8")
+    print(f"{out.name} {out.stat().st_size//1024} KB")
 
 if __name__ == "__main__":
     main()

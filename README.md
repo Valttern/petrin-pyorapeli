@@ -17,7 +17,9 @@ Koko peli on yksi tiedosto: **`index.html`**. Se toimii sellaisenaan selaimessa 
 | Esc | Tauko |
 | M | Äänet päälle / pois |
 
-Yhdeksän proseduraalista reittiä kolmessa vaikeustasossa ja kaksi pyörää: vanha Kuwahara-jäykkäperä ja täysjousitettu Intense. Pää ei saa osua maahan. Parhaat ajat tallentuvat selaimeen.
+Viisitoista proseduraalista reittiä viidessä vaikeustasossa (Helppo, Keskitaso, Vaikea, Iltahämärä, Yö) ja kaksi pyörää: vanha Kuwahara-jäykkäperä ja täysjousitettu Intense. Pää ei saa osua maahan. Parhaat ajat tallentuvat selaimeen.
+
+Iltahämärän ja yön reitit ajetaan otsalampun valossa: aurinko laskee, tähdet ja kuu nousevat, tulikärpäset, lepakot ja pöllöt heräävät, ja näkyvyys rajoittuu lampun keilaan. Esteet ovat Trials-henkisiä taitokynnyksiä: kalliohyllyt ja kannot (nosta keula: kallistus taakse ja kaasu), notkot (pudotus ja heti perään lähes pystysuora seinä, josta noustaan vain vauhdilla), hypyt kalliohyllyille (liian hitaana osut seinään), kaksoisrotkot, pudotusportaat, louhikkorinteet, juurakot ja kaatuneet rungot. Yön reiteillä tarkistuspisteitä on harvassa; Keskiyöllä vain noodit toimivat tarkistuspisteinä.
 
 ## Julkaisu
 
@@ -41,7 +43,9 @@ python3 -m http.server 8765            # paikallinen testaus: http://localhost:8
 
 Raakakuvat ja -äänet (`assets/raw/`, `assets/audio/raw/`) eivät ole versionhallinnassa; jälkikäsitellyt assetit ovat.
 
-Pelin sisällä: Verlet-fysiikka 120 Hz, maastoon kaiverretut esteet spritejen omista profiileista, neljän harjanteen parallax-tausta, kaistavälimuistitettu piirto, WebAudio-syntetisoitu metsä (linnut, tuuli, hyönteiset) ja pyörän äänet, LoRa-kuuluvuusmalli (log-distance + maaston katve).
+Pelin sisällä: Verlet-fysiikka 120 Hz, maastoon kaiverretut esteet spritejen omista profiileista, neljän harjanteen parallax-tausta, kaistavälimuistitettu piirto, WebAudio-syntetisoitu metsä (linnut, tuuli, hyönteiset; hämärässä sirkat, pöllöt ja kuikka) ja pyörän äänet, LoRa-kuuluvuusmalli (log-distance + maaston katve). Hämärän valaistus: maailma piirretään päivävärein ja tummennetaan pimeyskerroksella, johon otsalamppu, noodien LEDit, lyhdyt, nuotio, mökin ikkunat ja auton ajovalot syövät reikiä; taivas (auringonlasku, tähdet, kuu) piirretään lopuksi kaiken taakse.
+
+Kehitystestaus ilman index.html:n muuttamista: `python3 tools/build.py --out dev.html` kirjoittaa upotetun version erilliseen tiedostoon (gitignoressa).
 
 ## Tekijät
 

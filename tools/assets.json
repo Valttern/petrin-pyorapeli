@@ -441,6 +441,96 @@
    "aspect": "16:9",
    "nostyle": true,
    "prompt": "Cinematic wide key art illustration for a video game, semi-realistic digital painting with clean readable shapes: a friendly Finnish man in his forties (white skate-style bicycle helmet, orange-tinted sport sunglasses, short brown hair, black short-sleeved cycling jersey, pink cycling tights, olive green backpack) riding a yellow vintage hardtail mountain bike along a narrow trail on a rocky ridge in a Finnish boreal forest of tall Scots pines, spruces and birches; beside the trail stands a small LoRa radio sensor box on a wooden post with a thin antenna and a tiny solar panel; far below a calm lake and misty blue forested hills; soft morning light with mist between the trees, sun rays, the rider seen from the side in profile mid-ride with a slight lean, wide landscape composition with open sky in the upper part for a title. No text, no letters, no watermark, no frame."
+  },
+  {
+   "name": "moon",
+   "kind": "sprite",
+   "aspect": "1:1",
+   "worldH": 64,
+   "soft": true,
+   "style": "dusk",
+   "prompt": "A full moon: a pale yellowish-white perfectly round disc with soft grey maria markings and a faint glowing edge. IMPORTANT: there is no sky, no clouds and no landscape; the moon is isolated on a flat solid bright magenta (#FF00FF) background that fills every other pixel of the image."
+  },
+  {
+   "name": "hills_dusk",
+   "kind": "band",
+   "aspect": "21:9",
+   "style": "dusk",
+   "prompt": "A wide band showing ONLY very distant forested hills seen from far away at dusk after sunset: three or four overlapping ridges as soft flat silhouettes in deep blue-violet atmospheric haze, the farthest ridge faintly tinted by the warm orange afterglow, the nearest ridge darkest and at the bottom edge of the image. Absolutely no foreground, no ground, no rocks, no individual trees, no bushes in front. The whole area above the ridges is a perfectly flat solid bright magenta (#FF00FF) sky; the ridges fill only the lower 40 percent. No sun, no moon, no clouds, no stars, no birds."
+  },
+  {
+   "name": "lantern",
+   "kind": "sprite",
+   "aspect": "9:16",
+   "worldH": 46,
+   "style": "dusk",
+   "prompt": "An old kerosene storm lantern (myrskylyhty) hanging from a hook on a short weathered wooden post stuck in the ground, the lantern glass glowing bright warm orange-yellow and lighting the post. The post goes down to the bottom edge of the image. IMPORTANT: no ground, no grass, no landscape, no shadow on the ground; the object is isolated on a flat solid bright magenta (#FF00FF) background that fills every other pixel of the image."
+  },
+  {
+   "name": "campfire",
+   "kind": "sprite",
+   "aspect": "4:3",
+   "worldH": 34,
+   "style": "dusk",
+   "prompt": "A small campfire (nuotio): a ring of grey stones with burning birch logs, bright orange-yellow flames and a few glowing red embers, warm firelight on the stones. No smoke. IMPORTANT: no ground, no grass, no landscape, no shadow on the ground; the object is isolated on a flat solid bright magenta (#FF00FF) background that fills every other pixel of the image."
+  },
+  {
+   "name": "owl",
+   "kind": "sprite",
+   "aspect": "9:16",
+   "worldH": 42,
+   "style": "dusk",
+   "prompt": "A tawny owl (lehtopollo) perched on top of a short mossy tree stump, plump brown-grey speckled body seen from the side with its round head turned towards the viewer, two large glowing amber eyes; the stump goes down to the bottom edge of the image. IMPORTANT: no ground, no grass, no landscape, no shadow on the ground; the object is isolated on a flat solid bright magenta (#FF00FF) background that fills every other pixel of the image."
+  },
+  {
+   "name": "stump",
+   "kind": "sprite",
+   "aspect": "4:3",
+   "worldH": 26,
+   "style": "dusk",
+   "prompt": "A freshly cut pine tree stump (kanto) about knee high with vertical rough bark sides, a flat pale cross-cut top showing growth rings, and a few thick roots spreading into the ground at its base, seen exactly from the side. IMPORTANT: no ground, no grass, no landscape, no shadow on the ground; the object is isolated on a flat solid bright magenta (#FF00FF) background that fills every other pixel of the image."
+  },
+  {
+   "name": "roots",
+   "kind": "sprite",
+   "aspect": "21:9",
+   "worldH": 18,
+   "style": "dusk",
+   "prompt": "A wide tangled mass of exposed thick pine roots (juurakko) snaking over the ground surface: gnarled brown roots with bumps and knots, a bit of moss between them, seen exactly from the side as a low, wide, irregular bumpy shape with a flat bottom. IMPORTANT: no ground, no grass, no landscape, no shadow on the ground; the object is isolated on a flat solid bright magenta (#FF00FF) background that fills every other pixel of the image."
+  },
+  {
+   "name": "boulder",
+   "kind": "sprite",
+   "aspect": "4:3",
+   "worldH": 52,
+   "style": "dusk",
+   "prompt": "A huge rounded glacial erratic granite boulder (siirtolohkare) taller than a person, smooth grey rock with dark cracks, patches of pale lichen and a cap of moss on top, flat bottom, seen exactly from the side. IMPORTANT: no ground, no grass, no landscape, no shadow on the ground; the object is isolated on a flat solid bright magenta (#FF00FF) background that fills every other pixel of the image."
+  },
+  {
+   "name": "trunk",
+   "kind": "sprite",
+   "aspect": "21:9",
+   "worldH": 22,
+   "style": "dusk",
+   "prompt": "A long fallen pine tree trunk lying horizontally on the ground, seen exactly from the side: rough brown bark, three short broken branch stubs sticking up from the top, moss on the upper side, a flat bottom where it rests on the ground. IMPORTANT: no ground, no grass, no landscape, no shadow on the ground; the object is isolated on a flat solid bright magenta (#FF00FF) background that fills every other pixel of the image."
+  },
+  {
+   "name": "cabin_dusk",
+   "kind": "sprite",
+   "aspect": "4:3",
+   "worldH": 98,
+   "style": "dusk",
+   "prompt": "A small traditional Finnish red wooden cottage (punainen mokki) with white window frames and white corner boards, a dark shingle roof, a stone chimney and a wooden front door, seen exactly from the side, at dusk: the windows glow bright warm yellow from inside and a small lit lantern hangs beside the door. No smoke. IMPORTANT: no ground, no grass, no landscape, no shadow on the ground; the object is isolated on a flat solid bright magenta (#FF00FF) background that fills every other pixel of the image."
+  },
+  {
+   "name": "keyart3",
+   "kind": "art",
+   "aspect": "16:9",
+   "nostyle": true,
+   "prompt": "Cinematic wide key art illustration for a video game, semi-realistic digital painting with clean readable shapes: a friendly Finnish man in his forties (white skate-style bicycle helmet with a bright headlamp, orange-tinted sport sunglasses, black short-sleeved cycling jersey, pink cycling tights, olive green backpack) riding a full-suspension mountain bike fast down a rocky root-covered trail in a dark Finnish spruce forest at late dusk; the headlamp beam cuts a cone of light through blue-violet twilight mist, a full moon rises over silhouetted pines, a small LoRa radio sensor box on a wooden post with a blinking LED and a thin antenna stands beside the trail, tiny fireflies glow near the ground, the last orange afterglow on the horizon; the rider seen from a three-quarter front view coming towards the viewer, dramatic and atmospheric composition with open dark sky in the upper left for a title. No text, no letters, no watermark, no frame."
   }
- ]
+ ],
+ "styles": {
+  "dusk": "Semi-realistic digital painting of a Finnish boreal forest at late dusk just after sunset: cool blue-violet twilight ambient light with a faint warm orange rim light coming from the right (the western afterglow), colors muted and dim yet every object still clearly readable with visible detail, believable detail but simplified and clean enough to read at small size in a 2D side-scrolling video game, crisp edges, strict side view. Not a photograph, no text, no letters, no watermark, no frame, no border."
+ }
 }

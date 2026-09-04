@@ -40,6 +40,22 @@
    "lufs": -17,
    "max_len": 12,
    "prompt": "Short triumphant celebratory instrumental fanfare: bright acoustic guitar, kantele, glockenspiel and a cheerful drum roll leading into a happy folk melody, the feeling of arriving at a lakeside cottage after a long ride. No vocals. Starts immediately at full energy."
+  },
+  {
+   "name": "music_dusk",
+   "kind": "song",
+   "loop": true,
+   "lufs": -16,
+   "max_len": 95,
+   "prompt": "Atmospheric, mysterious driving instrumental at 130 bpm for riding a mountain bike through a Finnish forest at twilight: pulsing analog synth bass, steady soft drums, echoing clean electric guitar arpeggios, kantele plucks, a melancholic Nordic melody, cinematic dusk mood with a sense of forward motion. No vocals. Consistent energy throughout, no slow intro, no fade-out ending."
+  },
+  {
+   "name": "music_night",
+   "kind": "song",
+   "loop": true,
+   "lufs": -15,
+   "max_len": 95,
+   "prompt": "Dark, tense, fast instrumental at 148 bpm for a night ride through a pitch-black forest by headlamp: deep throbbing synth bass, tight fast drums, distorted guitar stabs, eerie high synth textures and a lone folk fiddle line, urgent Nordic melody, suspenseful and relentless. No vocals. Consistent high energy from start to end, no slow intro, no fade-out ending."
   }
  ],
  "voice_model": "openai/gpt-audio-mini",
@@ -105,6 +121,26 @@
    "name": "voice_wall",
    "text": "Vauhtia puuttui.",
    "style": "muttering to himself, mildly annoyed"
+  },
+  {
+   "name": "voice_dusk",
+   "text": "Alkaa hämärtää. Otsalamppu päälle.",
+   "style": "calm but a little wary, switching on his headlamp as dusk falls"
+  },
+  {
+   "name": "voice_night",
+   "text": "Pimeää kuin säkissä. Nyt tarkkana.",
+   "style": "quiet, focused, slightly tense, about to ride into the dark"
+  },
+  {
+   "name": "voice_hop",
+   "text": "Nokka ylös!",
+   "style": "quick, urging himself to lift the front wheel over a ledge, effortful"
+  },
+  {
+   "name": "voice_owl",
+   "text": "Pöllö.",
+   "style": "a soft amused remark to himself, noticing an owl"
   }
  ]
 }

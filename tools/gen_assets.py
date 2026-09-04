@@ -34,7 +34,7 @@ def load_key():
 def build_prompt(a):
     if a.get("nostyle"):
         return a["prompt"]
-    parts = [MANIFEST["style"]]
+    parts = [MANIFEST.get("styles", {}).get(a.get("style"), MANIFEST["style"])]   # per-asset tyyli (esim. "dusk")
     if a["kind"] in ("sprite",):
         parts.append(MANIFEST["sprite_rule"])
     parts.append(a["prompt"])
