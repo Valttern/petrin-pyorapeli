@@ -571,6 +571,27 @@
    "aspect": "16:9",
    "nostyle": true,
    "prompt": "Cinematic wide key art illustration for a video game, semi-realistic digital painting with clean readable shapes: a friendly Finnish man in his forties in a black full-face downhill helmet with goggles, black short-sleeved jersey, pink cycling tights and an olive green backpack, riding a matte black and lime-green downhill mountain bike, airborne off a rocky drop on a steep boulder-strewn trail descending a Finnish fell of pines, spruces and golden autumn birches; below him the trail plunges into a valley filled with morning mist, a calm lake and misty blue forested hills far below, a small LoRa radio sensor box on a wooden post with a thin antenna beside the landing; warm golden sunrise light from the side, long shadows and sun rays through the mist, the rider seen from the side in profile mid-air with a dynamic lean, wide landscape composition with open sky in the upper left for a title. No text, no letters, no watermark, no frame."
+  },
+  {
+   "name": "juniper",
+   "kind": "sprite",
+   "aspect": "4:3",
+   "worldH": 34,
+   "prompt": "A low dense common juniper shrub (kataja) growing on bare granite: dark blue-green prickly needle foliage in an irregular rounded cushion shape, a few pale blue berries, short gnarled grey stems visible at the bottom, seen exactly from the side. IMPORTANT: no ground, no grass, no landscape, no shadow on the ground; the object is isolated on a flat solid bright magenta (#FF00FF) background that fills every other pixel of the image."
+  },
+  {
+   "name": "kelo",
+   "kind": "sprite",
+   "aspect": "9:16",
+   "worldH": 150,
+   "prompt": "A tall dead standing pine tree (kelo) typical of Finnish rocky hilltops: a silvery-grey weathered bare trunk without bark, slightly twisted, with a few broken stubby branches and one longer bare branch, no needles at all, the trunk going down to the bottom edge of the image. IMPORTANT: no ground, no grass, no landscape, no shadow on the ground; the object is isolated on a flat solid bright magenta (#FF00FF) background that fills every other pixel of the image."
+  },
+  {
+   "name": "keyart5",
+   "kind": "art",
+   "aspect": "16:9",
+   "nostyle": true,
+   "prompt": "Cinematic wide key art illustration for a video game, semi-realistic digital painting with clean readable shapes: a friendly Finnish man in his forties (white skate-style bicycle helmet, orange-tinted sport sunglasses, short brown hair, black short-sleeved cycling jersey, pink cycling tights, olive green backpack) on an orange full-suspension mountain bike lifting the front wheel onto a sharp-edged granite ledge on a bare lichen-covered rock outcrop (silokallio) high on a Finnish hill, with a few dead silvery pines and low junipers on the rock, a huge rounded glacial boulder beside the line, a blue lake and forested hills far below; bright summer noon light, crisp shadows on the pale grey granite, the rider seen from the side in a concentrated trials-style balance moment, wide landscape composition with open sky in the upper third. No text, no letters, no watermark, no frame, no border."
   }
  ],
  "styles": {

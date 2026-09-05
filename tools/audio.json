@@ -64,6 +64,14 @@
    "lufs": -15,
    "max_len": 95,
    "prompt": "Fast, soaring instrumental downhill mountain bike track at 160 bpm for a golden autumn morning on a Finnish fell: driving four-on-the-floor drums, punchy distorted guitar power chords, a wide uplifting synth pad, a bright fiddle-like lead melody with Nordic folk flavour, propulsive bass, the feeling of dropping into a long steep descent through mist and golden birches. No vocals. Consistent high energy from start to end, no slow intro, no fade-out ending."
+  },
+  {
+   "name": "music_tech",
+   "kind": "song",
+   "loop": true,
+   "lufs": -16,
+   "max_len": 95,
+   "prompt": "Focused, rhythmic instrumental for a precision trials mountain-bike course on bare Finnish granite at 128 bpm: tight dry drums with rimshots and woodblock, a palm-muted clean electric guitar riff, deep round bass, sparse kantele plucks and a cool minimal synth pad, a sense of concentration, balance and controlled tension rather than speed, Nordic melodic flavour. No vocals. Consistent energy throughout, no slow intro, no fade-out ending."
   }
  ],
  "voice_model": "openai/gpt-audio-mini",
@@ -159,6 +167,21 @@
    "name": "voice_dh",
    "text": "Vaaran laelta alas. Jarrut kestäköön.",
    "style": "pumped but focused, standing at the top of a downhill run, a little out of breath from carrying the bike up"
+  },
+  {
+   "name": "voice_tech",
+   "text": "Tekniikkarata. Rauhassa ja tarkasti.",
+   "style": "calm, focused and quiet, sizing up a granite ledge before a trials section"
+  },
+  {
+   "name": "voice_clean",
+   "text": "Puhtaasti!",
+   "style": "a short pleased exclamation after clearing a tricky rock section without falling"
+  },
+  {
+   "name": "voice_fwd",
+   "text": "Paino eteen!",
+   "style": "quick and urgent, urging himself to shift his weight forward as the bike is about to loop out backwards on a steep climb"
   }
  ]
 }
