@@ -273,120 +273,120 @@ const TIERS=['Helppo','Keskitaso','Vaikea','Iltahämärä','Yö','Alamäki','Tek
 // hard = 0..1 skaalaa esteiden kokoa; cpEvery = tarkistuspisteiden väli (px), 0 = vain noodit
 const LEVELS=[
  // ---- vanhat kentät resepteinä (recordVersion 2): maasto kohinasta, esteet satunnaisesti lukumäärin; Hylätty louhos käsin sijoitettuna (placed). ----
- {id:'kotimetsa',name:'Kotimetsä',tier:0,gen:2,desc:'Lämmittelylenkki. Opettele akunvaihto ja noodin asennus.',seed:11,length:4200,
-  terrain:{algo:'noise',amp:70,wl:1500,octaves:2,gain:.26,lacunarity:5,rough:5},
-  difficulty:{hard:0},
-  features:{strategy:'random',fit:true,counts:{drop:1,kicker:2,rocks:1,bumps:1}},
+ {id:'kotimetsa',name:'Kotimetsä',tier:0,gen:2,desc:'Lämmittelylenkki. Opettele akunvaihto ja noodin asennus.',seed:9,length:4200,
+  terrain:{algo:'noise',amp:70,wl:1500,octaves:2,gain:.26,lacunarity:5,rough:5,maxSlope:36},
+  difficulty:{hard:.25,variety:.5,target:{gatedPerKm:[.8,3],finished:true,maxCrashes:1}},
+  features:{strategy:'rhythm',spacing:'clustered',sequence:[{type:'logpile',hard:.33},{type:'hump',hard:.29},{type:'trunk',hard:.28,size:.83},{type:'logpile',hard:.15,size:.93},{type:'doubles',hard:.25,size:.84,stretch:1},{type:'tabletop',hard:.3},{type:'slab',hard:.32,stretch:1.24}],fit:true},
   assets:{obstacles:.86,stones:1,forest:1,biome:'seka'},
-  recordVersion:2,rec:null,lowNodes:2,okNodes:1,newNodes:2,cpEvery:0},
- {id:'harjumaasto',name:'Harjumaasto',tier:0,gen:2,desc:'Pitkiä nousuja ja laskuja, ensimmäiset katvealueet harjujen takana.',seed:23,length:5600,
-  terrain:{algo:'noise',amp:130,wl:1400,octaves:2,gain:.2,lacunarity:4.38,rough:7},
-  difficulty:{hard:0},
-  features:{strategy:'random',fit:true,counts:{drop:2,kicker:3,rocks:1,bumps:2}},
+  recordVersion:3,minGap:90,rec:null,lowNodes:2,okNodes:1,newNodes:2},
+ {id:'harjumaasto',name:'Harjumaasto',tier:0,gen:2,desc:'Pitkiä nousuja ja laskuja, ensimmäiset katvealueet harjujen takana.',seed:2,length:5600,
+  terrain:{algo:'noise',amp:130,wl:1400,octaves:2,gain:.2,lacunarity:4.38,rough:7,maxSlope:36},
+  difficulty:{hard:.25,variety:.5,target:{gatedPerKm:[.8,3],finished:true,maxCrashes:1}},
+  features:{strategy:'rhythm',spacing:'clustered',sequence:[{type:'slabdown',hard:.21,stretch:.94},{type:'ledge',hard:.21,size:1.01},{type:'boulder',hard:.26,size:1.13,stretch:1.04},{type:'slabdown',hard:.2,size:.86,stretch:.94},{type:'stairs',hard:.27,size:.98,stretch:1.27},{type:'stepsdown',hard:.29,size:1.08},{type:'ledge',hard:.22,size:1.11,stretch:.94},{type:'hump',hard:.25},{type:'bumps',hard:.16,size:1.17,stretch:1.22},{type:'hump',hard:.22}],fit:true},
   assets:{obstacles:.96,stones:1,forest:1,biome:'seka'},
-  recordVersion:2,rec:null,lowNodes:3,okNodes:1,newNodes:3,cpEvery:0},
- {id:'vaaran-laki',name:'Vaaran laki',tier:0,gen:2,desc:'Jyrkempää maastoa, kivikkoa ja ensimmäinen jyrkänne.',seed:37,length:6400,
-  terrain:{algo:'noise',amp:190,wl:1500,octaves:2,gain:.18,lacunarity:4.17,rough:9},
-  difficulty:{hard:0},
-  features:{strategy:'random',fit:true,counts:{drop:3,kicker:3,rocks:2,bumps:3,wall:1}},
+  recordVersion:3,minGap:90,rec:null,lowNodes:3,okNodes:1,newNodes:3},
+ {id:'vaaran-laki',name:'Vaaran laki',tier:0,gen:2,desc:'Jyrkempää maastoa, kivikkoa ja ensimmäinen jyrkänne.',seed:2,length:6400,
+  terrain:{algo:'noise',amp:190,wl:1500,octaves:2,gain:.18,lacunarity:4.17,rough:9,maxSlope:36},
+  difficulty:{hard:.25,variety:.5,target:{gatedPerKm:[.8,3],finished:true,maxCrashes:1}},
+  features:{strategy:'rhythm',spacing:'clustered',sequence:[{type:'slabdown',hard:.21,stretch:.94},{type:'ledge',hard:.21,size:1.01},{type:'boulder',hard:.26,size:1.13,stretch:1.04},{type:'slabdown',hard:.2,size:.86,stretch:.94},{type:'ledge',hard:.27,size:.98,stretch:1.27},{type:'stepsdown',hard:.29,size:1.08},{type:'ledge',hard:.22,size:1.11,stretch:.94},{type:'doubles',hard:.25},{type:'hump',hard:.16,size:1.17,stretch:1.22},{type:'valley',hard:.22},{type:'stairs',hard:.33,size:1.16}],fit:true},
   assets:{obstacles:1.13,stones:1,forest:1,biome:'seka'},
-  recordVersion:2,rec:1,lowNodes:3,okNodes:1,newNodes:3,cpEvery:0},
- {id:'suonlaita',name:'Suonlaita',tier:1,gen:2,desc:'Upottavia suonsilmiä ja tukkikasoja. Vauhti ei saa loppua suossa.',seed:41,length:6800,
-  terrain:{algo:'noise',amp:170,wl:1400,octaves:2,gain:.19,lacunarity:4.12,rough:9},
-  difficulty:{hard:0},
-  features:{strategy:'random',fit:true,counts:{drop:2,kicker:3,rocks:3,bumps:3,wall:1,bog:3,logpile:3}},
+  recordVersion:3,minGap:90,rec:1,lowNodes:3,okNodes:1,newNodes:3},
+ {id:'suonlaita',name:'Suonlaita',tier:1,gen:2,desc:'Upottavia suonsilmiä ja tukkikasoja. Vauhti ei saa loppua suossa.',seed:12,length:6800,
+  terrain:{algo:'noise',amp:170,wl:1400,octaves:2,gain:.19,lacunarity:4.12,rough:9,maxSlope:36},
+  difficulty:{hard:.4,variety:.5,target:{gatedPerKm:[1.4,4],finished:true,maxCrashes:2}},
+  features:{strategy:'rhythm',spacing:'clustered',sequence:[{type:'logpile',hard:.31,size:1.07},{type:'sinkhole',hard:.41},{type:'pipe',hard:.35,size:1.28},{type:'ledge',hard:.31,size:1.08},{type:'stairs',hard:.34,size:1.06},{type:'slabdown',hard:.33,size:.83},{type:'slope',hard:.33,stretch:1.46},{type:'boulderfield',hard:.34},{type:'bog',hard:.35,size:1.34,stretch:1.04},{type:'boulder',hard:.47},{type:'logledge',hard:.31,size:1.23,stretch:1.21},{type:'stairs',hard:.4},{type:'slabdown',hard:.33,size:.85,stretch:.82},{type:'doubles',hard:.39}],fit:true},
   assets:{obstacles:1.06,stones:1,forest:1,biome:'korpi'},
-  recordVersion:2,rec:1,lowNodes:3,okNodes:1,newNodes:3,cpEvery:1700},
- {id:'kalliopolku',name:'Kalliopolku',tier:1,gen:2,desc:'Kalliohyllyjä portaina, louhikkoa ja kaksi jyrkännettä.',seed:53,length:7200,
-  terrain:{algo:'noise',amp:210,wl:1400,octaves:2,gain:.19,lacunarity:3.89,rough:11},
-  difficulty:{hard:.2},
-  features:{strategy:'random',fit:true,counts:{drop:3,kicker:3,rocks:4,bumps:4,wall:2,stairs:3,logpile:2}},
+  recordVersion:3,minGap:70,rec:1,lowNodes:3,okNodes:1,newNodes:3},
+ {id:'kalliopolku',name:'Kalliopolku',tier:1,gen:2,desc:'Kalliohyllyjä portaina, louhikkoa ja kaksi jyrkännettä.',seed:2,length:7200,
+  terrain:{algo:'noise',amp:210,wl:1400,octaves:2,gain:.19,lacunarity:3.89,rough:11,maxSlope:36},
+  difficulty:{hard:.4,variety:.5,target:{gatedPerKm:[1.4,4],finished:true,maxCrashes:2}},
+  features:{strategy:'rhythm',spacing:'clustered',sequence:[{type:'stepsdown',hard:.36,stretch:1},{type:'logledge',hard:.36,size:1.11},{type:'boulder',hard:.41,size:1.3,stretch:1.13},{type:'dropseries',hard:.35,size:.89,stretch:1},{type:'slab',hard:.42,size:1.08,stretch:1.46},{type:'stepsdown',hard:.44,size:1.23},{type:'logledge',hard:.37,size:1.26,stretch:.99},{type:'whoops',hard:.4},{type:'tabletop',hard:.31,size:1.36,stretch:1.39},{type:'stepsdown',hard:.48,size:1.2},{type:'logledge',hard:.41,size:1.16},{type:'sinkhole',hard:.42,stretch:1.29},{type:'pipe',hard:.35,size:.93},{type:'boulderfield',hard:.45,size:.8}],fit:true},
   assets:{obstacles:1.25,stones:1,forest:1,biome:'seka'},
-  recordVersion:2,rec:1,lowNodes:3,okNodes:1,newNodes:4,cpEvery:1700},
- {id:'rotkolaakso',name:'Rotkolaakso',tier:1,gen:2,desc:'Rotkoja, jotka hypätään täydellä vauhdilla. Vajoat, jos empit.',seed:67,length:7600,
-  terrain:{algo:'noise',amp:230,wl:1500,octaves:2,gain:.17,lacunarity:3.95,rough:10},
-  difficulty:{hard:.35},
-  features:{strategy:'random',fit:true,counts:{drop:4,kicker:4,rocks:3,bumps:4,wall:2,gap:3}},
+  recordVersion:3,minGap:70,rec:1,lowNodes:3,okNodes:1,newNodes:4},
+ {id:'rotkolaakso',name:'Rotkolaakso',tier:1,gen:2,desc:'Rotkoja, jotka hypätään täydellä vauhdilla. Vajoat, jos empit.',seed:18,length:7600,
+  terrain:{algo:'noise',amp:230,wl:1500,octaves:2,gain:.17,lacunarity:3.95,rough:10,maxSlope:36},
+  difficulty:{hard:.4,variety:.5,target:{gatedPerKm:[1.4,4],finished:true,maxCrashes:2}},
+  features:{strategy:'rhythm',spacing:'clustered',sequence:[{type:'tabletop',hard:.41},{type:'ridge',hard:.41,size:1.25,stretch:1.14},{type:'stepsdown',hard:.32,stretch:1.04},{type:'logledge',hard:.4},{type:'stepsdown',hard:.38,size:1.01},{type:'plateau',hard:.39},{type:'boulderfield',hard:.42,size:.92,stretch:1.29},{type:'stairs',hard:.39},{type:'boulder',hard:.46,size:1.4,stretch:1.36},{type:'gapledge',hard:.39},{type:'dropseries',hard:.3,size:1.38,stretch:.91},{type:'pipe',hard:.39},{type:'rocks',hard:.46,size:.81},{type:'logledge',hard:.5,size:1.32,stretch:.89},{type:'rootclimb',hard:.3,size:.84}],fit:true},
   assets:{obstacles:1.18,stones:1,forest:1,biome:'seka'},
-  recordVersion:2,rec:1,lowNodes:3,okNodes:1,newNodes:4,cpEvery:1700},
- {id:'louhikko',name:'Louhikko',tier:2,gen:2,desc:'Loputonta kivikkoa, töyssyjä ja suota. Jäykkäperällä lähes mahdoton.',seed:71,length:8000,
-  terrain:{algo:'noise',amp:220,wl:1300,octaves:2,gain:.22,lacunarity:3.82,rough:13},
-  difficulty:{hard:.55},
-  features:{strategy:'random',fit:true,counts:{drop:4,kicker:4,rocks:6,bumps:6,wall:2,bog:3,logpile:3,stairs:2}},
+  recordVersion:3,minGap:70,rec:1,lowNodes:3,okNodes:1,newNodes:4},
+ {id:'louhikko',name:'Louhikko',tier:2,gen:2,desc:'Loputonta kivikkoa, töyssyjä ja suota. Jäykkäperällä lähes mahdoton.',seed:9,length:8000,
+  terrain:{algo:'noise',amp:220,wl:1300,octaves:2,gain:.22,lacunarity:3.82,rough:13,maxSlope:36},
+  difficulty:{hard:.65,variety:.5,target:{gatedPerKm:[2,5],finished:true,maxCrashes:3}},
+  features:{strategy:'rhythm',spacing:'clustered',sequence:[{type:'logledge',hard:.67,size:1.54},{type:'kickerwall',hard:.52,size:1.64,stretch:.91},{type:'rockslope',hard:.77,stretch:1.47},{type:'plateau',hard:.62,size:1.06},{type:'doubles',hard:.75,size:1.17,stretch:1.46},{type:'logledge',hard:.64},{type:'stepsdown',hard:.63,size:1.42},{type:'rockslope',hard:.76,size:1.68,stretch:1.27},{type:'doubles',hard:.8,size:1.89},{type:'logpile',hard:.54},{type:'dropseries',hard:.51,size:1.71,stretch:.9},{type:'boulderfield',hard:.79,size:1.05,stretch:1.64},{type:'slabdown',hard:.55,size:1.52,stretch:1.54},{type:'doubles',hard:.61,size:1.26},{type:'rockgarden',hard:.69},{type:'logledge',hard:.58},{type:'rockgarden',hard:.63,size:1.38,stretch:1.02},{type:'boulderfield',hard:.6,size:1.66},{type:'rockgarden',hard:.7,size:1.19,stretch:1.15},{type:'combo',hard:.74}],fit:true},
   assets:{obstacles:1.35,stones:1,forest:1,biome:'korpi'},
-  recordVersion:2,rec:1,lowNodes:3,okNodes:1,newNodes:4,cpEvery:1600},
- {id:'jyrkanteet',name:'Jyrkänteet',tier:2,gen:2,desc:'Korkeita seinämiä, syviä pudotuksia ja rotkoja. Vauhti ja kallistus ratkaisevat.',seed:83,length:8400,
-  terrain:{algo:'noise',amp:280,wl:1400,octaves:2,gain:.18,lacunarity:3.68,rough:12},
-  difficulty:{hard:.75},
-  features:{strategy:'random',fit:true,counts:{drop:5,kicker:5,rocks:4,bumps:4,wall:4,stairs:3,gap:3}},
+  recordVersion:3,minGap:50,rec:1,lowNodes:3,okNodes:1,newNodes:4},
+ {id:'jyrkanteet',name:'Jyrkänteet',tier:2,gen:2,desc:'Korkeita seinämiä, syviä pudotuksia ja rotkoja. Vauhti ja kallistus ratkaisevat.',seed:23,length:8400,
+  terrain:{algo:'noise',amp:280,wl:1400,octaves:2,gain:.18,lacunarity:3.68,rough:12,maxSlope:36},
+  difficulty:{hard:.65,variety:.5,target:{gatedPerKm:[2,5],finished:true,maxCrashes:3}},
+  features:{strategy:'rhythm',spacing:'clustered',sequence:[{type:'drop',hard:.57,stretch:1.74},{type:'wall',hard:.51},{type:'trunk',hard:.55,stretch:1.54},{type:'dropseries',hard:.76,size:1.47,stretch:1.51},{type:'doubles',hard:.64},{type:'combo',hard:.51,size:1.4},{type:'boulder',hard:.57,stretch:1.4},{type:'drop',hard:.71,stretch:1.29},{type:'logledge',hard:.8,size:1.83,stretch:1.54},{type:'boulder',hard:.63,stretch:1.12},{type:'wall',hard:.57,size:1.61,stretch:1.53},{type:'logledge',hard:.68,stretch:1.14},{type:'ledge',hard:.63,size:1.58},{type:'boulderfield',hard:.68},{type:'gapledge',hard:.63,size:1.19},{type:'rockgarden',hard:.58,size:1.55},{type:'plateau',hard:.59},{type:'gapledge',hard:.55,size:1.25,stretch:1.61},{type:'doubles',hard:.7,size:1.7},{type:'stairs',hard:.72,size:1.49},{type:'rockgarden',hard:.75}],fit:true},
   assets:{obstacles:1.29,stones:1,forest:1,biome:'seka'},
-  recordVersion:2,rec:1,lowNodes:4,okNodes:1,newNodes:4,cpEvery:1600},
- {id:'vaaran-huippu',name:'Vaaran huippu',tier:2,gen:2,desc:'Kaikki yhdessä: pisin reitti, jyrkin maasto, tiukin kuuluvuus.',seed:98,length:9200,
-  terrain:{algo:'noise',amp:320,wl:1500,octaves:2,gain:.17,lacunarity:3.75,rough:14},
-  difficulty:{hard:1},
-  features:{strategy:'random',fit:true,counts:{drop:6,kicker:5,rocks:6,bumps:6,wall:4,bog:3,logpile:3,stairs:3,gap:4}},
+  recordVersion:3,minGap:50,rec:1,lowNodes:4,okNodes:1,newNodes:4},
+ {id:'vaaran-huippu',name:'Vaaran huippu',tier:2,gen:2,desc:'Kaikki yhdessä: pisin reitti, jyrkin maasto, tiukin kuuluvuus.',seed:3,length:9200,
+  terrain:{algo:'noise',amp:320,wl:1500,octaves:2,gain:.17,lacunarity:3.75,rough:14,maxSlope:36},
+  difficulty:{hard:.65,variety:.5,target:{gatedPerKm:[2,5],finished:true,maxCrashes:3}},
+  features:{strategy:'rhythm',spacing:'clustered',sequence:[{type:'boulder',hard:.74,size:1.14},{type:'sinkhole',hard:.71,size:1.27,stretch:1.1},{type:'trunk',hard:.68},{type:'slabdown',hard:.62,stretch:1.02},{type:'dropseries',hard:.6,size:1.25,stretch:1.15},{type:'ledge',hard:.72,stretch:1.13},{type:'dropseries',hard:.75,stretch:1.64},{type:'boulder',hard:.73,size:1.32},{type:'combo',hard:.69},{type:'stepsdown',hard:.66,size:1.54},{type:'slab',hard:.77,size:1.2,stretch:1.27},{type:'sinkhole',hard:.79,size:1.7},{type:'combo',hard:.78},{type:'slab',hard:.53},{type:'rockgarden',hard:.79},{type:'trunk',hard:.78},{type:'slab',hard:.58,size:1.1},{type:'logpile',hard:.71},{type:'sinkhole',hard:.55,size:1.18,stretch:1.7},{type:'ledge',hard:.76,stretch:.99},{type:'stepsdown',hard:.57},{type:'boulder',hard:.8},{type:'whoops',hard:.77,size:1.13,stretch:1.03}],fit:true},
   assets:{obstacles:1.37,stones:1,forest:1,biome:'korpi'},
-  recordVersion:2,rec:1,lowNodes:4,okNodes:0,newNodes:5,cpEvery:1600},
- {id:'iltalenkki',name:'Iltalenkki',tier:3,gen:2,desc:'Auringonlasku. Ensimmäiset kannot ja kalliohyllyt (nosta keula ja kaasuta) sekä pitkä syöksy isolle hyppyrille.',seed:113,length:8600,
-  terrain:{algo:'noise',amp:240,wl:1450,octaves:2,gain:.18,lacunarity:3.82,rough:11},
-  difficulty:{hard:.7},
-  features:{strategy:'random',fit:true,counts:{drop:3,kicker:3,rocks:3,bumps:2,wall:2,stairs:1,gap:1,ledge:3,stump:3,combo:1,bigair:1}},
+  recordVersion:3,minGap:50,rec:1,lowNodes:4,okNodes:0,newNodes:5},
+ {id:'iltalenkki',name:'Iltalenkki',tier:3,gen:2,desc:'Auringonlasku. Ensimmäiset kannot ja kalliohyllyt (nosta keula ja kaasuta) sekä pitkä syöksy isolle hyppyrille.',seed:22,length:8600,
+  terrain:{algo:'noise',amp:240,wl:1450,octaves:2,gain:.18,lacunarity:3.82,rough:11,maxSlope:36},
+  difficulty:{hard:.53,variety:.5,target:{gatedPerKm:[1.4,4],finished:true,maxCrashes:2}},
+  features:{strategy:'rhythm',spacing:'clustered',sequence:[{type:'kickerwall',hard:.61,size:1.37},{type:'stairs',hard:.55,size:1.46,stretch:1.44},{type:'boulderfield',hard:.46,size:.91},{type:'dropseries',hard:.58,stretch:.88},{type:'trunk',hard:.5,size:1.41},{type:'combo',hard:.4,stretch:1.01},{type:'stump',hard:.45},{type:'dropseries',hard:.41,size:1.16,stretch:1.42},{type:'logledge',hard:.59},{type:'dropseries',hard:.64,size:1.19,stretch:.82},{type:'boulderfield',hard:.44,size:1},{type:'dropseries',hard:.47,size:1.07,stretch:1.29},{type:'doubles',hard:.55,size:.98,stretch:1.38},{type:'stump',hard:.41,size:1.26},{type:'logledge',hard:.44,size:1.06},{type:'boulder',hard:.6},{type:'logledge',hard:.47,size:1.14}],fit:true},
   assets:{obstacles:.84,stones:1,forest:1,biome:'seka'},
-  recordVersion:2,dusk:.38,rec:1,lowNodes:4,okNodes:1,newNodes:4,cpEvery:1900},
- {id:'juurakko',name:'Juurakko',tier:3,gen:2,desc:'Hämärtyvä kuusikko: juurakoita ylämäessä, kaatuneita runkoja ja notkoja, joista noustaan vain vauhdilla.',seed:127,length:9000,
-  terrain:{algo:'noise',amp:260,wl:1400,octaves:2,gain:.18,lacunarity:3.89,rough:12},
-  difficulty:{hard:.8},
-  features:{strategy:'random',fit:true,counts:{drop:3,kicker:3,rocks:1,bumps:1,wall:2,stairs:1,logpile:2,bog:1,roots:3,trunk:3,stump:2,combo:2,ledge:2}},
+  recordVersion:3,dusk:.38,minGap:80,rec:1,lowNodes:4,okNodes:1,newNodes:4},
+ {id:'juurakko',name:'Juurakko',tier:3,gen:2,desc:'Hämärtyvä kuusikko: juurakoita ylämäessä, kaatuneita runkoja ja notkoja, joista noustaan vain vauhdilla.',seed:22,length:9000,
+  terrain:{algo:'noise',amp:260,wl:1400,octaves:2,gain:.18,lacunarity:3.89,rough:12,maxSlope:36},
+  difficulty:{hard:.53,variety:.5,target:{gatedPerKm:[1.4,4],finished:true,maxCrashes:2}},
+  features:{strategy:'rhythm',spacing:'clustered',sequence:[{type:'ledge',hard:.63,size:.98,stretch:.96},{type:'logledge',hard:.56,stretch:.87},{type:'roots',hard:.52,stretch:1.14},{type:'trunk',hard:.4},{type:'logledge',hard:.61,size:1.4,stretch:1.31},{type:'dropseries',hard:.47,size:1,stretch:1.29},{type:'roots',hard:.52,size:.94,stretch:.99},{type:'rootclimb',hard:.59,size:1.18,stretch:1.07},{type:'combo',hard:.51},{type:'dropseries',hard:.47,stretch:1.11},{type:'boulderfield',hard:.42,stretch:1.29},{type:'combo',hard:.45,size:1.47},{type:'trunk',hard:.46,size:1.11,stretch:.86},{type:'rockslope',hard:.62,size:1.09},{type:'trunk',hard:.47,stretch:1.37},{type:'rootclimb',hard:.64,stretch:.89},{type:'stump',hard:.54,size:1.04},{type:'logledge',hard:.59}],fit:true},
   assets:{obstacles:.8,stones:1,forest:1,biome:'korpi'},
-  recordVersion:2,dusk:.58,rec:1,lowNodes:4,okNodes:1,newNodes:4,cpEvery:2000},
- {id:'lohkareikko',name:'Lohkareikko',tier:3,gen:2,desc:'Siirtolohkareita, hyppyjä kalliohyllyille, kaksoisrotko ja syöksyhyppy. Viimeinen valo katoaa.',seed:139,length:9400,
-  terrain:{algo:'noise',amp:280,wl:1450,octaves:2,gain:.19,lacunarity:3.82,rough:12},
-  difficulty:{hard:.9},
-  features:{strategy:'random',fit:true,counts:{drop:2,kicker:3,rocks:2,bumps:1,wall:2,gap:1,boulder:3,kickerwall:2,doublegap:1,dropseries:1,ledge:2,stump:2,bigair:1}},
+  recordVersion:3,dusk:.58,minGap:80,rec:1,lowNodes:4,okNodes:1,newNodes:4},
+ {id:'lohkareikko',name:'Lohkareikko',tier:3,gen:2,desc:'Siirtolohkareita, hyppyjä kalliohyllyille, kaksoisrotko ja syöksyhyppy. Viimeinen valo katoaa.',seed:7,length:9400,
+  terrain:{algo:'noise',amp:280,wl:1450,octaves:2,gain:.19,lacunarity:3.82,rough:12,maxSlope:36},
+  difficulty:{hard:.53,variety:.5,target:{gatedPerKm:[1.4,4],finished:true,maxCrashes:2}},
+  features:{strategy:'rhythm',spacing:'clustered',sequence:[{type:'kickerwall',hard:.62,stretch:1.49},{type:'dropseries',hard:.64,size:1.41},{type:'boulderfield',hard:.46,size:1.5,stretch:1.07},{type:'doubles',hard:.45,stretch:1.3},{type:'boulderfield',hard:.62,size:1.25},{type:'boulder',hard:.51},{type:'boulderfield',hard:.49},{type:'kickerwall',hard:.53,size:1.24},{type:'dropseries',hard:.56,size:1.21},{type:'combo',hard:.58,size:1.35},{type:'logledge',hard:.51},{type:'ledge',hard:.44},{type:'dropseries',hard:.52,size:1.24},{type:'logledge',hard:.56,size:.98},{type:'boulder',hard:.55,stretch:1.24},{type:'plateau',hard:.47,size:1.15},{type:'rockslope',hard:.48,size:1.04},{type:'logledge',hard:.54,stretch:1.37},{type:'dropseries',hard:.53,size:1.29}],fit:true},
   assets:{obstacles:.96,stones:1,forest:1,biome:'seka'},
-  recordVersion:2,dusk:.74,rec:1,lowNodes:4,okNodes:1,newNodes:5,cpEvery:2100},
- {id:'otsalamppu',name:'Otsalamppu',tier:4,gen:2,desc:'Pimeä metsä: esteet näkyvät vasta lampun keilassa. Louhikkorinteitä ja pudotusportaita.',seed:152,length:9600,
-  terrain:{algo:'noise',amp:280,wl:1400,octaves:2,gain:.19,lacunarity:3.68,rough:13},
-  difficulty:{hard:1},
-  features:{strategy:'random',fit:true,counts:{drop:2,kicker:3,rocks:2,wall:2,stairs:1,gap:1,rockslope:2,dropseries:2,ledge:3,stump:3,roots:2,combo:1,bigair:1}},
+  recordVersion:3,dusk:.74,minGap:80,rec:1,lowNodes:4,okNodes:1,newNodes:5},
+ {id:'otsalamppu',name:'Otsalamppu',tier:4,gen:2,desc:'Pimeä metsä: esteet näkyvät vasta lampun keilassa. Louhikkorinteitä ja pudotusportaita.',seed:4,length:9600,
+  terrain:{algo:'noise',amp:280,wl:1400,octaves:2,gain:.19,lacunarity:3.68,rough:13,maxSlope:36},
+  difficulty:{hard:.7,variety:.5,target:{gatedPerKm:[1.8,5],finished:true,maxCrashes:3}},
+  features:{strategy:'rhythm',spacing:'clustered',sequence:[{type:'trunk',hard:.6,size:1.04},{type:'roots',hard:.8},{type:'dropseries',hard:.76},{type:'gapledge',hard:.7,size:1.58,stretch:.97},{type:'sinkhole',hard:.71},{type:'doublegap',hard:.66,stretch:1.52},{type:'boulderfield',hard:.61},{type:'kickerwall',hard:.73},{type:'boulderfield',hard:.82},{type:'plateau',hard:.6,size:1.62},{type:'gapledge',hard:.67,stretch:.94},{type:'kickerwall',hard:.84,size:1.52},{type:'ledge',hard:.78,size:1.36},{type:'boulderfield',hard:.82},{type:'stairs',hard:.58,size:1.69},{type:'boulderfield',hard:.64,size:1.35},{type:'stairs',hard:.7,stretch:1.34},{type:'rockslope',hard:.79},{type:'sinkhole',hard:.66,stretch:1.56},{type:'trunk',hard:.56,stretch:1.32},{type:'plateau',hard:.69,size:1.62},{type:'combo',hard:.57,size:1.08}],fit:true},
   assets:{obstacles:.94,stones:1,forest:1,biome:'seka'},
-  recordVersion:2,dusk:.88,rec:1,lowNodes:4,okNodes:1,newNodes:5,cpEvery:2300},
- {id:'kuutamo',name:'Kuutamo',tier:4,gen:2,desc:'Täysikuu valaisee vaarat mutta ei juuria. Kaikki estetyypit, harvat tarkistuspisteet.',seed:163,length:10200,
-  terrain:{algo:'noise',amp:320,wl:1500,octaves:2,gain:.17,lacunarity:3.75,rough:14},
-  difficulty:{hard:1.1},
-  features:{strategy:'random',fit:true,counts:{drop:2,kicker:3,rocks:1,bumps:1,wall:2,gap:1,logpile:1,boulder:3,kickerwall:1,doublegap:1,trunk:2,roots:1,combo:1,ledge:2,stump:2,rockslope:1,bigair:1}},
+  recordVersion:3,dusk:.88,minGap:60,rec:1,lowNodes:4,okNodes:1,newNodes:5},
+ {id:'kuutamo',name:'Kuutamo',tier:4,gen:2,desc:'Täysikuu valaisee vaarat mutta ei juuria. Kaikki estetyypit, harvat tarkistuspisteet.',seed:2,length:10200,
+  terrain:{algo:'noise',amp:320,wl:1500,octaves:2,gain:.17,lacunarity:3.75,rough:14,maxSlope:36},
+  difficulty:{hard:.7,variety:.5,target:{gatedPerKm:[1.8,5],finished:true,maxCrashes:3}},
+  features:{strategy:'rhythm',spacing:'clustered',sequence:[{type:'roots',hard:.79},{type:'trunk',hard:.62,stretch:1.38},{type:'stairs',hard:.56,stretch:1.01},{type:'trunk',hard:.61,size:1.09,stretch:1.3},{type:'dropseries',hard:.62,stretch:1.32},{type:'boulderfield',hard:.65},{type:'rockslope',hard:.57,stretch:1.04},{type:'plateau',hard:.71,stretch:1.35},{type:'combo',hard:.84},{type:'rockslope',hard:.62,size:1.11,stretch:1.57},{type:'boulderfield',hard:.6,size:1.09,stretch:1.39},{type:'rockslope',hard:.81,size:1.65},{type:'dropseries',hard:.64,size:1.68},{type:'roots',hard:.64},{type:'dropseries',hard:.69,size:1.08,stretch:1.37},{type:'sinkhole',hard:.66,size:1.54,stretch:1.08},{type:'dropseries',hard:.79,size:1.69},{type:'stairs',hard:.66,size:1.4,stretch:1.54},{type:'rockslope',hard:.72,stretch:1.43},{type:'trunk',hard:.61,size:1.09,stretch:1.32},{type:'plateau',hard:.68},{type:'dropseries',hard:.58,size:1.63},{type:'gapledge',hard:.81,size:1.64}],fit:true},
   assets:{obstacles:1.06,stones:1,forest:1,biome:'seka'},
-  recordVersion:2,dusk:.94,moonlit:true,rec:1,lowNodes:5,okNodes:0,newNodes:5,cpEvery:2500},
- {id:'keskiyo',name:'Keskiyö',tier:4,gen:2,desc:'Sysipimeä huipennus: pisin ja jyrkin reitti, kaikki peräkkäin. Tarkistuspisteet vain noodeilla.',seed:180,length:12000,
-  terrain:{algo:'noise',amp:340,wl:1450,octaves:2,gain:.18,lacunarity:3.63,rough:15},
-  difficulty:{hard:1.25},
-  features:{strategy:'random',fit:true,counts:{drop:2,kicker:3,rocks:2,bumps:1,wall:2,stairs:1,gap:1,bog:1,logpile:1,boulder:3,kickerwall:2,doublegap:1,dropseries:1,trunk:2,roots:2,combo:2,ledge:3,stump:2,rockslope:1,bigair:1}},
+  recordVersion:3,dusk:.94,moonlit:true,minGap:60,rec:1,lowNodes:5,okNodes:0,newNodes:5},
+ {id:'keskiyo',name:'Keskiyö',tier:4,gen:2,desc:'Sysipimeä huipennus: pisin ja jyrkin reitti, kaikki peräkkäin. Tarkistuspisteet vain noodeilla.',seed:16,length:12000,
+  terrain:{algo:'noise',amp:340,wl:1450,octaves:2,gain:.18,lacunarity:3.63,rough:15,maxSlope:36},
+  difficulty:{hard:.7,variety:.5,target:{gatedPerKm:[1.8,5],finished:true,maxCrashes:3}},
+  features:{strategy:'rhythm',spacing:'clustered',sequence:[{type:'kickerwall',hard:.66,size:1.18},{type:'roots',hard:.57},{type:'trunk',hard:.69},{type:'boulderfield',hard:.55,size:1.18,stretch:1.16},{type:'rockslope',hard:.85,stretch:1.02},{type:'stairs',hard:.62,size:1.09},{type:'combo',hard:.82,stretch:1.31},{type:'sinkhole',hard:.61,size:1.49},{type:'ledge',hard:.77},{type:'boulderfield',hard:.63,size:1.54,stretch:1.01},{type:'dropseries',hard:.82},{type:'roots',hard:.73},{type:'kickerwall',hard:.73,size:1.48,stretch:.94},{type:'trunk',hard:.85,size:1.43},{type:'dropseries',hard:.7},{type:'kickerwall',hard:.85,size:1.53},{type:'boulderfield',hard:.7,stretch:1.15},{type:'combo',hard:.67},{type:'stairs',hard:.65,stretch:.95},{type:'roots',hard:.6,stretch:1.45},{type:'dropseries',hard:.6,size:1.1},{type:'gapledge',hard:.82,size:1.34,stretch:1.11},{type:'rockslope',hard:.78,size:1.14},{type:'plateau',hard:.84,size:1.18},{type:'dropseries',hard:.68,size:1.29},{type:'stairs',hard:.71,stretch:1.23},{type:'boulderfield',hard:.58,stretch:1.19},{type:'plateau',hard:.64}],fit:true},
   assets:{obstacles:1.05,stones:1,forest:1,biome:'korpi'},
-  recordVersion:2,dusk:1,rec:1,lowNodes:5,okNodes:0,newNodes:6,cpEvery:0},
- {id:'rinnelasku',name:'Rinnelasku',tier:5,gen:2,desc:'Petri kantaa alamäkipyörän vaaran laelle. Ensimmäinen lasku: pitkiä aaltoja, pöytähyppy ja metsätien yli vievä gappi.',seed:191,length:9200,
-  terrain:{algo:'noise',amp:150,wl:1500,octaves:2,gain:.23,lacunarity:4.17,rough:9,descent:1400},
-  difficulty:{hard:.5},
-  features:{strategy:'random',fit:true,counts:{rocks:2,bumps:1,rollers:2,stepdown:2,roadgap:1,chute:1}},
+  recordVersion:3,dusk:1,minGap:60,rec:1,lowNodes:5,okNodes:0,newNodes:6},
+ {id:'rinnelasku',name:'Rinnelasku',tier:5,gen:2,desc:'Petri kantaa alamäkipyörän vaaran laelle. Ensimmäinen lasku: pitkiä aaltoja, pöytähyppy ja metsätien yli vievä gappi.',seed:1,length:9200,
+  terrain:{algo:'noise',amp:150,wl:1500,octaves:2,gain:.23,lacunarity:4.17,rough:9,descent:1400,maxSlope:36},
+  difficulty:{hard:.6,variety:.5,target:{gatedPerKm:[.3,4],finished:true,maxCrashes:2}},
+  features:{strategy:'rhythm',spacing:'clustered',sequence:[{type:'stepdown',hard:.4,size:1.36,stretch:1.28},{type:'rockslope',hard:.68,size:1.25},{type:'valley',hard:.52,size:1.22},{type:'stepdown',hard:.68,size:1.37},{type:'rollers',hard:.52},{type:'whoops',hard:.64},{type:'dropseries',hard:.54,stretch:.94},{type:'hump',hard:.71},{type:'whoops',hard:.5,size:1.2},{type:'roadgap',hard:.6,size:1.09,stretch:1.45},{type:'rollers',hard:.48,stretch:1.47},{type:'stepdown',hard:.49,size:1.35},{type:'rollers',hard:.59,size:1,stretch:1},{type:'whoops',hard:.76,size:1.11},{type:'hump',hard:.67,size:1.06,stretch:1.1}],fit:true},
   assets:{obstacles:.49,stones:1,forest:1,biome:'kangas'},
-  recordVersion:2,dh:1,rec:2,lowNodes:3,okNodes:1,newNodes:3,cpEvery:1500,nodePositions:{"3":7224}},
- {id:'kivikkokouru',name:'Kivikkokouru',tier:5,gen:2,desc:'Kivisiä kouruja, louhikkorinteitä ja porrashyppy hakkuuaukealle. Jarrua ei kannata pelätä.',seed:200,length:9900,
-  terrain:{algo:'noise',amp:170,wl:1450,octaves:2,gain:.24,lacunarity:4.26,rough:11,descent:1750},
-  difficulty:{hard:.75},
-  features:{strategy:'random',fit:true,counts:{rocks:3,bumps:1,rollers:1,stepdown:2,roadgap:1,chute:2,rockslope:1,boulder:3,dropseries:1}},
+  recordVersion:5,dh:1,minGap:120,rec:2,lowNodes:3,okNodes:1,newNodes:3},
+ {id:'kivikkokouru',name:'Kivikkokouru',tier:5,gen:2,desc:'Kivisiä kouruja, louhikkorinteitä ja porrashyppy hakkuuaukealle. Jarrua ei kannata pelätä.',seed:4,length:9900,
+  terrain:{algo:'noise',amp:170,wl:1450,octaves:2,gain:.24,lacunarity:4.26,rough:11,descent:1750,maxSlope:36},
+  difficulty:{hard:.6,variety:.5,target:{gatedPerKm:[.3,4],finished:true,maxCrashes:2}},
+  features:{strategy:'rhythm',spacing:'clustered',sequence:[{type:'roadgap',hard:.71},{type:'chute',hard:.51,stretch:.91},{type:'rollers',hard:.52},{type:'rockslope',hard:.54},{type:'rollers',hard:.76,stretch:1.26},{type:'whoops',hard:.46,stretch:1.06},{type:'stepdown',hard:.66,size:.99},{type:'rockslope',hard:.46},{type:'tabletop',hard:.48,size:1.05,stretch:1.2},{type:'rollers',hard:.59,size:1.12,stretch:1.27},{type:'rockslope',hard:.45,stretch:1.39},{type:'whoops',hard:.65,size:1.15},{type:'rockslope',hard:.55},{type:'doubles',hard:.79,size:1.15,stretch:1.49},{type:'rollers',hard:.77,size:1.15},{type:'whoops',hard:.58}],fit:true},
   assets:{obstacles:.55,stones:1,forest:1,biome:'kangas'},
-  recordVersion:2,dh:1,fog:.35,rec:2,lowNodes:4,okNodes:1,newNodes:4,cpEvery:1500},
- {id:'syoksylasku',name:'Syöksylasku',tier:5,gen:2,desc:'Koko vaara alas yhdellä laskulla: porrashyppyjä, kivikkokouruja, siirtolohkareita ja usvainen loppusuora laaksoon.',seed:211,length:11200,
-  terrain:{algo:'noise',amp:190,wl:1500,octaves:2,gain:.23,lacunarity:4.17,rough:12,descent:2150},
-  difficulty:{hard:1},
-  features:{strategy:'random',fit:true,counts:{rocks:3,bumps:2,rollers:1,stepdown:3,roadgap:1,chute:2,rockslope:1,boulder:3,dropseries:1,stump:2}},
+  recordVersion:4,dh:1,fog:.35,minGap:120,rec:2,lowNodes:4,okNodes:1,newNodes:4},
+ {id:'syoksylasku',name:'Syöksylasku',tier:5,gen:2,desc:'Koko vaara alas yhdellä laskulla: porrashyppyjä, kivikkokouruja, siirtolohkareita ja usvainen loppusuora laaksoon.',seed:1,length:11200,
+  terrain:{algo:'noise',amp:190,wl:1500,octaves:2,gain:.23,lacunarity:4.17,rough:12,descent:2150,maxSlope:36},
+  difficulty:{hard:.6,variety:.5,target:{gatedPerKm:[.6,4],finished:true,maxCrashes:2}},
+  features:{strategy:'rhythm',spacing:'clustered',sequence:[{type:'roadgap',hard:.57,size:1.09},{type:'tabletop',hard:.65},{type:'doubles',hard:.58},{type:'tabletop',hard:.75,stretch:1.1},{type:'roadgap',hard:.7,size:1.36},{type:'doubles',hard:.56,stretch:.92},{type:'valley',hard:.43,stretch:.93},{type:'tabletop',hard:.62},{type:'doubles',hard:.69,size:1.08},{type:'stepdown',hard:.43,stretch:1.1},{type:'doubles',hard:.62},{type:'stepdown',hard:.5,size:.96,stretch:1.47},{type:'rockslope',hard:.62,size:1.45},{type:'hump',hard:.48,size:1.27},{type:'tabletop',hard:.41},{type:'roadgap',hard:.51,size:1.39},{type:'whoops',hard:.51,stretch:1.19},{type:'valley',hard:.65,size:1.48,stretch:1.07}],fit:true},
   assets:{obstacles:.48,stones:1,forest:1,biome:'kangas'},
-  recordVersion:2,dh:1,fog:.7,rec:2,lowNodes:4,okNodes:1,newNodes:5,cpEvery:1600},
- {id:'hylatty-louhos',name:'Hylätty louhos',tier:2,gen:2,desc:'Kalliohyllyiltä louhoksen pohjalle: harjoittele keulan nostoa, hyppää hyllylle ja päätä retki syöksyhyppyyn.',seed:223,length:9200,
-  terrain:{algo:'noise',amp:85,wl:1500,octaves:2,gain:.14,lacunarity:4.17,rough:3},
-  difficulty:{hard:.35},
-  features:{strategy:'random',fit:true,counts:{}},
+  recordVersion:5,dh:1,fog:.7,minGap:120,rec:2,lowNodes:4,okNodes:1,newNodes:5},
+ {id:'hylatty-louhos',name:'Hylätty louhos',tier:2,gen:2,desc:'Kalliohyllyiltä louhoksen pohjalle: harjoittele keulan nostoa, hyppää hyllylle ja päätä retki syöksyhyppyyn.',seed:8,length:9200,
+  terrain:{algo:'noise',amp:85,wl:1500,octaves:2,gain:.14,lacunarity:4.17,rough:3,maxSlope:36},
+  difficulty:{hard:.65,variety:.5,target:{gatedPerKm:[2,5],finished:true,maxCrashes:3}},
+  features:{strategy:'rhythm',spacing:'clustered',sequence:[{type:'rockslope',hard:.53,stretch:1.32},{type:'trunk',hard:.54,stretch:1.73},{type:'plateau',hard:.58,stretch:1.51},{type:'ledge',hard:.78},{type:'logpile',hard:.53},{type:'slab',hard:.52},{type:'slabdown',hard:.51,size:1.47,stretch:.96},{type:'kickerwall',hard:.72},{type:'logpile',hard:.62,stretch:1.69},{type:'dropseries',hard:.7,size:1.16,stretch:1.57},{type:'logledge',hard:.79,size:1.01},{type:'sinkhole',hard:.73,stretch:.91},{type:'plateau',hard:.77},{type:'trunk',hard:.58,size:1.36,stretch:1.48},{type:'boulderfield',hard:.61,stretch:1.15},{type:'ledge',hard:.51,size:1.39,stretch:1.4},{type:'dropseries',hard:.71,size:1.23,stretch:1.39},{type:'plateau',hard:.72,stretch:1.25},{type:'doublegap',hard:.54,stretch:1.1},{type:'trunk',hard:.66,size:1.28},{type:'doubles',hard:.54,size:1.73,stretch:1.52},{type:'gapledge',hard:.51,size:1.05,stretch:1.77},{type:'kickerwall',hard:.79,size:1.47,stretch:1.29}],fit:true},
   assets:{obstacles:0,stones:1,forest:1,biome:'seka'},
-  recordVersion:2,placed:[{type:'ledge',x:1200},{type:'ledge',x:2200},{type:'kickerwall',x:3500},{type:'rockslope',x:4700},{type:'bigair',x:6700}],rec:1,lowNodes:3,okNodes:1,newNodes:4,cpEvery:1300},
+  recordVersion:3,minGap:50,rec:1,lowNodes:3,okNodes:1,newNodes:4},
  // ---- tekniikkaradat: osuudet TECHNICAL_ROUTES-palalistoista (routeToSections), tasainen kallio ja kallio-biomi ----
  {id:'graniittiportaat',name:'Graniittiportaat',tier:6,tech:true,gen:2,technicalGrade:0,recordVersion:5,desc:'Kallion laella: 38° silokalliot, 28 px:n hyllyt, kaksoisporras, lohkare ja porras, 44° lasku pystysuoriin askelmiin. Viisi osuutta.',seed:227,length:8088,amp:0,amp2:0,wl:1500,wl2:300,rough:0,obstacles:0,drops:0,lowNodes:0,okNodes:0,newNodes:0,cpEvery:0,rec:1},
  {id:'kallionkieli',name:'Kallionkieli',tier:6,tech:true,gen:2,technicalGrade:1,recordVersion:5,desc:'Yhdistelmiä: hylly laen reunalla, lohkareet ja 60° porras, hylly ja kaksi pudotusta, rotko ja pudotus, kolmen hylly ja neljä askelmaa alas. Kuusi osuutta.',seed:229,length:9778,amp:0,amp2:0,wl:1500,wl2:300,rough:0,obstacles:0,drops:0,lowNodes:0,okNodes:0,newNodes:0,cpEvery:0,rec:1},
@@ -394,30 +394,36 @@ const LEVELS=[
  {id:'kivinen-kruunu',name:'Kivinen kruunu',tier:6,tech:true,gen:2,technicalGrade:3,recordVersion:5,desc:'Kaikki peräkkäin: 47° silokalliot ja lohkare, kasvavat hyllyt lyhenevillä tasanteilla, pitkä rotko ja 36 px:n hylly, lohkarepuutarha askelmineen, pudotusportaat ja kruunu. Kuusi osuutta.',seed:233,length:9932,amp:0,amp2:0,wl:1500,wl2:300,rough:0,obstacles:0,drops:0,lowNodes:0,okNodes:0,newNodes:0,cpEvery:0,rec:1},
  // ---- generaattori v2 (gen:2): reseptikentät. terrain = pohja-algoritmi, difficulty = haastavuus ja sen käyrä, features = sijoittelu,
  //      assets = maanpinnan assettien tiheys. Mittaa ja hae siemeniä: deno run --allow-read tools/levelgen.js report|profile|sweep <id> ----
- {id:'kelokallio',name:'Kelokallio',tier:7,gen:2,desc:'Tiivis resepti: kallioinen kelomaasto, ryhmitetyt esteet, iso syöksyhyppy ja rotko-hylly käsin sijoitettuna. Porrastettu kallio ja katajat.',seed:436,length:10400,
-  difficulty:{target:{gated:[5,30],finished:true}},
-  style:'kallio',relief:.7,challenge:.8,rhythm:'clustered',biome:'kallio',variation:.8,minGap:160,placed:[{type:'bigair',x:8600,hard:1.2,size:1.25},{type:'gapledge',x:5200,hard:.9}]},
- {id:'louhosportaat',name:'Louhosportaat',tier:7,gen:2,desc:'Käsin piirretty louhos porrastettuna 24 px:n hyllyiksi. Venytetyt pystysuorat portaat, hyllyjono, tasanne, hyppy hyllylle, kivipuutarha ja rotko-hylly tiukoin välein.',seed:413,length:11000,
+ {id:'kelokallio',name:'Kelokallio',tier:7,gen:2,desc:'Tiivis resepti: kallioinen kelomaasto, ryhmitetyt esteet, iso syöksyhyppy ja rotko-hylly käsin sijoitettuna. Porrastettu kallio ja katajat.',seed:8,length:10400,
+  terrain:{algo:'noise',wl:1300,octaves:2,gain:.25,amp:234,maxSlope:38,rough:8,macro:.64,terrace:21,terraceRamp:.3},
+  difficulty:{hard:.65,variety:.5,target:{gatedPerKm:[2,5],finished:true,maxCrashes:3}},
+  features:{strategy:'rhythm',spacing:'clustered',sequence:[{type:'slabdown',hard:.75,size:1.81,stretch:1.37},{type:'boulderfield',hard:.76},{type:'pipe',hard:.72,size:1.64,stretch:1.01},{type:'stepsdown',hard:.55},{type:'doubles',hard:.71},{type:'gapledge',hard:.58},{type:'boulderfield',hard:.52,size:1.44},{type:'ledge',hard:.78,size:1.35},{type:'stepsdown',hard:.64,size:1.69,stretch:1},{type:'pipe',hard:.65,size:1.5,stretch:1.07},{type:'rockgarden',hard:.75,size:1.39},{type:'slab',hard:.63,size:1.4},{type:'ledge',hard:.51,size:1.02,stretch:1.5},{type:'pipe',hard:.54,size:1.45,stretch:1.03},{type:'plateau',hard:.72,stretch:1.58},{type:'dropseries',hard:.63},{type:'boulderfield',hard:.79,size:1.25},{type:'slab',hard:.68,size:1.76},{type:'ledge',hard:.73,size:1.08,stretch:1.05},{type:'trunk',hard:.61,size:1.69},{type:'kickerwall',hard:.55,size:1.14},{type:'boulderfield',hard:.69},{type:'dropseries',hard:.51},{type:'trunk',hard:.64},{type:'ledge',hard:.75,size:1.58},{type:'logledge',hard:.76,size:1.65}],fit:true},
+  assets:{biome:'kallio',obstacles:1.18,stones:1,forest:1,glades:.4},
+  recordVersion:2,minGap:50,rec:1,lowNodes:4,okNodes:1,newNodes:4},
+ {id:'louhosportaat',name:'Louhosportaat',tier:7,gen:2,desc:'Käsin piirretty louhos porrastettuna 24 px:n hyllyiksi. Venytetyt pystysuorat portaat, hyllyjono, tasanne, hyppy hyllylle, kivipuutarha ja rotko-hylly tiukoin välein.',seed:3,length:11000,
   terrain:{algo:'spline',points:[[0,0],[1000,20],[2200,180],[3000,170],[3800,320],[4600,300],[5400,120],[6400,420],[7400,380],[8300,120],[9200,0]],terrace:24,terraceRamp:.28,detailAmp:14,maxSlope:36},
-  difficulty:{hard:.9,variety:.7,target:{gated:[8,30],finished:true}},
-  features:{strategy:'rhythm',spacing:'clustered',sequence:[{type:'stairs',stretch:2.5},'rest','ledge',{type:'stepsdown',stretch:2},'rest',{type:'ledge',stretch:3,hard:.6},'rest',{type:'plateau',size:1.4},'boulderfield','rest',{type:'stairs',stretch:3,hard:.7},'logledge','rest',{type:'kickerwall',hard:1},'rockgarden',{type:'stairs',stretch:2,hard:.5},'rest','gapledge']},
+  difficulty:{hard:.65,variety:.5,target:{gatedPerKm:[2,5],finished:true,maxCrashes:3}},
+  features:{strategy:'rhythm',spacing:'clustered',sequence:[{type:'boulder',hard:.74,size:1.14},{type:'sinkhole',hard:.71,size:1.27,stretch:1.1},{type:'trunk',hard:.68},{type:'rockslope',hard:.62,stretch:1.02},{type:'dropseries',hard:.6,size:1.25,stretch:1.15},{type:'ledge',hard:.72,stretch:1.13},{type:'kickerwall',hard:.63,size:1.74},{type:'plateau',hard:.71},{type:'kickerwall',hard:.75},{type:'rockgarden',hard:.8,size:1.61},{type:'rootclimb',hard:.72,size:1.2},{type:'ledge',hard:.56,size:1.81,stretch:1.76},{type:'stepsdown',hard:.77},{type:'doublegap',hard:.71,size:1.03,stretch:1.43},{type:'boulder',hard:.63},{type:'trunk',hard:.76},{type:'sinkhole',hard:.51,size:1.23,stretch:1.78},{type:'logpile',hard:.71},{type:'sinkhole',hard:.55,size:1.18,stretch:1.7},{type:'kickerwall',hard:.76,stretch:.99},{type:'stepsdown',hard:.57},{type:'boulder',hard:.8},{type:'whoops',hard:.77,size:1.13,stretch:1.03},{type:'dropseries',hard:.65,stretch:.98},{type:'rockgarden',hard:.53,size:1.56,stretch:1.45},{type:'boulderfield',hard:.72,size:1.47,stretch:1.34},{type:'stepsdown',hard:.63,stretch:1.17},{type:'slabdown',hard:.67,size:1.56}],fit:true},
   assets:{biome:'kallio',obstacles:1.2,stones:1.5,forest:.7},
-  minGap:60,lowNodes:3,okNodes:1,newNodes:4,cpEvery:1400,rec:1},
- {id:'suurvaara',name:'Suurvaara',tier:7,gen:2,desc:'Vaaramaisema (korkeuserot 1.9): pitkät nousut ja laskut koko matkalla, rotkoja, kaksoisrotkoja ja syöksyjä huippujen rytmissä. Kangasmetsä.',seed:418,length:11600,
-  difficulty:{target:{gated:[6,30],climb:[1400,4000],finished:true}},
-  style:'vaara',relief:1.9,challenge:.75,rhythm:'peaks',biome:'kangas',variation:.7},
- {id:'rotkoraja',name:'Rotkoraja',tier:7,gen:2,desc:'Harjuinen maasto ja pelkkiä ilmalentoja: rotkot, kaksoisrotkot, hyppy hyllylle, syöksyt ja rotko-hylly kasvavassa järjestyksessä. Vaativin loppu.',seed:414,length:12400,
+  recordVersion:2,minGap:50,rec:1,lowNodes:3,okNodes:1,newNodes:4},
+ {id:'suurvaara',name:'Suurvaara',tier:7,gen:2,desc:'Vaaramaisema (korkeuserot 1.9): pitkät nousut ja laskut koko matkalla, rotkoja, kaksoisrotkoja ja syöksyjä huippujen rytmissä. Kangasmetsä.',seed:4,length:11600,
+  terrain:{algo:'noise',wl:5408,octaves:2,gain:.35,amp:1133,maxSlope:46,rough:8,macro:.56},
+  difficulty:{hard:.65,variety:.5,target:{gatedPerKm:[2,5],finished:true,maxCrashes:3}},
+  features:{strategy:'rhythm',spacing:'clustered',sequence:[{type:'dropseries',hard:.59,size:1.53},{type:'stepsdown',hard:.55,stretch:1},{type:'dropseries',hard:.77},{type:'combo',hard:.76,stretch:1.77},{type:'sinkhole',hard:.53,stretch:1},{type:'logpile',hard:.8,size:1.39},{type:'doublegap',hard:.66},{type:'pipe',hard:.6},{type:'rootclimb',hard:.51},{type:'pipe',hard:.59,stretch:.94},{type:'doublegap',hard:.58,size:1.56,stretch:1.68},{type:'boulderfield',hard:.78,size:1.38},{type:'pipe',hard:.76,size:1.36,stretch:1.06},{type:'boulderfield',hard:.64,size:1.22,stretch:1.55},{type:'doublegap',hard:.72,size:1.11},{type:'ledge',hard:.61,size:1.25},{type:'stepsdown',hard:.52,size:1.36,stretch:1.21},{type:'dropseries',hard:.78},{type:'logpile',hard:.7,size:1.18,stretch:1.72},{type:'stepsdown',hard:.68},{type:'stairs',hard:.61,size:1.26},{type:'sinkhole',hard:.67,stretch:1.24},{type:'rootclimb',hard:.64},{type:'sinkhole',hard:.53,size:1.39},{type:'gapledge',hard:.5,size:1.05},{type:'rockgarden',hard:.7},{type:'stepsdown',hard:.73,size:1.9,stretch:1.62},{type:'slabdown',hard:.75,size:1.59},{type:'stepsdown',hard:.8,size:1.69}],fit:true},
+  assets:{biome:'kangas',obstacles:1.12,stones:1,forest:1,glades:.35},
+  recordVersion:2,minGap:50,rec:1,lowNodes:4,okNodes:1,newNodes:5},
+ {id:'rotkoraja',name:'Rotkoraja',tier:7,gen:2,desc:'Harjuinen maasto ja pelkkiä ilmalentoja: rotkot, kaksoisrotkot, hyppy hyllylle, syöksyt ja rotko-hylly kasvavassa järjestyksessä. Vaativin loppu.',seed:22,length:12400,
   terrain:{algo:'ridged',amp:260,wl:1700,octaves:3,gain:.3,macro:.6,rough:6,maxSlope:32},
-  difficulty:{hard:1.05,variety:.9,curve:[.6,1,1.25],target:{gated:[8,30],finished:true}},
-  features:{strategy:'curve',spacing:'clustered',count:7,pool:['gap','doublegap','sinkhole','gapledge','bigair','kickerwall','combo','valley','doubles','tabletop']},
+  difficulty:{hard:.65,variety:.5,target:{gatedPerKm:[2,5],finished:true,maxCrashes:3}},
+  features:{strategy:'rhythm',spacing:'clustered',sequence:[{type:'pipe',hard:.75},{type:'slabdown',hard:.74,size:1.22},{type:'boulderfield',hard:.67,size:1.23},{type:'sinkhole',hard:.56},{type:'doublegap',hard:.51,size:1.21,stretch:1.24},{type:'plateau',hard:.59},{type:'whoops',hard:.7,size:1.53,stretch:.91},{type:'doubles',hard:.57},{type:'whoops',hard:.61},{type:'doubles',hard:.62,stretch:1.35},{type:'logledge',hard:.77,size:1.69},{type:'trunk',hard:.52,size:1.87},{type:'stepsdown',hard:.55,stretch:1.73},{type:'gapledge',hard:.66,size:1.4},{type:'plateau',hard:.76,stretch:.91},{type:'gap',hard:.62,size:1.85},{type:'stairs',hard:.7,size:1.18,stretch:1.45},{type:'logpile',hard:.55,stretch:1.33},{type:'boulder',hard:.72,size:1.03},{type:'boulderfield',hard:.73,size:1.38},{type:'trunk',hard:.64,size:1.54,stretch:1.63},{type:'doubles',hard:.55,stretch:1.58},{type:'stepsdown',hard:.53,stretch:.91},{type:'slab',hard:.76},{type:'gap',hard:.52,size:1.64},{type:'slabdown',hard:.59,stretch:1.49},{type:'whoops',hard:.52},{type:'doubles',hard:.75,size:1.86,stretch:1.62},{type:'logpile',hard:.79},{type:'doublegap',hard:.59},{type:'slabdown',hard:.52}],fit:true},
   assets:{biome:'seka',obstacles:1,stones:1,forest:1,glades:.3},
-  lowNodes:4,okNodes:1,newNodes:5,cpEvery:1500,rec:1},
- {id:'korpiraivio',name:'Korpiraivio',tier:7,gen:2,desc:'Tiheä korpi täynnä matalan vauhdin tekniikkaa: kivipuutarhat, juurakot, rungot, epätasaiset töyssyt, lohkareikot ja tukit hyllyillä 40 px:n välein.',seed:417,length:10800,
+  recordVersion:2,minGap:50,rec:1,lowNodes:4,okNodes:1,newNodes:5},
+ {id:'korpiraivio',name:'Korpiraivio',tier:7,gen:2,desc:'Tiheä korpi täynnä matalan vauhdin tekniikkaa: kivipuutarhat, juurakot, rungot, epätasaiset töyssyt, lohkareikot ja tukit hyllyillä 40 px:n välein.',seed:11,length:10800,
   terrain:{algo:'midpoint',amp:220,H:.8,macro:.8,rough:6,maxSlope:30},
-  difficulty:{hard:.8,variety:.8,target:{gated:[8,40],finished:true}},
-  features:{strategy:'rhythm',spacing:'clustered',sequence:[{type:'rockgarden',stretch:2},'roots','trunk','rest',{type:'whoops',stretch:1.8},'logledge','boulderfield','rest',{type:'rootclimb',stretch:1.5},'stump','trunk','rest',{type:'rockgarden',stretch:2.5,hard:1},'logpile','rest','boulderfield',{type:'whoops',stretch:2},'ledge','rest',{type:'roots',stretch:2},'logledge','rockgarden']},
+  difficulty:{hard:.65,variety:.5,target:{gatedPerKm:[2,5],finished:true,maxCrashes:3}},
+  features:{strategy:'rhythm',spacing:'clustered',sequence:[{type:'trunk',hard:.68,size:1.6,stretch:1.64},{type:'stairs',hard:.68,size:1.26},{type:'rootclimb',hard:.77},{type:'stepsdown',hard:.56},{type:'stairs',hard:.75,size:1.1},{type:'logledge',hard:.5,size:1.62,stretch:.99},{type:'slabdown',hard:.57,stretch:1.09},{type:'plateau',hard:.72},{type:'ledge',hard:.54,size:1.78},{type:'doublegap',hard:.56,stretch:.92},{type:'stepsdown',hard:.51,size:1.7,stretch:1.54},{type:'roots',hard:.69,stretch:1.74},{type:'logledge',hard:.64},{type:'sinkhole',hard:.67},{type:'roots',hard:.8,size:1.74},{type:'trunk',hard:.76,size:1.45,stretch:.9},{type:'doubles',hard:.71,size:1.8},{type:'plateau',hard:.72,stretch:1.5},{type:'logledge',hard:.6},{type:'logpile',hard:.71,stretch:1.59},{type:'gapledge',hard:.79},{type:'whoops',hard:.56,size:1.5,stretch:1.3},{type:'sinkhole',hard:.5,size:1.72,stretch:1.39},{type:'stepsdown',hard:.71,size:1.18},{type:'ledge',hard:.67},{type:'slabdown',hard:.8,size:1.79},{type:'rootclimb',hard:.56}],fit:true},
   assets:{biome:'korpi',obstacles:1.6,stones:1.6,forest:1.3,glades:.2},
-  minGap:40,lowNodes:4,okNodes:1,newNodes:4,cpEvery:1300,rec:1},
+  recordVersion:2,minGap:50,rec:1,lowNodes:4,okNodes:1,newNodes:4},
 ];
 const duskOf=lv=>lv&&lv.def.dusk||0;
 const dawnOf=lv=>lv&&lv.def.dh?1:0;      // alamäkireitit ajetaan syysaamun auringonnousussa
@@ -604,7 +610,7 @@ function placeNodesAndCps(lv,rnd){
   const {def,L,ys,feats}=lv, fc=f=>f.cx!==undefined?f.cx:f.x+(f.hw||0);
   function flattest(x,range){
     let bx=x,bs=1e9;
-    for(let mul=1;mul<=8&&bs>=1e9;mul*=2) for(let dx=-range*mul;dx<=range*mul;dx+=8){
+    for(let mul=1;mul<=8&&bs>=0.04;mul*=2) for(let dx=-range*mul;dx<=range*mul;dx+=8){   // laajennetaan hakua, kunnes löytyy aidosti tasainen (< 2,3°) huoltopaikka
       const xx=x+dx; if(xx<520||xx>L-520) continue;
       if(feats.some(f=>Math.abs(fc(f)-xx)<(f.hw||0)+(BIGFEAT.has(f.type)?130:f.type==='kicker'?100:f.type==='bumps'||f.type==='stairs'?60:50))) continue;
       const s=Math.abs(tY(lv,xx+12)-tY(lv,xx-12))/24+Math.abs(tY(lv,xx+30)-tY(lv,xx-30))/60;
@@ -860,7 +866,8 @@ const FEATURES={
    g.feats.push({type:'rootclimb',x,w:len,h:rise,hw,cx:xs+hw}); g.later.push(()=>{for(const [dx,h] of rs)g.addObst('roots','roots',x+dx,h,.3,{garden:true});});}},
  boulderfield:{cost:.55,gated:true,                                                              // lohkareikko: 2-3 siirtolohkaretta lyhyin välein
   dims(r,hard,k){const cnt=Math.max(1,Math.round((2+Math.floor(r()*2))*k)),h=lerp(22,30,r())+hard*5,sp=lerp(70,100,r()),w=cnt*sp+40;return {cnt,h,sp,w,hw:w/2+20};},
-  apply(g,xs,p){const {cnt,h,sp,hw}=p; g.feats.push({type:'zone',x:xs,w:2*hw,cx:xs+hw,hw}); g.later.push(()=>{for(let j=0;j<cnt;j++)g.addObst('boulder','boulder',xs+60+j*sp,h*(0.9+0.2*hash(Math.round(xs+j*7))),.38);});}},
+  apply(g,xs,p){const {cnt,h,sp,hw}=p, md=ASSET_META.boulder, aspect=md&&md.w?md.w/md.h:1.47, bw=h*1.1/(1-.38)*aspect, sp2=Math.max(sp,bw+8), n2=Math.max(1,Math.min(cnt,Math.floor((2*hw-100)/sp2)+1));   // skaalatut lohkareet eivät mene päällekkäin
+   g.feats.push({type:'zone',x:xs,w:2*hw,cx:xs+hw,hw}); g.later.push(()=>{for(let j=0;j<n2;j++)g.addObst('boulder','boulder',xs+60+j*sp2,h*(0.9+0.2*hash(Math.round(xs+j*7))),.38);});}},
  sinkhole:{cost:.5,gated:true,                                                                   // kuoppa: kapea syvä monttu, jyrkkä etuseinä ja 40° nousu ulos; vauhdilla yli
   dims(r,hard,k){const w=(lerp(60,90,r())+hard*15)*k,d=lerp(35,55,r())+hard*10,ramp=d/Math.tan(40*Math.PI/180);return {w,d,ramp,hw:(w+ramp)/2+60};},
   apply(g,xs,p){const {ys,n}=g,{w,d,ramp,hw}=p,x=xs+60;
@@ -1143,13 +1150,14 @@ function buildLevel2(def){
   // size = pystysuuntainen skaalaus (editorissa raahaus ylös/alas): esteen maastomuoto kerrotaan alustaan nähden, spritejen korkeudet skaalataan
   const SPRITE_H={boulder:['h'],stump:['h'],trunk:['h'],boulderfield:['h'],logledge:['lh'],roots:['rs'],rocks:['rs'],rockgarden:['rs'],logpile:['rs']};
   const applyScaled=(type,xs,p)=>{const F=FEATURES[type], size=p.size||1; if(size===1)return F.apply(g,xs,p);
-    for(const k of SPRITE_H[type]||[]){if(typeof p[k]==='number')p[k]*=size; else if(Array.isArray(p[k]))p[k]=p[k].map(v=>Array.isArray(v)?[v[0],v[1]*size]:v*size);}
-    const before=Float32Array.from(ys); F.apply(g,xs,p); for(let i=0;i<n;i++)ys[i]=before[i]+(ys[i]-before[i])*size;};
+    const q=Object.assign({},p), cap={boulder:36,boulderfield:34,stump:20,trunk:24,logledge:18,roots:14,rocks:16,rockgarden:18,logpile:14}[type]||40;   // kopio: alkuperäiset mitat säilyvät; spritejen korkeus rajataan ajettavaan (keulan nosto + perän ponnistus)
+    for(const k of SPRITE_H[type]||[]){if(typeof q[k]==='number')q[k]=Math.min(q[k]*size,cap); else if(Array.isArray(q[k]))q[k]=q[k].map(v=>Array.isArray(v)?[v[0],Math.min(v[1]*size,cap)]:Math.min(v*size,cap));}
+    const before=Float32Array.from(ys); F.apply(g,xs,q); for(let i=0;i<n;i++)ys[i]=before[i]+(ys[i]-before[i])*size;};
   const tanB=Math.tan(blendDeg*Math.PI/180); let prevEnd=620;                                    // alkuaukio (x < 660) pysyy koskemattomana
   for(const it of plan){const F=FEATURES[it.type],xs=it.cx-it.p.hw,xb=xs+2*it.p.hw, overlap=xs<prevEnd, x0=Math.min(prevEnd+40,xs), runup=Math.min(200,Math.max(0,(xs-x0)*.6)), level0=tYi(it.cx);
     const rampL=Math.min(xs-runup-x0,rampLen(xs-runup,-1,level0,200)), r0=xs-runup-rampL, y0=tYi(r0), reach=tanB*rampL, endReach=tanB*Math.max(200,L-700-xb), endY=tYi(L-500);
     // taso rampin ulottuvilla: ei seinää alustan eteen eikä kentän loppuun. Päällekkäin edellisen kanssa: alusta alkaa vasta edellisen lopusta sen korkeudelta
-    const level=overlap?tYi(prevEnd):clamp(clamp(level0,y0-reach,y0+reach),endY-endReach,endY+endReach);
+    const level=overlap?tYi(prevEnd):clamp(clamp(level0,endY-endReach,endY+endReach),y0-reach,y0+reach);   // paikallinen ramppi rajoittaa viimeisenä: seinää ei synny koskaan
     platform(xs,xb,r0,runup,level,overlap?prevEnd:0); applyScaled(it.type,xs,it.p); prevEnd=Math.max(prevEnd,xb);}                              // vasemmalta oikealle: settle siirtää loppukenttää
   const gys=Float32Array.from(ys);                                                                 // piirrettävä maanpinta ennen sprite-kaiverruksia
   for(const fn of later)fn();
@@ -1383,7 +1391,7 @@ class Bike{
       const bog=n.touch&&inBog(lv,p.x); if(bog) vt*=def.bogDrag;   // suo upottaa
       if(!this.crashed){
         if(isRear&&inp.gas&&vt<def.vmax) vt=Math.min(def.vmax,vt+def.acc*(bog?.6:1)*(1-Math.max(0,vt)/def.vmax*.45));
-        if(inp.brake){ if(vt>0.25||inp.hold) vt*=def.brake; else if(isRear) vt=Math.max(-def.rev,vt-0.05); }   // jarru pakittaa
+        if(inp.brake){ if(inp.hold&&Math.abs(vt)<0.6) vt=0; else if(vt>0.25||inp.hold) vt*=def.brake; else if(isRear) vt=Math.max(-def.rev,vt-0.05); }   // jarru pakittaa; huollon aikana (hold) pyörä pysyy paikallaan rinteessäkin
       } else vt*=0.97;
       vt*=0.9985;
       p.px=p.x-(vn*n.x+vt*tx); p.py=p.y-(vn*n.y+vt*ty);
@@ -1494,10 +1502,11 @@ function rideLevel(lv,bikeDef,opts){
     const r=rideSegment(lv,bikeDef,RIDERS.tech((b,l)=>speedAt(l,b.midX,base)),from,finish,opts.maxS||240);
     time+=r.t; farthest=Math.max(farthest,r.x);
     if(r.result==='pass')return {finished:true,time,crashes,farthest:finish,events};
-    crashes++; events.push({result:r.result,x:Math.round(r.x),near:nearestFeat(lv,r.x)});
-    const cp=cps.filter(c=>c<=farthest-40).pop()||178;
-    if(events.filter(e=>Math.abs(e.x-r.x)<150).length>=(opts.retries||6))return {finished:false,time,crashes,farthest:Math.round(farthest),stuckAt:Math.round(r.x),near:nearestFeat(lv,r.x),events};
-    from=cp;
+    crashes++; events.push({result:r.result,x:Math.round(r.x),near:nearestFeat(lv,r.x),from});
+    const sameSpot=events.filter(e=>Math.abs(e.x-r.x)<150).length;
+    if(sameSpot>=(opts.retries||6))return {finished:false,time,crashes,farthest:Math.round(farthest),stuckAt:Math.round(r.x),near:nearestFeat(lv,r.x),events};
+    const before=cps.filter(c=>c<=farthest-40), back=Math.min(before.length-1,Math.floor(sameSpot/2));   // sama kohta toistuvasti: lähdetään aiemmalta noodilta, jotta vauhdinotto riittää
+    from=before.length?before[before.length-1-back]:178;
   }
   return {finished:false,time,crashes,farthest:Math.round(farthest),stuckAt:Math.round(farthest),near:nearestFeat(lv,farthest),events};
 }

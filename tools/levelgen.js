@@ -26,30 +26,41 @@ const { LEVELS, BIKES, buildLevel, measureLevel, reportMeetsTarget, expandRecipe
 // esteiden väli on vain noin 50 px) ja mitattu tavoite. 'auto' valitsee profiilin vaikeustason (tier) mukaan ja teemapooli kentän nimen mukaan.
 const TECH = ['dropseries', 'stairs', 'stepsdown', 'slab', 'slabdown', 'rootclimb', 'pipe', 'logpile', 'doubles', 'ledge', 'boulderfield', 'rockgarden', 'plateau', 'whoops', 'logledge', 'sinkhole', 'boulder', 'trunk'];
 const PROFILES = {
-  kevyt:    { pool: ['stairs', 'stepsdown', 'slab', 'slabdown', 'logpile', 'doubles', 'ledge', 'rockgarden', 'whoops', 'boulder', 'trunk', 'bumps', 'hump', 'kicker'], perKm: 1.7, hard: [.15, .35], size: [.8, 1.2], stretch: [.8, 1.3], minGap: 90, target: { gatedPerKm: [.8, 3], finished: true, maxCrashes: 1 } },
-  keski:    { pool: TECH, perKm: 2.0, hard: [.3, .5], size: [.8, 1.4], stretch: [.8, 1.5], minGap: 70, target: { gatedPerKm: [1.4, 4], finished: true, maxCrashes: 2 } },
+  kevyt:    { pool: ['stairs', 'stepsdown', 'slab', 'slabdown', 'slope', 'logpile', 'doubles', 'ledge', 'rockgarden', 'rocks', 'whoops', 'boulder', 'trunk', 'bumps', 'hump', 'valley', 'ridge', 'tabletop', 'kicker'], perKm: 1.7, hard: [.15, .35], size: [.8, 1.2], stretch: [.8, 1.3], minGap: 90, target: { gatedPerKm: [.8, 3], finished: true, maxCrashes: 1 } },
+  keski:    { pool: [...TECH, 'valley', 'tabletop', 'ridge', 'hump', 'rocks', 'slope'], perKm: 2.0, hard: [.3, .5], size: [.8, 1.4], stretch: [.8, 1.5], minGap: 70, target: { gatedPerKm: [1.4, 4], finished: true, maxCrashes: 2 } },
   tekninen: { pool: TECH, perKm: 2.2, hard: [.35, .55], size: [.8, 1.6], stretch: [.8, 1.6], minGap: 60, target: { gatedPerKm: [1.6, 4], finished: true, maxCrashes: 2 } },
   raskas:   { pool: [...TECH, 'gapledge', 'kickerwall', 'combo', 'doublegap'], perKm: 2.5, hard: [.5, .8], size: [1, 1.9], stretch: [.9, 1.8], minGap: 50, target: { gatedPerKm: [2, 5], finished: true, maxCrashes: 3 } },
   hamara:   { pool: ['ledge', 'stump', 'roots', 'trunk', 'combo', 'kickerwall', 'boulder', 'boulderfield', 'dropseries', 'rockslope', 'logledge', 'stairs', 'doubles'], perKm: 2.0, hard: [.4, .65], size: [.9, 1.5], stretch: [.8, 1.5], minGap: 80, target: { gatedPerKm: [1.4, 4], finished: true, maxCrashes: 2 } },
   yo:       { pool: ['ledge', 'roots', 'trunk', 'combo', 'kickerwall', 'boulderfield', 'dropseries', 'rockslope', 'gapledge', 'doublegap', 'stairs', 'plateau', 'sinkhole'], perKm: 2.3, hard: [.55, .85], size: [1, 1.7], stretch: [.9, 1.6], minGap: 60, target: { gatedPerKm: [1.8, 5], finished: true, maxCrashes: 3 } },
-  alamaki:  { pool: ['stepdown', 'rollers', 'roadgap', 'chute', 'rockslope', 'doubles', 'tabletop', 'whoops', 'boulderfield', 'dropseries'], perKm: 1.6, hard: [.4, .8], size: [.9, 1.5], stretch: [.9, 1.6], minGap: 120, target: { gatedPerKm: [.6, 4], finished: true, maxCrashes: 2 } },
+  alamaki:  { pool: ['stepdown', 'rollers', 'roadgap', 'chute', 'rockslope', 'doubles', 'tabletop', 'whoops', 'dropseries', 'hump', 'valley'], /* ei lohkareita: alamäkipyörä ei nosta keulaa niiden yli */ perKm: 1.6, hard: [.4, .8], size: [.9, 1.5], stretch: [.9, 1.6], minGap: 120, target: { gatedPerKm: [.3, 4], finished: true, maxCrashes: 2 } },
 };
 const TIER_PROFILE = { 0: 'kevyt', 1: 'keski', 2: 'raskas', 3: 'hamara', 4: 'yo', 5: 'alamaki', 7: 'raskas' };
+// Esteroolit ja niiden osuudet: jokaiseen kenttään sekoitus nousuja, laskuja, rytmiesteitä, maaesteitä ja kuoppia. Painot vaihtelevat profiilin mukaan
+// (kevyessä enemmän rytmiä, yössä ja raskaassa enemmän nousuja ja kuoppia, alamäessä laskuja ja rytmiä).
+const ROLES = { nousu: ['stairs', 'ledge', 'slab', 'rootclimb', 'pipe', 'plateau', 'kickerwall', 'wall', 'slope', 'logledge'], lasku: ['dropseries', 'stepsdown', 'slabdown', 'rockslope', 'drop', 'stepdown', 'chute', 'roadgap'],
+  rytmi: ['whoops', 'doubles', 'hump', 'valley', 'ridge', 'tabletop', 'bumps', 'rollers', 'kicker', 'bigair'], maaeste: ['boulder', 'boulderfield', 'rockgarden', 'rocks', 'trunk', 'logpile', 'roots', 'stump', 'bog'], kuoppa: ['sinkhole', 'gap', 'doublegap', 'gapledge', 'combo'] };
+const ROLE_W = { kevyt: { nousu: .28, lasku: .2, rytmi: .3, maaeste: .2, kuoppa: .02 }, keski: { nousu: .3, lasku: .2, rytmi: .2, maaeste: .22, kuoppa: .08 }, tekninen: { nousu: .32, lasku: .22, rytmi: .14, maaeste: .24, kuoppa: .08 },
+  raskas: { nousu: .32, lasku: .2, rytmi: .1, maaeste: .22, kuoppa: .16 }, hamara: { nousu: .3, lasku: .2, rytmi: .1, maaeste: .3, kuoppa: .1 }, yo: { nousu: .32, lasku: .18, rytmi: .08, maaeste: .24, kuoppa: .18 }, alamaki: { nousu: .04, lasku: .4, rytmi: .36, maaeste: .16, kuoppa: .04 } };
+const roleOf = (t) => Object.keys(ROLES).find((r) => ROLES[r].includes(t)) || 'maaeste';
 // Teemapoolit kentän tunnuksen mukaan: näitä painotetaan kaksinkertaisesti, jotta Juurakko on juurakkoinen ja Louhikko louhikkoinen
 const THEMES = { juurakko: ['roots', 'rootclimb', 'trunk', 'logledge'], louhikko: ['boulder', 'boulderfield', 'rockgarden', 'rockslope', 'rocks'], lohkareikko: ['boulder', 'boulderfield', 'rockgarden', 'plateau'],
   suonlaita: ['bog', 'logpile', 'trunk', 'whoops'], rotko: ['gap', 'doublegap', 'sinkhole', 'gapledge'], jyrkanteet: ['drop', 'dropseries', 'wall', 'plateau', 'stepsdown'], kalliopolku: ['stairs', 'ledge', 'stepsdown', 'pipe', 'slab'],
   kotimetsa: ['bumps', 'logpile', 'stump', 'hump'], harjumaasto: ['ridge', 'hump', 'slab', 'slabdown'], vaara: ['slab', 'slabdown', 'ridge', 'ledge', 'stairs'], louhos: ['ledge', 'kickerwall', 'rockslope', 'bigair', 'plateau'],
-  kouru: ['chute', 'rockslope', 'boulderfield'], syoksy: ['stepdown', 'roadgap', 'tabletop', 'doubles'], rinne: ['rollers', 'stepdown', 'whoops'], kelo: ['ledge', 'slab', 'pipe', 'boulderfield'], portaat: ['stairs', 'stepsdown', 'ledge', 'plateau'], korpi: ['roots', 'rootclimb', 'trunk', 'rockgarden', 'whoops', 'logledge'] };
+  kouru: ['chute', 'rockslope', 'whoops'], syoksy: ['stepdown', 'roadgap', 'tabletop', 'doubles'], rinne: ['rollers', 'stepdown', 'whoops'], kelo: ['ledge', 'slab', 'pipe', 'boulderfield'], portaat: ['stairs', 'stepsdown', 'ledge', 'plateau'], korpi: ['roots', 'rootclimb', 'trunk', 'rockgarden', 'whoops', 'logledge'] };
 function profileFor(def, name) {
-  const base = PROFILES[name === 'auto' ? (TIER_PROFILE[def.tier] ?? 'tekninen') : name]; if (!base) throw new Error('tuntematon profiili ' + name);
+  const pname = name === 'auto' ? (TIER_PROFILE[def.tier] ?? 'tekninen') : name, base = PROFILES[pname]; if (!base) throw new Error('tuntematon profiili ' + name);
   const theme = Object.entries(THEMES).find(([k]) => def.id.includes(k));
-  return theme ? { ...base, pool: [...theme[1], ...theme[1], ...base.pool], theme: theme[0] } : { ...base, theme: '-' };
+  return { ...base, roleW: ROLE_W[pname], pool: theme ? [...theme[1], ...theme[1], ...base.pool] : base.pool, theme: theme ? theme[0] : '-' };
 }
 // Rakentaa kentälle profiilin mukaisen rytmijonon (satunnaisjärjestys, ei samaa tyyppiä peräkkäin), säilyttää maaston, biomin ja tehtävät.
 function retuneDef(def, prof, seed) {
   const rnd = mulberry32(seed * 7919 + 13 + def.id.length * 101), km = def.length / 1000, n = Math.max(4, Math.round(km * prof.perKm)), seq = []; let prev = null;   // siemen ja tunnus: eri kentille eri jonot
   const pick = (a, b) => a + rnd() * (b - a);
-  for (let i = 0; i < n; i++) { let t; do { t = prof.pool[Math.floor(rnd() * prof.pool.length)]; } while (t === prev && prof.pool.length > 1); prev = t;
+  const used = {}; const cap = Math.max(3, Math.ceil(n / 5));                                   // sama tyyppi enintään kolmesti (pitkässä kentässä n/5), jotta jakauma pysyy laajana
+  const pickRole = () => { let r = rnd(), acc = 0; for (const [role, w] of Object.entries(prof.roleW)) { acc += w; if (r <= acc) return role; } return 'maaeste'; };
+  for (let i = 0; i < n; i++) { let t, tries = 0;
+    do { const role = pickRole(), cands = prof.pool.filter((x) => roleOf(x) === role); t = (cands.length ? cands : prof.pool)[Math.floor(rnd() * (cands.length ? cands : prof.pool).length)]; }
+    while ((t === prev || (used[t] || 0) >= cap) && ++tries < 60); prev = t; used[t] = (used[t] || 0) + 1;
     const o = { type: t, hard: +pick(...prof.hard).toFixed(2) }; if (rnd() < .5) o.size = +pick(...prof.size).toFixed(2); if (rnd() < .4) o.stretch = +pick(...prof.stretch).toFixed(2); seq.push(o); }
   const ex = expandRecipe(structuredClone(def));
   const out = { id: def.id, name: def.name, tier: def.tier, gen: 2, recordVersion: (def.recordVersion || 1) + 1, desc: def.desc, seed, length: def.length };
