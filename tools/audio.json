@@ -72,6 +72,14 @@
    "lufs": -16,
    "max_len": 95,
    "prompt": "Focused, rhythmic instrumental for a precision trials mountain-bike course on bare Finnish granite at 128 bpm: tight dry drums with rimshots and woodblock, a palm-muted clean electric guitar riff, deep round bass, sparse kantele plucks and a cool minimal synth pad, a sense of concentration, balance and controlled tension rather than speed, Nordic melodic flavour. No vocals. Consistent energy throughout, no slow intro, no fade-out ending."
+  },
+  {
+   "name": "music_chase",
+   "kind": "song",
+   "loop": true,
+   "lufs": -15,
+   "max_len": 95,
+   "prompt": "Relentless, terrifying instrumental chase music at 168 bpm for being hunted by a bear through a dark Finnish spruce forest at dusk on a mountain bike: pounding tribal drums and deep taiko hits, a low growling distorted synth bass ostinato, dissonant tremolo strings and brass stabs that keep rising, breathless tension without release, hints of Nordic folk melody in a minor key, no vocals, no lyrics."
   }
  ],
  "voice_model": "openai/gpt-audio-mini",
@@ -182,6 +190,46 @@
    "name": "voice_fwd",
    "text": "Paino eteen!",
    "style": "quick and urgent, urging himself to shift his weight forward as the bike is about to loop out backwards on a steep climb"
+  },
+  {
+   "name": "voice_bear1",
+   "text": "Karhu! Aja, aja, aja!",
+   "style": "a panicked terrified shout, breaking into a sprint, out of breath"
+  },
+  {
+   "name": "voice_bear2",
+   "text": "Se tulee! Ei saa jarruttaa!",
+   "style": "terrified, shouting over his shoulder while pedaling hard, breathless"
+  },
+  {
+   "name": "voice_bear3",
+   "text": "Kuulen sen hengityksen!",
+   "style": "panicked whisper-shout, the bear is right behind him, voice shaking"
+  },
+  {
+   "name": "voice_spray",
+   "text": "Ota tästä, karhu!",
+   "style": "angry and scared at the same time, yelling while spraying bear spray behind him"
+  },
+  {
+   "name": "voice_spraypick",
+   "text": "Karhuspray! Hyvä.",
+   "style": "a quick relieved gasp while grabbing a can at full speed"
+  },
+  {
+   "name": "voice_caught",
+   "text": "Ei, ei, EI!",
+   "style": "a desperate scream, the bear catches him, rising in panic"
+  },
+  {
+   "name": "voice_escape",
+   "text": "Se... se luovutti. Huh.",
+   "style": "gasping for breath, shaky relief after outrunning a bear"
+  },
+  {
+   "name": "voice_far",
+   "text": "Älä katso taakse. Polje.",
+   "style": "muttering to himself through gritted teeth, tense, pedaling hard"
   }
  ]
 }

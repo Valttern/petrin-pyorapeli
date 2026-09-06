@@ -634,6 +634,39 @@
    "aspect": "16:9",
    "nostyle": true,
    "prompt": "Cinematic wide key art illustration for a video game, semi-realistic digital painting with clean readable shapes: a friendly Finnish man in his forties (white skate-style bicycle helmet, orange-tinted sport sunglasses, short brown hair, black short-sleeved cycling jersey, pink cycling tights, olive green backpack) on an orange full-suspension mountain bike balancing on the rear wheel at the top of a steep stack of sharp granite ledges on a high bare rocky fell summit in Finland, the rock pale grey with orange and green lichen, a small dark tarn pool in a rock hollow beside the line, a stone cairn, a few dead silvery pines and low junipers, a sea of forested hills and lakes far below under a bright summer sky; crisp shadows, the rider seen from the side in a concentrated trials-style moment, wide landscape composition with open sky in the upper third. No text, no letters, no watermark, no frame, no border."
+  },
+  {
+   "name": "bear_run1",
+   "kind": "sprite",
+   "aspect": "16:9",
+   "worldH": 64,
+   "style": "dusk",
+   "max": 640,
+   "prompt": "A huge adult Eurasian brown bear (Ursus arctos) charging at a full gallop seen exactly from the side, facing right and running to the right: mouth wide open showing teeth, ears back, thick dark brown shaggy fur, massive shoulder hump, a run-cycle frame with the front legs stretched far forward and the hind legs stretched far back, all four paws off the ground. IMPORTANT: no ground, no grass, no landscape, no shadow on the ground; the object is isolated on a flat solid bright magenta (#FF00FF) background that fills every other pixel of the image."
+  },
+  {
+   "name": "bear_run2",
+   "kind": "sprite",
+   "aspect": "16:9",
+   "worldH": 64,
+   "style": "dusk",
+   "max": 640,
+   "prompt": "A huge adult Eurasian brown bear (Ursus arctos) charging at a full gallop seen exactly from the side, facing right and running to the right: mouth wide open showing teeth, ears back, thick dark brown shaggy fur, massive shoulder hump, a run-cycle frame with the legs gathered together under the body, the front paws touching down and the back arched high. IMPORTANT: no ground, no grass, no landscape, no shadow on the ground; the object is isolated on a flat solid bright magenta (#FF00FF) background that fills every other pixel of the image."
+  },
+  {
+   "name": "spray",
+   "kind": "sprite",
+   "aspect": "9:16",
+   "worldH": 26,
+   "max": 256,
+   "prompt": "A single small red aerosol bear-spray canister standing upright, seen exactly from the side: bright red metal can, a black spray nozzle with an orange safety clip on top, a yellow warning label with a black bear silhouette, slightly scuffed. IMPORTANT: no ground, no grass, no landscape, no shadow on the ground; the object is isolated on a flat solid bright magenta (#FF00FF) background that fills every other pixel of the image."
+  },
+  {
+   "name": "keyart7",
+   "kind": "art",
+   "aspect": "16:9",
+   "nostyle": true,
+   "prompt": "Cinematic wide key art illustration for a video game, semi-realistic digital painting with clean readable shapes: a friendly Finnish man in his forties (white skate-style bicycle helmet, orange-tinted sport sunglasses, short brown hair, black short-sleeved cycling jersey, pink cycling tights, olive green backpack) pedaling desperately on an orange full-suspension mountain bike down a narrow trail through a dark dense Finnish spruce forest at deep blue dusk, glancing back over his shoulder in terror, his headlamp beam cutting through the mist ahead, while a huge brown bear charges right behind him with its mouth open, dust and pine needles flying, low dramatic side lighting, cold blue-violet twilight with a single warm orange glow from the headlamp, no text, no letters, no watermark, no frame."
   }
  ],
  "styles": {

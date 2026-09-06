@@ -9,7 +9,7 @@ Koko peli on yksi tiedosto: **`index.html`**. Se toimii sellaisenaan selaimessa 
 | Näppäin | Toiminto |
 |---|---|
 | ↑ | Polje |
-| ↓ | Jarruta / pakita |
+| ↓ | Jarruta; pysähdyksissä jarru lukitsee renkaan ja pitää pyörän paikallaan rinteessä |
 | ← → | Painonsiirto: taakse nostaa keulan säädellysti noin 25°:seen (kaasulla 40°) ja pitää sen siinä, eteen keventää perän; ilmassa kallistaa pyörää vapaasti. Kun keula on esteen päällä ja takarengas askelmaa vasten, kaasu ponnistaa perän askelman yli |
 | ← sitten → | Bunnyhop: lyhyt näpäytys taakse (0,1–0,3 s) ja heti eteen, kun keula vasta nousee, ponnistaa pyörän ilmaan. Liian pitkä veto taakse on manuaali, ei hyppy |
 | Väli | Käänny ympäri |
@@ -152,6 +152,14 @@ deno test --allow-read tests/smoke_test.js  # savutesti: koko skripti tynkä-DOM
 ```
 
 Testit tarkistavat ennätysten siirron ja järjestyksestä riippumattomuuden, että jokainen kenttä on resepti ja rakentuu, louhoksen estejärjestyksen sekä reseptikentät: rakentuminen ja esteiden välit, maanpinnan assettien kaiverrus ja puiden sijoittelu, pohja-algoritmien kaltevuusraja, porrastus ja spline-pisteet, sijoitteluvirheet, ja että tekniikkakuski ajaa jokaisen reseptikentän maaliin tavoitehaarukassa. Ajettavuus ja hyppyjen vaikeustaso on lisäksi kokeiltava selaimessa.
+
+## Karhupako
+
+**Karhu kannoilla** (Karhupako-taso) on erillinen pelimoodi: karhu jahtaa Petriä hämärtyvässä korvessa ja tavoite on päästä niin pitkälle kuin mahdollista kaatumatta. Kaatuminen tai liian hidas ajo päättyy karhun tassuniskuun, ja tulos on matka kilometreinä (paras matka tallentuu pyöräkohtaisesti). Reitti on 60 km pelkkää maanmuotoa ilman kiviä ja kantoja: loiva kokonaislasku pitää vauhdin päällä, ja esteet on valittu mitatusti (`tools`-simulaatio flow-kuskilla, joka pitää kaasun pohjassa ja tasaa nokan ilmassa): alkuun täydessä vauhdissa turvalliset kumpareet, hyppyrit, harjanteet ja laskevat hyllyt, loppua kohti pudotukset, kaksoishypyt ja rotkot. Töyssysarjat ja notkot on jätetty pois, koska ne kaatavat vauhdissa.
+
+Karhu (`Bear`, fysiikkaosiossa) juoksee maanpintaa pitkin: tavoitenopeus kasvaa matkan mukana (4,1 px/askel alussa, 6,9 px/askel 60 km:ssä), ylämäki hidastaa ja alamäki nopeuttaa hieman, ja kaukana (yli 600 px) se saa 12 % lisävauhtia, jotta se pysyy ruudun reunalla. Karhuspray-purkkeja on reitillä 2,4–3,8 km välein ja mukaan mahtuu kolme; E käyttää purkin vain, kun karhu on 240 px:n päässä (muuten purkki ei kulu), jolloin karhu perääntyy ja seisoo 2,6 s. Purkit ovat hätävara, eivät strategia: pelkällä sprayllä karhua ei pidä loitolla.
+
+Tunnelma: hämärä (`dusk .55`) ja otsalamppu, jonka keila osoittaa eteenpäin, joten takana juokseva karhu näkyy pimeästä lähinnä hehkuvina silminä ja hahmona; HUD:n kartta on korvattu karhumittarilla (etäisyys metreinä, sykkivä punainen palkki), syke (syntetisoitu, 62–168 bpm etäisyyden mukaan), murinat ja askelten jyminä vasemmalta, ruudun tärinä karjaisussa ja lähellä, punainen reunavinjetti, oma jahtimusiikki (`music_chase`, Lyria) ja Petrin repliikit (`voice_bear1..3`, `voice_spray`, `voice_spraypick`, `voice_caught`, `voice_escape`, `voice_far`). Karhun juoksuruudut `bear_run1`/`bear_run2`, purkki `spray` ja avainkuva `keyart7` on generoitu `tools/gen_assets.py`:llä. R aloittaa juoksun alusta. Kalibrointi: flow-kuski 6,5 px/askel Intensellä saa ensimmäisen läheltä piti -tilanteen 12–15 km:ssä (noin 20 s), koko matka kestää 1–2 minuuttia; Kuwahara jää kiinni noin 9 km:ssä ilman sprayta ja alamäkipyörä on hidas nousuissa.
 
 ## Tekniikka
 

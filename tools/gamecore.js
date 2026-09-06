@@ -6,7 +6,7 @@ export function extractCore(html) {
   const meta = JSON.parse(html.split('window.ASSET_DATA=')[1].split(';/*ASSETS-END*/')[0]);
   const physics = source.slice(source.indexOf('const STEP='), source.indexOf('// ---------- renderöinti'));
   return new Function('ASSET_META', code + terrain + physics +
-    ';return {LEVELS,TIERS,buildLevel,Bike,BIKES,recomputeCoverage,FEATURES,measureLevel,rideLevel,rideSegment,RIDERS,reportMeetsTarget,speedAt,mulberry32,tY,expandRecipe,RECIPE_STYLES,BIOMES};')(meta);
+    ';return {LEVELS,TIERS,buildLevel,Bike,BIKES,Bear,BEAR,recomputeCoverage,FEATURES,measureLevel,rideLevel,rideSegment,RIDERS,reportMeetsTarget,speedAt,mulberry32,tY,expandRecipe,RECIPE_STYLES,BIOMES};')(meta);
 }
 export async function loadCore(path) {
   const html = await Deno.readTextFile(path ?? new URL('../index.html', import.meta.url));

@@ -31,11 +31,11 @@ Deno.test('records migrate, survive reorder and tolerate damaged or blocked stor
   assert(api.loadBest()['syoksylasku:dh']===230,'DH record imported');
   LEVELS.reverse();
   const i=LEVELS.findIndex(l=>l.id==='kotimetsa');
-  assert(api.bestId(i)==='kotimetsa:v3:intense','reordering');   // uusitut kentät: recordVersion 3
+  const kv='kotimetsa:v'+LEVELS[i].recordVersion+':intense'; assert(api.bestId(i)===kv,'reordering');   // ennätysavain seuraa kentän recordVersionia
   const tech=LEVELS.findIndex(l=>l.id==='graniittiportaat');
   assert(api.bestId(tech)==='graniittiportaat:v5:intense','revised terrain has separate records');
   assert(api.saveBest(i,100),'new record saved');
-  assert(api.loadBest()['kotimetsa:v3:intense']===100,'record saved under the new key');
+  assert(api.loadBest()[kv]===100,'record saved under the new key');
   assert(data.has('petri-pyorapeli-best'),'backup preserved');
   data.set('petri-pyorapeli-best-v2','null');data.set('petri-pyorapeli-best','{broken');
   assert(Object.keys(api.loadBest()).length===0,'corrupt data');
@@ -162,7 +162,7 @@ const v2 = extractCore(html);
 const tYv = (lv, x) => v2.tY(lv, x), gYv = (lv, x) => { const f = Math.max(0, Math.min(lv.n - 1.0001, x / 8)), i = Math.floor(f), t = f - i; return lv.gys[i] * (1 - t) + lv.gys[i + 1] * t; };
 const base = { id: 'x', name: 'x', tier: 7, gen: 2, seed: 5, length: 6000, lowNodes: 2, okNodes: 1, newNodes: 2, cpEvery: 0, rec: 1 };
 Deno.test('gen2: recipe levels build, obstacles keep their spacing and every feature lies inside the route', () => {
-  const defs = v2.LEVELS.filter((l) => l.gen === 2);
+  const defs = v2.LEVELS.filter((l) => l.gen === 2 && !l.chase);   // karhupako testataan omassa testissään
   assert(defs.length >= 3, 'recipe levels exist');
   for (const def of defs) {
     const lv = v2.buildLevel(def);
@@ -180,10 +180,10 @@ Deno.test('gen2: recipe levels build, obstacles keep their spacing and every fea
   }
 });
 Deno.test('gen2: ground assets are carved into the terrain at ground level and trees avoid cliffs and obstacles', () => {
-  for (const def of v2.LEVELS.filter((l) => l.gen === 2)) {
+  for (const def of v2.LEVELS.filter((l) => l.gen === 2 && !l.chase)) {
     const lv = v2.buildLevel(def), sprites = lv.feats.filter((f) => f.spr);
     assert(sprites.length >= 3, `${def.id}: has carved ground assets`);
-    for (const f of sprites.filter((f) => f.type !== 'stone')) {   // pienet maakivet ovat lähes kokonaan maan sisällä; näytevirhe rinteessä ei kerro kelluvasta spritestä
+    for (const f of sprites.filter((f) => f.type !== 'stone' && !f.garden)) {   // pienet maakivet ja kivikoiden kivet: näytevirhe rinteessä tai viereisen kiven kaiverrus ei kerro kelluvasta spritestä
       assert(Math.abs(f.by - gYv(lv, f.x)) < 1 + Math.abs(Math.tan(f.ang)) * 4, `${def.id}: ${f.spr}@${Math.round(f.x)} floats above or sinks below the drawn ground`);   // by = lähin näyte, rinteessä enintään 4 px:n näytevirhe
       assert(tYv(lv, f.x) <= f.by + 0.5, `${def.id}: ${f.spr}@${Math.round(f.x)} is not carved into the collision surface`);   // pieni kivi on keskeltä maan tasalla (float32-pyöristys)
       assert(!(f.type === 'log' || f.type === 'stump' || f.type === 'boulder') || Math.abs(f.ang) < 0.3, `${def.id}: lying ${f.type}@${Math.round(f.x)} placed on a steep slope`);
@@ -238,7 +238,7 @@ Deno.test('gen2: placement errors are loud, manual positions are exact, curve st
   assert(rnd.plan.length === 4, 'random places every requested feature or throws');
 });
 Deno.test('gen2: measurement rides every recipe level to the finish and the recipes meet their difficulty targets', () => {
-  for (const def of v2.LEVELS.filter((l) => l.gen === 2)) {
+  for (const def of v2.LEVELS.filter((l) => l.gen === 2 && !l.chase)) {   // karhupako mitataan omassa testissään (60 km)
     const lv = v2.buildLevel(def), rep = v2.measureLevel(lv);
     assert(rep.ride && rep.ride.finished, `${def.id}: technique rider did not finish (stuck at ${rep.ride?.stuckAt} near ${rep.ride?.near})`);
     const failing = rep.per.filter((p) => p.tech !== 'pass'), tight = lv.def.minGap != null && lv.def.minGap < 200;
@@ -289,7 +289,7 @@ Deno.test('gen2: stretch lengthens repeated features and gap overrides allow tig
   assert(dense.plan.length === 6 && dense.plan.every((p, i) => !i || p.cx - p.hw - (dense.plan[i - 1].cx + dense.plan[i - 1].hw) >= 60), 'minGap packs the rhythm sequence');
 });
 Deno.test('gen2: pinning every feature (editor drag) reproduces the plan exactly and a pinned feature can be moved', () => {
-  for (const def of v2.LEVELS.filter((l) => l.gen === 2 && !l.tech)) {   // tekniikkaradat rakentuvat osuuksista, ei placed-listasta
+  for (const def of v2.LEVELS.filter((l) => l.gen === 2 && !l.tech && !l.chase)) {   // tekniikkaradat rakentuvat osuuksista, ei placed-listasta; karhupako on 60 km
     const lv = v2.buildLevel(def), placed = lv.plan.map((p) => ({ type: p.type, x: p.cx, hard: p.hard, stretch: p.stretch, size: p.size, gap: p.gap, dims: p.dims }));
     const pinned = v2.buildLevel({ ...def, placed, features: [] });
     assert(pinned.plan.length === lv.plan.length && pinned.plan.every((p, i) => p.type === lv.plan[i].type && Math.abs(p.cx - lv.plan[i].cx) < 1e-6 && Math.abs(p.hw - lv.plan[i].hw) < 1e-6), `${def.id}: pinned plan identical`);
@@ -331,4 +331,27 @@ Deno.test('physics: a crash releases the rider as a ragdoll that flies clear of 
   for (const [p, q, l] of b.rag.bones) assert(Math.abs(Math.hypot(p.x - q.x, p.y - q.y) - l) < 1.5, 'bone lengths hold');
   assert(b.H.y < b.midY - 15 && b.H.y > b.midY - 45, 'the frame top point sits at handlebar height after the crash');
   b.spawn(1000, 1); assert(!b.rag && !b.crashed, 'respawn clears the ragdoll');
+});
+
+Deno.test('karhupako: the chase level is pure terrain, sprays are rare, and the bear catches a slow rider but not a fast one', () => {
+  const def = v2.LEVELS.find((l) => l.chase), lv = v2.buildLevel(def);
+  assert(lv.L === 60000 && lv.cps.length === 0 && !lv.nodes.some((n) => n.origLow), 'long route without checkpoints or battery nodes');
+  assert(!lv.feats.some((f) => f.spr && f.type !== 'zone'), 'no sprite obstacles (stones, stumps, logs)');
+  assert(lv.sprays.length >= 12 && lv.sprays.length <= 26, `sprays are rare (${lv.sprays.length})`);
+  for (let i = 1; i < lv.sprays.length; i++) assert(lv.sprays[i].x - lv.sprays[i - 1].x >= 1800, 'sprays at least 1.8 km apart');
+  for (const sp of lv.sprays) assert(Math.abs(v2.tY(lv, sp.x + 16) - v2.tY(lv, sp.x - 16)) < 12, 'spray on nearly flat ground');
+  const early = lv.plan.filter((p) => p.cx < 8000).map((p) => v2.FEATURES[p.type].cost), late = lv.plan.filter((p) => p.cx > 50000).map((p) => v2.FEATURES[p.type].cost);
+  assert(early.length && late.length && Math.max(...early) < Math.min(...late) + .3, 'difficulty rises with distance');
+  // flow-kuski: kaasu maassa tavoitevauhtiin, ilmassa nokka vaakaan (kuten pelaaja), ei muuta tekniikkaa
+  const flow = (v) => (b) => { const c = b.contactA || b.contactB, pitch = Math.atan2(-(b.B.y - b.A.y) * b.dir, (b.B.x - b.A.x) * b.dir); if (c) return b.vt < v ? { gas: true } : {}; return pitch > .25 ? { brake: true } : pitch < -.25 ? { gas: true } : {}; };
+  const chase = (v, bike, maxKm) => { const b = new v2.Bike(lv, v2.BIKES[bike]); b.spawn(178, 1); const K = new v2.Bear(lv, 178 - v2.BEAR.gap0); let crash = false, inp = {};
+    for (let s = 0; s < 120 * 400; s++) { if (s % 6 === 0) inp = flow(v)(b); if (b.step(inp) === 'crash') { crash = true; break; } K.step(b); if (K.caught || b.midX > maxKm * 1000) break; }
+    return { km: (b.midX - 178) / 1000, caught: K.caught, crash }; };
+  const slow = chase(2.5, 1, 60), fast = chase(6.8, 1, 6);
+  assert(slow.caught && slow.km < 4, `a slow rider is caught early (${slow.km.toFixed(1)} km)`);
+  assert(!fast.caught && fast.km >= 5.5, `a fast rider stays ahead for the first 6 km (${fast.km.toFixed(1)} km, crash ${fast.crash})`);
+  const b = new v2.Bike(lv, v2.BIKES[1]); b.spawn(3000, 1); const K = new v2.Bear(lv, 3000 - 200); K.t = 5; K.v = 5;
+  assert(K.spray(b) && K.stun > 0, 'spray works when the bear is within reach');
+  const x0 = K.x; for (let s = 0; s < 120; s++) K.step(b); assert(K.x < x0 - 60, 'the bear recoils after the spray');
+  K.x = b.midX - 600; assert(!K.spray(b), 'spray does nothing when the bear is far');
 });
