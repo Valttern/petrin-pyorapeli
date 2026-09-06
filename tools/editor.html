@@ -55,6 +55,10 @@ table{border-collapse:collapse;font:12px ui-monospace,monospace;margin-top:8px}t
     <div id="rows_assets"></div>
     <div id="rows_nodes"></div>
   </details>
+  <fieldset><legend>Omat kentät (tallennus selaimeen)</legend>
+    <div class="btns"><button id="btnSave" class="primary">Tallenna nimellä</button><select id="savedList" style="width:auto;min-width:160px"></select><button id="btnLoadSaved" class="small">Avaa</button><button id="btnDelSaved" class="small">Poista</button></div>
+    <div class="hint">Muokattava resepti tallentuu automaattisesti selaimeen ja palaa, kun avaat editorin uudelleen. "Tallenna nimellä" pitää useita kenttiä tallessa tällä koneella; jaa ne jakolinkillä tai lähetä GitHubiin.</div>
+  </fieldset>
   <fieldset><legend>Resepti (JSON)</legend>
     <textarea id="json" spellcheck="false"></textarea>
     <div class="btns"><button id="btnApply" class="primary">Käytä JSON</button><button id="btnLoadFile">Avaa tiedosto…</button><input type="file" id="file" accept=".json" hidden></div>
@@ -67,6 +71,9 @@ table{border-collapse:collapse;font:12px ui-monospace,monospace;margin-top:8px}t
     <button id="btnSweep">Siemenhaku 20 siementä</button>
     <button id="btnRow">Kopioi LEVELS-rivi</button>
     <button id="btnPlay">Pelaa luonnos ▶</button>
+    <button id="btnShare">Kopioi jakolinkki</button>
+    <button id="btnDownload">Lataa JSON</button>
+    <button id="btnSubmit" class="primary">Lähetä kenttä (GitHub)</button>
     <label style="color:var(--dim)"><input type="checkbox" id="autoMeasure"> mittaa automaattisesti</label>
     <label style="color:var(--dim)" title="Oletuksena sama mittakaava vaaka- ja pystysuunnassa, kuten pelissä"><input type="checkbox" id="stretch"> venytä korkeus (liioittelee jyrkkyyttä)</label>
   </div>
@@ -310,6 +317,30 @@ $('#btnSweep').addEventListener('click', () => {
 });
 $('#btnRow').addEventListener('click', async () => { const row = formatLevelRow(def); $('#row').hidden = false; $('#row').textContent = row; try { await navigator.clipboard.writeText(row); $('#row').textContent = row + '\n\n(kopioitu leikepöydälle: liitä index.html:n LEVELS-taulukkoon)'; } catch (e) {} });
 $('#btnPlay').addEventListener('click', () => { const b64 = btoa(unescape(encodeURIComponent(JSON.stringify(def)))); window.open('../index.html#recipe=' + b64, 'petri-luonnos'); });
+// ---- omat kentät: automaattitallennus ja nimetyt tallennukset selaimeen ----
+const LS_DRAFT = 'petri-editor-draft', LS_SAVED = 'petri-editor-recipes';
+const lsGet = (k, d) => { try { const v = localStorage.getItem(k); return v ? JSON.parse(v) : d; } catch (e) { return d; } };
+const lsSet = (k, v) => { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} };
+if (!hashDef) { const draft = lsGet(LS_DRAFT, null); if (draft && draft.id) def = draft; }
+const autosave = () => lsSet(LS_DRAFT, def);
+const origBuild = build; build = function () { autosave(); return origBuild(); };
+function renderSaved() { const saved = lsGet(LS_SAVED, {}); $('#savedList').innerHTML = Object.keys(saved).sort().map((k) => `<option>${k}</option>`).join('') || '<option value="">(ei tallennettuja)</option>'; }
+$('#btnSave').addEventListener('click', () => { const name = prompt('Kentän nimi tallennukseen', def.name || def.id); if (!name) return; const saved = lsGet(LS_SAVED, {}); saved[name] = def; lsSet(LS_SAVED, saved); renderSaved(); $('#savedList').value = name; });
+$('#btnLoadSaved').addEventListener('click', () => { const saved = lsGet(LS_SAVED, {}), k = $('#savedList').value; if (!saved[k]) return; def = structuredClone(saved[k]); syncFromDef(); build(); });
+$('#btnDelSaved').addEventListener('click', () => { const saved = lsGet(LS_SAVED, {}), k = $('#savedList').value; if (!saved[k] || !confirm(`Poistetaanko "${k}"?`)) return; delete saved[k]; lsSet(LS_SAVED, saved); renderSaved(); });
+renderSaved();
+// ---- jakaminen: linkki, JSON-tiedosto ja lähetys GitHub-issuena ----
+const recipeB64 = () => btoa(unescape(encodeURIComponent(JSON.stringify(def))));
+const shareUrl = () => location.origin + location.pathname + '#recipe=' + recipeB64();
+$('#btnShare').addEventListener('click', async () => { const u = shareUrl(); try { await navigator.clipboard.writeText(u); $('#err').textContent = 'Jakolinkki kopioitu: avaa editorin tässä kentässä. Pelilinkki: ' + u.replace('tools/editor.html', 'index.html'); } catch (e) { $('#row').hidden = false; $('#row').textContent = u; } });
+$('#btnDownload').addEventListener('click', () => { const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([JSON.stringify(def, null, 1)], { type: 'application/json' })); a.download = (def.id || 'kentta') + '.json'; a.click(); });
+$('#btnSubmit').addEventListener('click', () => {
+  const json = JSON.stringify(def, null, 1), row = formatLevelRow(def), play = shareUrl().replace('tools/editor.html', 'index.html');
+  const stats = lv ? `pituus ${(lv.L / 1000).toFixed(1)} km, esteitä ${(lv.plan ?? []).length}` : '';
+  let body = `Kenttä: **${def.name || def.id}** (${stats})\n\nPelaa: ${play}\n\nLEVELS-rivi:\n\`\`\`js\n${row}\n\`\`\`\n\nResepti (JSON):\n\`\`\`json\n${json}\n\`\`\``;
+  if (body.length > 6500) body = `Kenttä: **${def.name || def.id}** (${stats})\n\nResepti on liian pitkä osoitteeseen: lataa se editorin "Lataa JSON" -napilla ja raahaa tiedosto tähän issueen.\n\nPelaa: ${play}`;
+  window.open('https://github.com/Valttern/petrin-pyorapeli/issues/new?' + new URLSearchParams({ title: 'Kenttä: ' + (def.name || def.id), body, labels: 'kenttä' }).toString(), '_blank');
+});
 syncFromDef(); build();
 </script>
 </body>

@@ -317,3 +317,18 @@ Deno.test('physics: bunny hop lifts both wheels after a back-then-forward pull, 
   const cold = ride([[6, { right: true, gas: true }], [80, { gas: true }]]);
   assert(!cold.hopped && cold.air === 0, 'no hop without preload');
 });
+Deno.test('physics: a crash releases the rider as a ragdoll that flies clear of the bike, lands on the terrain and comes to rest', () => {
+  const lv = v2.buildLevel({ ...base, length: 5000, terrain: { algo: 'noise', amp: 0, wl: 1000 }, features: [], assets: { obstacles: 0, stones: 0 } });
+  const b = new v2.Bike(lv, v2.BIKES[1]); b.spawn(1000, 1); for (let i = 0; i < 300; i++) b.step({ gas: true });
+  assert(!b.rag && !b.crashed && b.speed > 2, 'riding at speed');
+  b.crash(); assert(b.rag && b.crashed && b.rag.pts.length === 11, 'ragdoll created');
+  let far = 0, top = 0, ok = true;
+  for (let i = 0; i < 360; i++) { b.step({}); const rg = b.rag; far = Math.max(far, rg.hip.x - b.midX);
+    for (const p of rg.pts) { const g = v2.tY(lv, p.x); if (!Number.isFinite(p.x + p.y) || p.y > g - p.r + 1.5) ok = false; top = Math.max(top, g - p.y); } }
+  assert(ok, 'joints stay finite and above the terrain');
+  assert(far > 40 && top > 60, `rider flies clear of the bike (${far.toFixed(0)} px ahead, ${top.toFixed(0)} px high)`);
+  assert(b.rag.rest > 30, `rider comes to rest within three seconds (rest ${b.rag.rest})`);
+  for (const [p, q, l] of b.rag.bones) assert(Math.abs(Math.hypot(p.x - q.x, p.y - q.y) - l) < 1.5, 'bone lengths hold');
+  assert(b.H.y < b.midY - 15 && b.H.y > b.midY - 45, 'the frame top point sits at handlebar height after the crash');
+  b.spawn(1000, 1); assert(!b.rag && !b.crashed, 'respawn clears the ragdoll');
+});

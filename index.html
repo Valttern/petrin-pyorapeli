@@ -120,6 +120,7 @@ kbd.k{font-family:var(--display);font-size:9px;background:#2a3a30;color:#fff;bor
 .lvl.dh{background:linear-gradient(180deg,#241a10,#150f0a);border-color:rgba(255,157,77,.26)}
 .lvl .rec.dusk{color:#c39bff;border-color:rgba(195,155,255,.4)}.lvl .rec.night{color:#8fa6ff;border-color:rgba(143,166,255,.4)}.lvl .rec.dh{color:#ff9d4d;border-color:rgba(255,157,77,.45)}
 .tierhead[data-t="6"] span{color:#d5d8cf}.tierhead[data-t="7"] span{color:#7fd6c2}
+.editorlink{font-family:var(--mono);font-size:11px;color:var(--dim);margin:10px 0 0}.editorlink a{color:#7fd6c2;text-decoration:none;border-bottom:1px solid rgba(127,214,194,.4)}
 .lvl.tech{background:linear-gradient(180deg,#293139,#151b20);border-color:#67757d}
 #hud.technical #bl,#hud.technical .legend{display:none}
 .tierlevels{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
@@ -211,10 +212,10 @@ button.b:hover,button.b:focus-visible{filter:brightness(1.12);outline:none}
       <div class="keys">
         <div><kbd class="k">↑</kbd> Polje</div>
         <div><kbd class="k">↓</kbd> Jarruta / pakita</div>
-        <div><kbd class="k">←</kbd><kbd class="k">→</kbd> Kallista pyörää</div>
+        <div><kbd class="k">←</kbd><kbd class="k">→</kbd> Painonsiirto: keula ylös / perä kevyeksi; ← sitten → bunnyhop</div>
         <div><kbd class="k">VÄLI</kbd> Käänny ympäri</div>
         <div><kbd class="k">E</kbd> Huolla / asenna (pidä pohjassa)</div>
-        <div><kbd class="k">R</kbd> Tarkistuspisteelle</div>
+        <div><kbd class="k">R</kbd> Viimeiselle noodille</div>
         <div><kbd class="k">ESC</kbd> Tauko</div>
         <div><kbd class="k">M</kbd> Äänet päälle / pois</div>
       </div>
@@ -222,6 +223,7 @@ button.b:hover,button.b:focus-visible{filter:brightness(1.12);outline:none}
       <div class="bikes" id="bikeList"></div>
       <h2>Valitse reitti</h2>
       <div class="levels" id="levelList"></div>
+      <p class="editorlink"><a href="tools/editor.html" target="_blank" rel="noopener">Kenttäeditori ↗</a> · piirrä oma reitti, lisää esteitä, mittaa ja pelaa luonnos. Lähetä valmis kenttä editorin "Lähetä kenttä" -napilla.</p>
       <div class="note">Pää ei saa osua maahan. Kartta täyttyy, kun ajat alueen läpi; lukossa oleva mökki avautuu, kun akut on vaihdettu ja kuuluvuus riittää. Keskitason ja vaikeilla reiteillä on tarkistuspisteitä (liput); suonsilmät upottavat, rotkot hypätään täydellä vauhdilla. Iltahämärän ja yön reiteillä näet vain otsalampun keilan verran eteenpäin: kalliohyllyille ja kannoille nostetaan keula (kallistus taakse ja kaasu), notkosta noustaan vain pudotuksen vauhdilla ja hyllylle hypätään täysillä. Alamäkireitit lasketaan vaaran laelta laaksoon syysaamun usvassa: siellä ei poljeta vaan jarrutetaan, ja mukaan kannattaa ottaa Commençal &ndash; muut pyörät hajoavat kourujen ja porrashyppyjen kivikkoon.</div>
       <div class="credits">Kuvitus, musiikki ja Petrin ääni on luotu OpenRouterin malleilla (Gemini 3.1 Flash Image, Lyria 3, GPT Audio). Fysiikka, metsän äänimaailma ja LoRa-kuuluvuusmalli ovat käsin tehtyjä. Parhaat ajat tallentuvat selaimeen.</div>
     </div>
@@ -1212,6 +1214,10 @@ const STEP=1/120, G=0.062, HOP_G=0.014, R=15, WB=60, LH=Math.hypot(30,58), COM_B
 // COM_BACK: kuljettajan painopiste on akselivälin keskikohdan takana (LHR = etäisyys takarenkaaseen, LHF eturenkaaseen), jolloin keula kevenee luonnostaan
 // ja perä pysyy maassa. Etäisyydet vaihtavat paikkaa, kun pyörä käännetään (dir).
 const LIFT_PITCH=0.62, LIFT_KP=0.0045, LIFT_KD=0.09;   // säädelty keulan nosto maassa: tavoitekulma (rad, n. 35°), jäykkyys ja vaimennus
+// Ragdoll: kaatuessa kuljettaja irtoaa pyörästä omaksi Verlet-nivelketjukseen (lantio, olkapää, pää, kaksi kättä, kaksi jalkaa) ja pyörä
+// jatkaa omillaan. Luiden mitat vastaavat piirron mittoja; pää ja olkapää ovat jäykkä kolmio lantion kanssa, koska torso-sprite on yksi kuva.
+// top = kaatuneen pyörän rungon yläpisteen (H: tanko/satula) etäisyys akseleista, jotta nurin mennyt pyörä lepää oikean korkuisena.
+const RAG={torso:27,neck:17,hipHead:44,uarm:15,farm:26,thigh:20,shin:19,r:4.5,headR:8,damp:0.995,fric:0.55,rest:0.15,throw:0.35,top:Math.hypot(30,28)};
 function setP(p,x,y){p.x=x;p.y=y;p.px=x;p.py=y;p.v0x=0;p.v0y=0;}
 function distC(a,b,len,k,wa,wb){if(wa===undefined){wa=1;wb=1;}let dx=b.x-a.x,dy=b.y-a.y;const d=Math.hypot(dx,dy)||1e-6;const diff=(d-len)/d*k,fa=wa/(wa+wb),fb=wb/(wa+wb);a.x+=dx*diff*fa;a.y+=dy*diff*fa;b.x-=dx*diff*fb;b.y-=dy*diff*fb;}
 function collideCircle(lv,p,r,checkOnly,tol){
@@ -1250,12 +1256,60 @@ class Bike{
     setP(this.B,x+ex*30+ux*(R+1),my+ey*30+uy*(R+1));
     setP(this.H,x+ux*(R+59)-ex*COM_BACK*dir,my+uy*(R+59)-ey*COM_BACK*dir);   // kuljettaja hieman takana
     this.dir=dir; this.spinA=0; this.spinB=0; this.spinV=0; this.crank=0;
-    this.contactA=this.contactB=false; this.crashed=false; this.vt=0; this.lean=0; this.pose={dx:0,dy:0,t:0}; this.hitAcc=0;
+    this.contactA=this.contactB=false; this.crashed=false; this.rag=null; this.vt=0; this.lean=0; this.pose={dx:0,dy:0,t:0}; this.hitAcc=0;
   }
   get midX(){return (this.A.x+this.B.x)/2;}
   get midY(){return (this.A.y+this.B.y)/2;}
   get speed(){const a=this.A;return Math.hypot(a.x-a.px,a.y-a.py);}
   flip(){this.dir=-this.dir;}
+  // Kaatuminen: kuljettaja irtoaa pyörästä ragdolliksi. Nivelet asetetaan satula-asentoon pyörän kehyksessä (eteen, ylös) ja niille
+  // annetaan pään törmäystä edeltänyt nopeus (v0) hieman vahvistettuna ja ylöspäin potkaistuna, joten Petri lentää kyydistä siihen
+  // suuntaan, johon oli menossa. H jää runkoon tangon/satulan korkuiseksi yläpisteeksi.
+  crash(){
+    if(this.crashed)return; this.crashed=true;
+    const {A,B,H}=this, dir=this.dir;
+    let gx=B.x-A.x, gy=B.y-A.y; const gl=Math.hypot(gx,gy)||1; gx/=gl; gy/=gl;
+    const fx=gx*dir, fy=gy*dir, ux=gy, uy=-gx, mx=(A.x+B.x)/2, my=(A.y+B.y)/2;
+    const P=(lx,ly,r)=>{const x=mx+fx*lx+ux*ly, y=my+fy*lx+uy*ly; return {x,y,px:x,py:y,r:r||RAG.r,v0x:0,v0y:0};};
+    const ikW=(a,b,l1,l2,px,py)=>{const dx=b.x-a.x,dy=b.y-a.y,d=Math.hypot(dx,dy)||1e-6,dd=clamp(d,Math.abs(l1-l2)+.01,l1+l2-.01),an=Math.acos(clamp((l1*l1+dd*dd-l2*l2)/(2*l1*dd),-1,1)),ang=Math.atan2(dy,dx);
+      const k1={x:a.x+Math.cos(ang+an)*l1,y:a.y+Math.sin(ang+an)*l1},k2={x:a.x+Math.cos(ang-an)*l1,y:a.y+Math.sin(ang-an)*l1};
+      const k=((k1.x-a.x)*px+(k1.y-a.y)*py>=(k2.x-a.x)*px+(k2.y-a.y)*py)?k1:k2; return {x:k.x,y:k.y,px:k.x,py:k.y,r:RAG.r,v0x:0,v0y:0};};
+    const hip=P(-12,34), sh=P(8,52), head=P(14,68,RAG.headR), c=this.crank;                       // lantio satulalla, torso n. 40° eteen
+    const foot=[P(-3-Math.cos(c)*8,6+Math.sin(c)*8),P(-3+Math.cos(c)*8,6-Math.sin(c)*8)], hand=[P(24,37),P(26,39)];   // jalat polkimilla, kädet kahvoilla
+    const knee=foot.map(f=>ikW(hip,f,RAG.thigh,RAG.shin,fx,fy)), el=hand.map(h=>ikW(sh,h,RAG.uarm,RAG.farm,-ux,-uy));   // polvi eteen, kyynärpää alas
+    const side=(a,j,b)=>Math.sign((b.x-a.x)*(j.y-a.y)-(b.y-a.y)*(j.x-a.x))||1;                    // nivelen puoli luun suorasta: säilytetään
+    const rg={hip,sh,head,el,hand,knee,foot,dir,pts:[hip,sh,head,...el,...hand,...knee,...foot],hit:0,hitP:hip,rest:0,t:0,
+      bones:[[hip,sh,RAG.torso],[sh,head,RAG.neck],[hip,head,RAG.hipHead],[sh,el[0],RAG.uarm],[el[0],hand[0],RAG.farm],[sh,el[1],RAG.uarm],[el[1],hand[1],RAG.farm],
+             [hip,knee[0],RAG.thigh],[knee[0],foot[0],RAG.shin],[hip,knee[1],RAG.thigh],[knee[1],foot[1],RAG.shin]],
+      mins:[[hip,foot[0],18],[hip,foot[1],18],[sh,hand[0],16],[sh,hand[1],16],[sh,knee[0],26],[sh,knee[1],26]],   // vähimmäisetäisyydet: raaja ei taitu kasaan
+      hinges:[[hip,knee[0],foot[0],side(hip,knee[0],foot[0])],[hip,knee[1],foot[1],side(hip,knee[1],foot[1])],[sh,el[0],hand[0],side(sh,el[0],hand[0])],[sh,el[1],hand[1],side(sh,el[1],hand[1])]]};
+    const sp=Math.hypot(H.v0x,H.v0y), thr=Math.min(2.2,sp*RAG.throw), vx=H.v0x*(1+RAG.throw), vy=H.v0y*(1+RAG.throw)-thr;   // heitto: vauhdin suuntaan ja ylös
+    for(const p of rg.pts){p.px=p.x-vx+(Math.random()-.5)*.15; p.py=p.y-vy+(Math.random()-.5)*.15;}
+    this.rag=rg;
+    const tx=mx+ux*28, ty=my+uy*28; H.px+=tx-H.x; H.py+=ty-H.y; H.x=tx; H.y=ty;                   // rungon yläpiste: nopeus säilyy, paikka vaihtuu
+  }
+  // Ragdollin askel: sama integraattori kuin pyörällä; luut etäisyysrajoitteina, nivelrajat vähimmäisetäisyyksinä ja nivelen puolen
+  // peilauksena (polvi ja kyynärpää taipuvat vain oikeaan suuntaan), maasto collideCirclellä pienellä säteellä, kitka kosketuksessa.
+  ragStep(){
+    const rg=this.rag, lv=this.lv; rg.t++; rg.hit=0;
+    for(const p of rg.pts){const vx=(p.x-p.px)*RAG.damp,vy=(p.y-p.py)*RAG.damp;p.px=p.x;p.py=p.y;p.x+=vx;p.y+=vy+G;p.v0x=vx;p.v0y=vy+G;}
+    for(let it=0;it<6;it++){
+      for(const [a,b,l] of rg.bones)distC(a,b,l,1);
+      for(const [a,b,l] of rg.mins){const dx=b.x-a.x,dy=b.y-a.y,d=Math.hypot(dx,dy)||1e-6;if(d<l){const k=(l-d)/d*.5;a.x-=dx*k;a.y-=dy*k;b.x+=dx*k;b.y+=dy*k;}}
+      for(const [a,j,b,sd] of rg.hinges){const ex=b.x-a.x,ey=b.y-a.y,l2=ex*ex+ey*ey;if(l2>1e-3&&(ex*(j.y-a.y)-ey*(j.x-a.x))*sd<0){const t=((j.x-a.x)*ex+(j.y-a.y)*ey)/l2,fx=a.x+ex*t,fy=a.y+ey*t;j.x=2*fx-j.x;j.y=2*fy-j.y;}}
+      for(const p of rg.pts){if(p.x<lv.wallL+p.r)p.x=lv.wallL+p.r;if(p.x>lv.wallR-p.r)p.x=lv.wallR-p.r;collideCircle(lv,p,p.r,false,0);}
+    }
+    let moving=0;
+    for(const p of rg.pts){
+      const gy=tY(lv,p.x);if(p.y>gy+p.r){p.y=gy-p.r;p.py=p.y;}                                    // tunneloinnin varmistus
+      const n=collideCircle(lv,p,p.r,true,0.6);
+      if(n&&n.touch){const vx=p.x-p.px,vy=p.y-p.py,tx=-n.y,ty=n.x;let vn=vx*n.x+vy*n.y;const vt=(vx*tx+vy*ty)*RAG.fric;
+        const hit=-(p.v0x*n.x+p.v0y*n.y);if(hit>rg.hit){rg.hit=hit;rg.hitP=p;}                     // osuman voima äänelle ja pölylle
+        if(vn<0)vn=-vn*0.15; p.px=p.x-(vn*n.x+vt*tx);p.py=p.y-(vn*n.y+vt*ty);}
+      if(Math.hypot(p.x-p.px,p.y-p.py)>RAG.rest)moving++;
+    }
+    rg.rest=moving?0:rg.rest+1;                                                                     // peräkkäiset askeleet paikallaan
+  }
   step(inp){
     const {A,B,H}=this, lv=this.lv, pts=[A,B,H], def=this.def;
     const g=G+(this.hopAir>0?HOP_G:0);                                                        // bunnyhopin jälkeen ilmassa hieman enemmän painovoimaa: hyppy on napakka, muu lento ennallaan
@@ -1304,12 +1358,12 @@ class Bike{
     }
     let nA=null,nB=null,nH=null;
     for(let it=0;it<5;it++){
-      distC(A,B,WB,1); distC(A,H,this.dir>0?LHR:LHF,def.headK,1,def.wH); distC(B,H,this.dir>0?LHF:LHR,def.headK,1,def.wH);
+      distC(A,B,WB,1); if(this.crashed){distC(A,H,RAG.top,1);distC(B,H,RAG.top,1);} else {distC(A,H,this.dir>0?LHR:LHF,def.headK,1,def.wH); distC(B,H,this.dir>0?LHF:LHR,def.headK,1,def.wH);}
       const ex=B.x-A.x, ey=B.y-A.y, cr=ex*(H.y-A.y)-ey*(H.x-A.x);
       if(cr>0){const l2=ex*ex+ey*ey,t=((H.x-A.x)*ex+(H.y-A.y)*ey)/l2,fx=A.x+ex*t,fy=A.y+ey*t;H.x=2*fx-H.x;H.y=2*fy-H.y;H.px=H.x;H.py=H.y;}
       for(const p of [A,B]){ if(p.x<lv.wallL+R){p.x=lv.wallL+R;p.px=Math.max(p.px,p.x);} if(p.x>lv.wallR-R){p.x=lv.wallR-R;p.px=Math.min(p.px,p.x);} }   // näkymätön seinä
       nA=collideCircle(lv,A,R,false,def.stick); nB=collideCircle(lv,B,R,false,def.stick);
-      if(this.crashed) nH=collideCircle(lv,H,HEADR);
+      if(this.crashed) nH=collideCircle(lv,H,7);                  // kaatuneena H on rungon yläpiste (tanko/satula)
     }
     for(const p of pts){const ty=tY(lv,p.x);if(p.y>ty+R){p.y=ty-R;p.py=p.y;}}   // tunneloinnin varmistus
     this.contactA=!!nA; this.contactB=!!nB;
@@ -1357,6 +1411,7 @@ class Bike{
     if(nF) vF=resp(front,nF,false);
     if(this.popT>0){const d=(def.hop!=null?def.hop:1)*2.6; rear.y-=d; rear.py-=d; rear.px-=this.dir*0.15; H.y-=d*.3; H.py-=d*.3; this.popT--;}   // perän ponnistus: takarengas nousee 26 px 10 askeleessa (siirtymä, jota törmäys ei ime)
     if(nH){const p=H,n=nH,vx=p.x-p.px,vy=p.y-p.py;let vn=vx*n.x+vy*n.y;const tx=-n.y,ty=n.x;let vt=(vx*tx+vy*ty)*.8;if(vn<0)vn=0;p.px=p.x-(vn*n.x+vt*tx);p.py=p.y-(vn*n.y+vt*ty);}
+    if(this.rag)this.ragStep();
     // renkaiden pyöriminen
     const sr=this.dir>0?'spinA':'spinB', sf=this.dir>0?'spinB':'spinA';
     if(vR!==null){this.spinV=vR/R;} else if(inp.gas&&!this.crashed){this.spinV=lerp(this.spinV,0.32*this.dir,0.04);} else this.spinV*=0.995;
@@ -1377,7 +1432,7 @@ class Bike{
        } else {tdy-=3; tdx-=2; tt-=0.06;}
      } else {tdy+=3; tt+=0.55;}
      const p=this.pose, r=contact?0.045:0.03; p.dx+=(tdx-p.dx)*r; p.dy+=(tdy-p.dy)*r; p.t+=(tt-p.t)*r;}
-    if(!this.crashed&&collideCircle(lv,H,HEADR,true)) return 'crash';
+    if(!this.crashed&&collideCircle(lv,H,HEADR,true)){this.crash();return 'crash';}
     if(!this.crashed){const wet=waterAt(lv,this.midX); if(wet&&this.midY>wet[2]+10){this.sank=true;return 'crash';}}   // runko veden alla: upposi
     return null;
   }
@@ -1934,6 +1989,71 @@ function limb(x1,y1,x2,y2,w1,w2,col,hl){  // kapeneva raaja: nelikulmio + pyöre
   circ(x1,y1,w1/2);circ(x2,y2,w2/2);
   if(hl){ctx.strokeStyle=hl;ctx.lineWidth=1;ctx.lineCap='round';line(x1+nx*w1*.24,y1+ny*w1*.24,x2+nx*w2*.24,y2+ny*w2*.24);}
 }
+// Integraalikypärä (alamäkipyörä) pään päälle: hip = lantion piste, rot = torson kierto lantion ympäri, kr = kuljettajan skaala.
+function drawHelmet(hip,rot,kr,rd,hipS,hdS){                                                              // alamäkiajoon integraalikypärä: kuori, leukakaari, lippa ja lasit avokypärän päälle
+  const hd={x:hip.x+((hdS[0]-hipS[0])*Math.cos(rot)-(hdS[1]-hipS[1])*Math.sin(rot))*kr, y:hip.y+((hdS[0]-hipS[0])*Math.sin(rot)+(hdS[1]-hipS[1])*Math.cos(rot))*kr};
+  const hr=rd.h*0.112*kr;
+  ctx.save(); ctx.translate(hd.x,hd.y); ctx.rotate(rot);
+  ctx.fillStyle='#23242b'; ctx.beginPath(); ctx.ellipse(hr*.10,hr*.06,hr*1.10,hr*1.02,0,0,TAU); ctx.fill();          // kuori peittää avokypärän
+  ctx.beginPath(); ctx.moveTo(-hr*.55,hr*.55);                                                                        // leukakaari kaartuu kasvojen eteen
+  ctx.quadraticCurveTo(hr*.45,hr*1.35,hr*1.34,hr*.52); ctx.quadraticCurveTo(hr*1.48,hr*.05,hr*1.16,-hr*.22);
+  ctx.quadraticCurveTo(hr*1.02,hr*.52,hr*.30,hr*.55); ctx.quadraticCurveTo(-hr*.10,hr*.56,-hr*.55,hr*.55); ctx.closePath(); ctx.fill();
+  ctx.fillStyle='#2f313a'; ctx.beginPath(); ctx.ellipse(hr*.02,-hr*.42,hr*.95,hr*.52,-0.12,0,TAU); ctx.fill();        // kuoren yläpinnan valo
+  ctx.fillStyle='#b6ff2e'; rr(-hr*1.02,-hr*.36,hr*.55,hr*.34,hr*.14); ctx.fill();                                     // lasien nauha takaraivolla
+  ctx.fillStyle='#0d0e12'; rr(-hr*.50,-hr*.36,hr*1.66,hr*.60,hr*.26); ctx.fill();                                     // lasit
+  ctx.fillStyle='rgba(190,230,255,.45)'; rr(hr*.52,-hr*.28,hr*.58,hr*.20,hr*.09); ctx.fill();                         // heijastus linssissä
+  ctx.fillStyle='#191a1f'; ctx.beginPath(); ctx.moveTo(hr*.55,-hr*.72); ctx.lineTo(hr*1.72,-hr*1.02); ctx.lineTo(hr*1.62,-hr*.55); ctx.lineTo(hr*.85,-hr*.5); ctx.closePath(); ctx.fill();   // lippa
+  ctx.restore();
+}
+// Sprite-pala (olkavarsi, kyynärvarsi) nivelestä j kohti kohdetta t: ankkurit aA ja aB ovat palan omat nivelpisteet kuvassa.
+function drawPiece(sp,j,t,aA,aB,kr){const ax=aA[0]*sp.w,ay=aA[1]*sp.h,bx=aB[0]*sp.w,by=aB[1]*sp.h;const r=Math.atan2(t.y-j.y,t.x-j.x)-Math.atan2(by-ay,bx-ax);ctx.save();ctx.translate(j.x,j.y);ctx.rotate(r);ctx.scale(kr,kr);ctx.drawImage(sp.img,-ax,-ay);ctx.restore();}
+// Ragdollin piirtokehys: origo lantiossa, u = torson suunta (lantio -> olkapää), f = kuljettajan etusuunta (peilautuu dir:n mukaan).
+// Sama kehys kuin satulassa istuessa, joten torso, kypärä ja raajat piirtyvät samoilla paloilla ja muodoilla.
+function ragFrame(rg){
+  const hip=rg.hip; let ux=rg.sh.x-hip.x, uy=rg.sh.y-hip.y; const l=Math.hypot(ux,uy)||1; ux/=l; uy/=l;
+  return {hip, u:{x:ux,y:uy}, f:{x:-uy*rg.dir,y:ux*rg.dir}};
+}
+function drawRagdollIllustrated(b,o){
+  const rg=b.rag, {rd,ua,fa,kr,hipS,hdS}=o, def=b.def, {f,u,hip}=ragFrame(rg), arms=ua&&fa&&ua.anchors&&fa.anchors;
+  ctx.save();ctx.transform(f.x,f.y,u.x,u.y,hip.x,hip.y);ctx.scale(1,-1);        // paikallinen kehys: X kuljettajan eteen, Y alas
+  const L=p=>({x:(p.x-hip.x)*f.x+(p.y-hip.y)*f.y, y:-((p.x-hip.x)*u.x+(p.y-hip.y)*u.y)});
+  const O={x:0,y:0}, sh=L(rg.sh), hd=L(rg.head), el=rg.el.map(L), hand=rg.hand.map(L), knee=rg.knee.map(L), foot=rg.foot.map(L);
+  const rot=Math.atan2(hd.y,hd.x)-Math.atan2(hdS[1]-hipS[1],hdS[0]-hipS[0]);   // torso-spriten lantio->pää ragdollin mukaan
+  const thigh=(K,near)=>limb(0,0,K.x,K.y,7.4,5.2,near?'#d9308f':'#9a2263',near?'#f48ccb':null);
+  const shin=(K,F,near)=>{limb(K.x,K.y,F.x,F.y,5.2,3.4,near?'#df3f9b':'#a52a70',near?'#f48ccb':null);
+    ctx.fillStyle=near?'#1a1a1c':'#101012';rr(F.x-4,F.y-2.6,10,4.4,[1.5,2.5,2.5,1.5]);ctx.fill();ctx.fillStyle=near?'#e0702a':'#7a3d16';ctx.fillRect(F.x-1.5,F.y-1.8,3,1);};
+  const arm=i=>{if(arms){drawPiece(ua,sh,el[i],ua.anchors.shoulder,ua.anchors.elbow,kr);drawPiece(fa,el[i],hand[i],fa.anchors.elbow,fa.anchors.hand,kr);}};
+  thigh(knee[0],false); shin(knee[0],foot[0],false);                            // kaukainen jalka ja käsi tummempina
+  ctx.save(); ctx.filter='brightness(0.72)'; arm(0); ctx.restore();
+  ctx.save();ctx.rotate(rot);ctx.scale(kr,kr);ctx.drawImage(rd.img,-hipS[0],-hipS[1]);ctx.restore();
+  if(def.dh)drawHelmet(O,rot,kr,rd,hipS,hdS);
+  thigh(knee[1],true); shin(knee[1],foot[1],true);
+  arm(1);
+  ctx.restore();
+}
+// Ragdoll piirretyssä tyylissä: kehys lantiossa, Y ylös kuten satulassa; torso on kehyksen pystyakselilla, pää kiertyy niskan mukaan.
+function drawRagdollVector(b){
+  const rg=b.rag, {f,u,hip}=ragFrame(rg);
+  ctx.save();ctx.transform(f.x,f.y,u.x,u.y,hip.x,hip.y);ctx.lineCap='round';ctx.lineJoin='round';
+  const L=p=>({x:(p.x-hip.x)*f.x+(p.y-hip.y)*f.y, y:(p.x-hip.x)*u.x+(p.y-hip.y)*u.y});
+  const N=L(rg.sh), hd=L(rg.head), el=rg.el.map(L), hand=rg.hand.map(L), knee=rg.knee.map(L), foot=rg.foot.map(L);
+  const leg=(i,near)=>{ctx.strokeStyle=near?'#e8339a':'#a8236f';ctx.lineWidth=5.5;line(0,0,knee[i].x,knee[i].y);line(knee[i].x,knee[i].y,foot[i].x,foot[i].y);ctx.fillStyle='#1a1a1a';circ(foot[i].x,foot[i].y,3);};
+  const arm=(i,near)=>{ctx.strokeStyle=near?'#1c1c22':'#111114';ctx.lineWidth=4.8;line(N.x,N.y,el[i].x,el[i].y);ctx.strokeStyle=near?'#e8b892':'#b08a6a';ctx.lineWidth=4;line(el[i].x,el[i].y,hand[i].x,hand[i].y);ctx.fillStyle=near?'#6b7a45':'#4e5a33';circ(hand[i].x,hand[i].y,2.6);};
+  leg(0,false); arm(0,false);
+  ctx.save();ctx.translate(N.x/2,N.y/2);ctx.rotate(Math.atan2(N.y,N.x)-Math.PI/2);                 // reppu selässä
+  ctx.fillStyle='#5a6a3a';rr(-12,-10,10,19,3);ctx.fill();ctx.fillStyle='#48562e';ctx.fillRect(-12,-2,10,2.2);ctx.fillStyle='#2fc4d6';ctx.fillRect(-10,-7,3,3);
+  ctx.restore();
+  ctx.strokeStyle='#1c1c22';ctx.lineWidth=9;line(0,0,N.x,N.y);
+  ctx.strokeStyle='#3a3a46';ctx.lineWidth=1.6;line(2.5,3,N.x+2.5,N.y+3);
+  leg(1,true); arm(1,true);
+  ctx.save();ctx.translate(hd.x,hd.y);ctx.rotate(Math.atan2(hd.y-N.y,hd.x-N.x)-Math.PI/2);         // pää ja kypärä niskan suuntaan
+  ctx.fillStyle='#e8b892';circ(0,0,7);
+  ctx.fillStyle='#f4f4f0';ctx.beginPath();ctx.arc(0,1,8.6,0,Math.PI,false);ctx.fill();ctx.fillRect(-8.6,-1,17.2,2.4);
+  ctx.fillStyle='#c9c9c0';circ(-3,5.5,.8);circ(1,7.5,.8);circ(4.5,4.5,.8);
+  ctx.fillStyle='#ff7a1a';rr(1.5,-1.2,6.5,2.8,1);ctx.fill();
+  ctx.strokeStyle='#ddd';ctx.lineWidth=.8;line(-2,-2,-2,-8);
+  ctx.restore();ctx.restore();
+}
 function drawBikeIllustrated(b){
   const {A,B,H}=b, def=b.def, bk=sprite('bike_'+def.id), wh=sprite('wheel_'+def.id), rd=sprite('rider'), ua=sprite('rider_uarm'), fa=sprite('rider_farm');
   let ex=B.x-A.x,ey=B.y-A.y;const el=Math.hypot(ex,ey)||1;ex/=el;ey/=el;
@@ -1968,28 +2088,20 @@ function drawBikeIllustrated(b){
   const thigh=(L,near)=>limb(hip.x,hip.y,L.K.x,L.K.y,7.4,5.2,near?'#d9308f':'#9a2263',near?'#f48ccb':null);
   const shin=(L,near)=>{limb(L.K.x,L.K.y,L.foot.x,L.foot.y,5.2,3.4,near?'#df3f9b':'#a52a70',near?'#f48ccb':null);
     ctx.fillStyle=near?'#1a1a1c':'#101012';rr(L.foot.x-4,L.foot.y-2.6,10,4.4,[1.5,2.5,2.5,1.5]);ctx.fill();ctx.fillStyle=near?'#e0702a':'#7a3d16';ctx.fillRect(L.foot.x-1.5,L.foot.y-1.8,3,1);};
+  if(b.rag){                                                               // kaatunut: runko ja kammet paikallaan, kuljettaja ragdollista
+    crank(p2,false);
+    ctx.save();ctx.translate(-WB*.47,0);ctx.rotate(-ang);ctx.scale(k,k);ctx.drawImage(bk.img,-rear[0],-rear[1]);ctx.restore();
+    crank(p1,true); ctx.restore();
+    drawRagdollIllustrated(b,{rd,ua,fa,kr,hipS,hdS:RS(ra.head)}); return;
+  }
   const LF=legOf(p2), LN=legOf(p1);
   crank(p2,false); thigh(LF,false); shin(LF,false);
   ctx.save();ctx.translate(-WB*.47,0);ctx.rotate(-ang);ctx.scale(k,k);ctx.drawImage(bk.img,-rear[0],-rear[1]);ctx.restore();
   crank(p1,true); thigh(LN,true);
   // --- torso, olkavarsi, kyynärvarsi ---
   ctx.save();ctx.translate(hip.x,hip.y);ctx.rotate(rot);ctx.scale(kr,kr);ctx.drawImage(rd.img,-hipS[0],-hipS[1]);ctx.restore();
-  const piece=(sp,j,t,aA,aB)=>{const ax=aA[0]*sp.w,ay=aA[1]*sp.h,bx=aB[0]*sp.w,by=aB[1]*sp.h;const r=Math.atan2(t.y-j.y,t.x-j.x)-Math.atan2(by-ay,bx-ax);ctx.save();ctx.translate(j.x,j.y);ctx.rotate(r);ctx.scale(kr,kr);ctx.drawImage(sp.img,-ax,-ay);ctx.restore();};
-  if(def.dh){                                                              // alamäkiajoon integraalikypärä: kuori, leukakaari, lippa ja lasit avokypärän päälle
-    const hdS=RS(ra.head), hd={x:hip.x+((hdS[0]-hipS[0])*Math.cos(rot)-(hdS[1]-hipS[1])*Math.sin(rot))*kr, y:hip.y+((hdS[0]-hipS[0])*Math.sin(rot)+(hdS[1]-hipS[1])*Math.cos(rot))*kr};
-    const hr=rd.h*0.112*kr;
-    ctx.save(); ctx.translate(hd.x,hd.y); ctx.rotate(rot);
-    ctx.fillStyle='#23242b'; ctx.beginPath(); ctx.ellipse(hr*.10,hr*.06,hr*1.10,hr*1.02,0,0,TAU); ctx.fill();          // kuori peittää avokypärän
-    ctx.beginPath(); ctx.moveTo(-hr*.55,hr*.55);                                                                        // leukakaari kaartuu kasvojen eteen
-    ctx.quadraticCurveTo(hr*.45,hr*1.35,hr*1.34,hr*.52); ctx.quadraticCurveTo(hr*1.48,hr*.05,hr*1.16,-hr*.22);
-    ctx.quadraticCurveTo(hr*1.02,hr*.52,hr*.30,hr*.55); ctx.quadraticCurveTo(-hr*.10,hr*.56,-hr*.55,hr*.55); ctx.closePath(); ctx.fill();
-    ctx.fillStyle='#2f313a'; ctx.beginPath(); ctx.ellipse(hr*.02,-hr*.42,hr*.95,hr*.52,-0.12,0,TAU); ctx.fill();        // kuoren yläpinnan valo
-    ctx.fillStyle='#b6ff2e'; rr(-hr*1.02,-hr*.36,hr*.55,hr*.34,hr*.14); ctx.fill();                                     // lasien nauha takaraivolla
-    ctx.fillStyle='#0d0e12'; rr(-hr*.50,-hr*.36,hr*1.66,hr*.60,hr*.26); ctx.fill();                                     // lasit
-    ctx.fillStyle='rgba(190,230,255,.45)'; rr(hr*.52,-hr*.28,hr*.58,hr*.20,hr*.09); ctx.fill();                         // heijastus linssissä
-    ctx.fillStyle='#191a1f'; ctx.beginPath(); ctx.moveTo(hr*.55,-hr*.72); ctx.lineTo(hr*1.72,-hr*1.02); ctx.lineTo(hr*1.62,-hr*.55); ctx.lineTo(hr*.85,-hr*.5); ctx.closePath(); ctx.fill();   // lippa
-    ctx.restore();
-  }
+  const piece=(sp,j,t,aA,aB)=>drawPiece(sp,j,t,aA,aB,kr);
+  if(def.dh)drawHelmet(hip,rot,kr,rd,hipS,RS(ra.head));
   if(ua&&fa&&ua.anchors&&fa.anchors){ piece(ua,sh,E,ua.anchors.shoulder,ua.anchors.elbow); piece(fa,E,gripT,fa.anchors.elbow,fa.anchors.hand); }
   shin(LN,true);
   ctx.restore();
@@ -2028,8 +2140,9 @@ function drawBike(b,inWorld){
   const ca=b.crank, P1={x:BB.x+Math.cos(ca)*9,y:BB.y-Math.sin(ca)*9}, P2={x:BB.x-Math.cos(ca)*9,y:BB.y+Math.sin(ca)*9};
   ctx.strokeStyle='#444';ctx.lineWidth=2;line(BB.x,BB.y,P1.x,P1.y);line(BB.x,BB.y,P2.x,P2.y);
   // Petri: valkoinen kypärä, musta paita, pinkit trikoot, oliivireppu, oranssit lasit
+  if(b.rag){ctx.restore();drawRagdollVector(b);return;}
   const lean=b.lean;
-  const Hp={x:-10+lean*3,y:35+(b.crashed?-4:0)};
+  const Hp={x:-10+lean*3,y:35};
   const tdx=hx-Hp.x,tdy=hy-Hp.y,tl=Math.hypot(tdx,tdy)||1;
   const N={x:hx-tdx/tl*9,y:hy-tdy/tl*9};
   ctx.save();ctx.translate((Hp.x+N.x)/2,(Hp.y+N.y)/2);ctx.rotate(Math.atan2(tdy,tdx)-Math.PI/2);
@@ -2334,6 +2447,7 @@ function audioUpdate(dt){
     else {AUDIO.pedalT-=dt;if(AUDIO.pedalT<=0){click(1400+Math.random()*300,.01,.012);AUDIO.pedalT=.16/(.4+sp*.25);}} }
   // töyssyt ja laskeutumiset fysiikan osumavoimasta
   if(playing){const h=b.hitAcc;if(h>.55&&!b.crashed)thud(clamp((h-.5)*.55,0,1),def.fullsus);}
+  if(playing&&b.rag&&b.rag.hit>.6&&game.t-(AUDIO.ragT||-9)>.12){AUDIO.ragT=game.t;thud(clamp((b.rag.hit-.5)*.5,0,1),false);}   // kuski mätkähtää maahan
   if(playing)nodeAudio(dt);
   if(playing&&!b.crashed&&b.hitAcc>1.35&&game.t-AUDIO.landT>4){AUDIO.landT=game.t;say('voice_land');}          // kova laskeutuminen
   if(live&&contact&&inBog(lv,b.midX)&&sp>.4&&game.t-AUDIO.bogSaidT>25){AUDIO.bogSaidT=game.t;say('voice_bog');}
@@ -2446,7 +2560,7 @@ function toast(s,dur){const el=$('#toast');el.textContent=s;el.style.opacity=1;t
 function respawn(){
   const b=game.bike;b.spawn(game.checkpoint.x,game.checkpoint.dir);game.state='play';game.service=null;trickReset();
 }
-function crash(){game.state='crash';game.crashT=0;game.crashes++;game.bike.crashed=true;trickFail();SFX.crash();say('voice_crash',true);toast('Petri kaatui!',1.3);}
+function crash(){game.state='crash';game.crashT=0;game.crashes++;game.bike.crash();trickFail();SFX.crash();say('voice_crash',true);toast('Petri kaatui!',1.3);}
 
 function objectives(){
   const lv=game.level;
@@ -2466,7 +2580,7 @@ function simStep(){
   const useInp=inp.use&&game.action&&game.action.ok;
   const res=b.step(useInp?{...inp,brake:true,hold:true}:inp);
   if(game.state==='play'&&res==='crash')crash();
-  if(game.state==='crash'){game.crashT+=STEP;if(game.crashT>1.4)respawn();}
+  if(game.state==='crash'){game.crashT+=STEP;const rg=game.bike.rag;if(game.crashT>2.6||(game.crashT>1.3&&rg&&rg.rest>36))respawn();}   // ragdoll saa pysähtyä
   if(game.state==='play'){
     const ci=Math.floor(b.midX/CELL);
     if(ci>=0&&ci<lv.cells&&!lv.measured[ci]){lv.measured[ci]=1;lv.measuredCount++;}
@@ -2489,6 +2603,7 @@ function simStep(){
   for(const p of game.pulses)p.age+=STEP; game.pulses=game.pulses.filter(p=>p.age<1.4);
   const rear=b.dir>0?b.A:b.B, rc=b.dir>0?b.contactA:b.contactB;
   if(rc&&Math.abs(b.vt)>1.8&&Math.random()<.35){const vx=(rear.x-rear.px),vy=(rear.y-rear.py),bog=inBog(lv,rear.x);game.parts.push({x:rear.x-vx*2,y:rear.y+R-2,vx:-vx*.25+(Math.random()-.5)*.6,vy:-Math.random()*(bog?1.4:.8)-.2,r:1.5+Math.random()*1.8,life:1,c:bog?'48,54,38':undefined});}
+  if(b.rag&&b.rag.hit>.6){const q=b.rag.hitP,n=Math.min(6,Math.round(b.rag.hit*2));for(let k=0;k<n;k++)game.parts.push({x:q.x+(Math.random()-.5)*6,y:q.y+q.r-1,vx:(Math.random()-.5)*1.4,vy:-Math.random()*.9-.2,r:1.5+Math.random()*1.8,life:1});}   // pöly kuskin osumista
   for(const p of game.parts){p.x+=p.vx;p.y+=p.vy;p.vy+=.01;p.life-=STEP*2.2;} game.parts=game.parts.filter(p=>p.life>0);
   for(const t of game.texts)t.age+=STEP; game.texts=game.texts.filter(t=>t.age<1.6);
 }
@@ -2700,7 +2815,7 @@ window.addEventListener('keydown',e=>{
   if(game.state!=='play'&&game.state!=='crash')return;
   if(keyMap[c]){input[keyMap[c]]=true;e.preventDefault();}
   if(c==='Space'){ if(game.state==='play'){game.bike.flip();} e.preventDefault(); }
-  if(c==='KeyR'){ if(game.state==='play'){respawn();toast('Takaisin tarkistuspisteelle',1.2);} }
+  if(c==='KeyR'){ if(game.state==='play'||game.state==='crash'){respawn();toast('Takaisin tarkistuspisteelle',1.2);} }
 });
 window.addEventListener('keyup',e=>{if(keyMap[e.code]){input[keyMap[e.code]]=false;e.preventDefault();}});
 window.addEventListener('blur',()=>{for(const k in input)input[k]=false;if(game.state==='play')pause();});
@@ -2713,7 +2828,7 @@ function frame(now){
     acc+=dt;let n=0;while(acc>=STEP&&n<8){simStep();acc-=STEP;n++;}
     const b=game.bike,lv=game.level;
     const vx=(b.A.x-b.A.px)*30;
-    const tx=clamp(b.midX+b.dir*110+vx,W/(2*S)-EDGE_VIEW,lv.L-W/(2*S)+EDGE_VIEW),ty=b.midY-70;   // kamera näkee hieman seinän yli metsään
+    const rg=b.rag, tx=clamp(rg?rg.hip.x:b.midX+b.dir*110+vx,W/(2*S)-EDGE_VIEW,lv.L-W/(2*S)+EDGE_VIEW),ty=rg?rg.hip.y-40:b.midY-70;   // kaatuessa kamera seuraa kuskia;   // kamera näkee hieman seinän yli metsään
     cam.x+=(tx-cam.x)*(1-Math.pow(.92,dt*60));cam.y+=(ty-cam.y)*(1-Math.pow(.94,dt*60));
   }
   if(game.state==='menu')menuDrift(dt);
