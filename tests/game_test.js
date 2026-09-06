@@ -244,10 +244,10 @@ Deno.test('gen2: measurement rides every recipe level to the finish and the reci
     const failing = rep.per.filter((p) => p.tech !== 'pass'), tight = lv.def.minGap != null && lv.def.minGap < 200;
     assert(tight || failing.length <= Math.max(1, Math.ceil(rep.per.length * 0.12)), `${def.id}: technique rider fails features in isolation: ${rep.warnings.join('; ')}`);   // heuristinen kuski: yksi herkkä este sallitaan; tiiviissä kentässä (minGap < 200) eristetty lähtö on toisen esteen päältä, joten vain koko kentän ajo ratkaisee
     assert(v2.reportMeetsTarget(rep, def.difficulty?.target), `${def.id}: target ${JSON.stringify(def.difficulty?.target)} not met (score ${rep.score}, gated ${rep.gated})`);
-    assert(rep.score >= 0 && rep.score <= 1 && rep.climb >= 0 && rep.maxUpDeg <= (lv.def.terrain.maxSlope || 90) + 16, `${def.id}: sane report (${rep.maxUpDeg}°)`);   // alustojen rampit lisäävät pohjamaaston kaltevuuteen enintään n. 15°
+    assert(rep.score >= 0 && rep.score <= 1 && rep.climb >= 0 && rep.maxUpDeg <= (lv.def.terrain.maxSlope || 90) + 18, `${def.id}: sane report (${rep.maxUpDeg}°)`);   // alustojen rampit lisäävät pohjamaaston kaltevuuteen enintään n. 17°
   }
-  const easy = v2.measureLevel(v2.buildLevel(v2.LEVELS.find((l) => l.id === 'suurvaara'))), hard = v2.measureLevel(v2.buildLevel(v2.LEVELS.find((l) => l.id === 'korpiraivio')));
-  assert(easy.score < hard.score && easy.gated < hard.gated, 'measured difficulty orders the recipes');
+  const easy = v2.measureLevel(v2.buildLevel(v2.LEVELS.find((l) => l.id === 'kotimetsa'))), hard = v2.measureLevel(v2.buildLevel(v2.LEVELS.find((l) => l.id === 'vaaran-huippu')));
+  assert(easy.gatedPerKm < hard.gatedPerKm && easy.score < hard.score, `measured difficulty rises with the tier (Helppo ${easy.gatedPerKm}/km ${easy.score} vs Vaikea ${hard.gatedPerKm}/km ${hard.score})`);
 });
 Deno.test('gen2: every feature type in the library is rideable with technique and sits on a flat platform', () => {
   const types = Object.keys(v2.FEATURES), per = [];

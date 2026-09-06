@@ -115,7 +115,7 @@ try {
   } else if (cmd === 'retune') {
     const what = args.shift(), profName = opt('profile', 'auto');
     const [a, b] = String(opt('seeds', '1-30')).split('-').map(Number), outDir = opt('out');
-    const defs = what === 'all' ? LEVELS.filter((l) => !l.tech) : [await loadDef(what)];
+    const defs = what === 'all' ? LEVELS.filter((l) => !l.tech && !l.chase) : [await loadDef(what)];   // tekniikkaradat ja karhupako eivät ole retunen piirissä
     for (const def of defs) {
       const prof = profileFor(def, profName); let best = null; const tried = [];
       for (let seed = a; seed <= (b ?? a); seed++) { const cand = retuneDef(def, prof, seed);
