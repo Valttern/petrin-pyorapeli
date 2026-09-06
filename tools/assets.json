@@ -592,6 +592,48 @@
    "aspect": "16:9",
    "nostyle": true,
    "prompt": "Cinematic wide key art illustration for a video game, semi-realistic digital painting with clean readable shapes: a friendly Finnish man in his forties (white skate-style bicycle helmet, orange-tinted sport sunglasses, short brown hair, black short-sleeved cycling jersey, pink cycling tights, olive green backpack) on an orange full-suspension mountain bike lifting the front wheel onto a sharp-edged granite ledge on a bare lichen-covered rock outcrop (silokallio) high on a Finnish hill, with a few dead silvery pines and low junipers on the rock, a huge rounded glacial boulder beside the line, a blue lake and forested hills far below; bright summer noon light, crisp shadows on the pale grey granite, the rider seen from the side in a concentrated trials-style balance moment, wide landscape composition with open sky in the upper third. No text, no letters, no watermark, no frame, no border."
+  },
+  {
+   "name": "granite",
+   "kind": "tile",
+   "aspect": "1:1",
+   "prompt": "Close-up seamless tileable texture of plain pale grey Finnish granite rock face seen straight on: fine uniform speckled grain of grey, white and faint pink feldspar, a few thin dark hairline cracks and small patches of pale grey-green map lichen, matte and evenly lit. The texture must be uniform across the whole image with NO symmetry, NO mirroring, NO large shapes, NO moss, NO plants, NO grass, NO soil, NO horizon, NO objects, NO edges or borders; it fills the entire image edge to edge like a photograph of a flat rock wall.",
+   "nostyle": true,
+   "seamless": "blend"
+  },
+  {
+   "name": "hills_rock",
+   "kind": "band",
+   "aspect": "21:9",
+   "prompt": "A wide band showing ONLY very distant bare rocky fells (tunturi) seen from far away: three overlapping ridges of pale grey granite domes with sparse dark pines on their lower slopes, hazy blue-grey atmospheric perspective, each ridge a soft flat silhouette, the nearest ridge at the bottom edge of the image. Absolutely no foreground, no ground, no individual rocks or trees in front. The whole area above the ridges is a perfectly flat solid bright magenta (#FF00FF) sky; the ridges fill only the lower 40 percent. No sun, no clouds, no birds."
+  },
+  {
+   "name": "cairn",
+   "kind": "sprite",
+   "aspect": "3:4",
+   "worldH": 42,
+   "prompt": "A hiking trail cairn (kivilatomus): a conical pile of about fifteen flat grey granite stones stacked by hand on top of each other, pale lichen on the stones, seen exactly from the side. IMPORTANT: no ground, no grass, no landscape, no shadow on the ground; the object is isolated on a flat solid bright magenta (#FF00FF) background that fills every other pixel of the image."
+  },
+  {
+   "name": "heath",
+   "kind": "sprite",
+   "aspect": "4:3",
+   "worldH": 16,
+   "prompt": "A low cushion of crowberry and heather (variksenmarja ja kanerva) growing in a crack of bare granite: dense dark green needle-like foliage with a few black berries and pale purple heather tips, seen exactly from the side. IMPORTANT: no ground, no grass, no landscape, no shadow on the ground; the object is isolated on a flat solid bright magenta (#FF00FF) background that fills every other pixel of the image."
+  },
+  {
+   "name": "ledgeface",
+   "kind": "sprite",
+   "aspect": "1:1",
+   "worldH": 40,
+   "prompt": "A small block of pale grey granite bedrock with one sharp vertical broken face on the right side and a flat lichen-covered top, dark crack lines, seen exactly from the side. IMPORTANT: no ground, no grass, no landscape, no shadow on the ground; the object is isolated on a flat solid bright magenta (#FF00FF) background that fills every other pixel of the image."
+  },
+  {
+   "name": "keyart6",
+   "kind": "art",
+   "aspect": "16:9",
+   "nostyle": true,
+   "prompt": "Cinematic wide key art illustration for a video game, semi-realistic digital painting with clean readable shapes: a friendly Finnish man in his forties (white skate-style bicycle helmet, orange-tinted sport sunglasses, short brown hair, black short-sleeved cycling jersey, pink cycling tights, olive green backpack) on an orange full-suspension mountain bike balancing on the rear wheel at the top of a steep stack of sharp granite ledges on a high bare rocky fell summit in Finland, the rock pale grey with orange and green lichen, a small dark tarn pool in a rock hollow beside the line, a stone cairn, a few dead silvery pines and low junipers, a sea of forested hills and lakes far below under a bright summer sky; crisp shadows, the rider seen from the side in a concentrated trials-style moment, wide landscape composition with open sky in the upper third. No text, no letters, no watermark, no frame, no border."
   }
  ],
  "styles": {

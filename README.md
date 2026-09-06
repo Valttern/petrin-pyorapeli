@@ -10,18 +10,19 @@ Koko peli on yksi tiedosto: **`index.html`**. Se toimii sellaisenaan selaimessa 
 |---|---|
 | ↑ | Polje |
 | ↓ | Jarruta / pakita |
-| ← → | Kallista pyörää |
+| ← → | Painonsiirto: taakse nostaa keulan säädellysti noin 25°:seen (kaasulla 40°) ja pitää sen siinä, eteen keventää perän; ilmassa kallistaa pyörää vapaasti. Kun keula on esteen päällä ja takarengas askelmaa vasten, kaasu ponnistaa perän askelman yli |
+| ← sitten → | Bunnyhop: lyhyt näpäytys taakse (0,1–0,3 s) ja heti eteen, kun keula vasta nousee, ponnistaa pyörän ilmaan. Liian pitkä veto taakse on manuaali, ei hyppy |
 | Väli | Käänny ympäri |
 | E (pohjassa) | Vaihda akku / asenna noodi |
-| R | Palaa tarkistuspisteelle |
+| R | Palaa viimeiselle huolletulle noodille (tekniikkaradalla osuuden alkuun) |
 | Esc | Tauko |
 | M | Äänet päälle / pois |
 
-22 reittiä seitsemässä ryhmässä (Helppo, Keskitaso, Vaikea, Iltahämärä, Yö, Alamäki, Tekniikka) ja kolme pyörää: vanha Kuwahara-jäykkäperä, täysjousitettu Intense ja alamäkipyörä Commençal. Pää ei saa osua maahan. Parhaat ajat tallentuvat selaimeen.
+28 reittiä kahdeksassa ryhmässä (Helppo, Keskitaso, Vaikea, Iltahämärä, Yö, Alamäki, Tekniikka, Generaattori) ja kolme pyörää: vanha Kuwahara-jäykkäperä, täysjousitettu Intense ja alamäkipyörä Commençal. Pää ei saa osua maahan. Parhaat ajat tallentuvat selaimeen.
 
 Temput lyhentävät kokonaisaikaa. Takavoltti antaa 1,5 s ja etuvoltti 2,0 s, jokainen lisäkierros samassa hypyssä 1,0 s lisää. Manuaali (takapyörällä) ja nose-manuaali (etupyörällä) vaativat etenemistä ja vähintään sekunnin, ja antavat 0,25 s jokaista sekuntia kohti, enintään 0,8 s per manuaali. Bonus kirjataan vasta, kun pyörä on pysynyt maassa hetken laskeutumisen jälkeen; kaatuminen mitätöi odottavan tempun. Ajastin näyttää temppubonuksen vähennettynä, ja ennätys tallennetaan tästä nettoajasta. Kertoimet ovat `TRICKS`-oliossa.
 
-Iltahämärän ja yön reitit ajetaan otsalampun valossa: aurinko laskee, tähdet ja kuu nousevat, tulikärpäset, lepakot ja pöllöt heräävät, ja näkyvyys rajoittuu lampun keilaan. Esteet ovat Trials-henkisiä taitokynnyksiä: kalliohyllyt ja kannot (nosta keula: kallistus taakse ja kaasu), notkot (pudotus ja heti perään lähes pystysuora seinä, josta noustaan vain vauhdilla), hypyt kalliohyllyille (seinän juuri on neljännesputki: vauhdilla ja paino edessä sen ajaa ylös, ilman painonsiirtoa pyörä kääntyy selälleen), syöksyhypyt (pitkä alamäki, iso kalliohyppyri ja rotko: polkien lento kantaa laskeutumisrinteeseen, rullaten jäät rotkoon), kaksoisrotkot, pudotusportaat, louhikkorinteet, juurakot ja kaatuneet rungot. Yön reiteillä tarkistuspisteitä on harvassa; Keskiyöllä vain noodit toimivat tarkistuspisteinä.
+Iltahämärän ja yön reitit ajetaan otsalampun valossa: aurinko laskee, tähdet ja kuu nousevat, tulikärpäset, lepakot ja pöllöt heräävät, ja näkyvyys rajoittuu lampun keilaan. Esteet ovat Trials-henkisiä taitokynnyksiä: kalliohyllyt ja kannot (nosta keula: kallistus taakse ja kaasu), notkot (pudotus ja heti perään lähes pystysuora seinä, josta noustaan vain vauhdilla), hypyt kalliohyllyille (seinän juuri on neljännesputki: vauhdilla ja paino edessä sen ajaa ylös, ilman painonsiirtoa pyörä kääntyy selälleen), syöksyhypyt (pitkä alamäki, iso kalliohyppyri ja rotko: polkien lento kantaa laskeutumisrinteeseen, rullaten jäät rotkoon), kaksoisrotkot, pudotusportaat, louhikkorinteet, juurakot ja kaatuneet rungot. Tarkistuspisteitä ei ole erikseen: akunvaihto tai noodin asennus tallentaa paikan, johon R palauttaa.
 
 Alamäkitason kolme reittiä (Rinnelasku, Kivikkokouru, Syöksylasku) ovat yhtä laskua vaaran laelta laaksoon syysaamun auringonnousussa: koko maasto viettää alaspäin, taustalla kultainen koivikko ja laaksoa peittävä usvameri, jonka läpi lasketaan. Esteet ovat alamäkiratojen omia: porras- ja pöytähyppyjä, joissa huulen takana on pitkä laskeutumisrinne, kivisiä kouruja ja niiden pohjan kompressioita, metsäautotien yli meneviä gappeja (tien voi myös ajaa pohjan kautta), aaltoja, louhikkorinteitä ja siirtolohkareita. Laskurinteessä pienikin hyppyri lentää satoja pikseleitä, joten esteiden laskeutumisrinteet on muotoiltu lennon suuntaisiksi.
 
@@ -44,6 +45,7 @@ python3 tools/gen_assets.py            # kuvat (Gemini 3.1 Flash Image), prompti
 python3 tools/gen_audio.py             # musiikki (Lyria 3) ja Petrin repliikit (GPT Audio), tools/audio.json
 python3 tools/gen_audio.py --check     # Gemini kuvailee ja litteroi valmiit raidat
 python3 tools/build.py                 # upottaa assets/ -kansion index.html-tiedostoon
+deno run --allow-read tools/levelgen.js report <id|resepti.json>   # kenttägeneraattorin raportti (ks. Kenttägeneraattori v2)
 python3 -m http.server 8765            # paikallinen testaus: http://localhost:8765/index.html
 ```
 
@@ -65,17 +67,91 @@ Hylätty louhos löytyy Vaikea-ryhmästä, ja sille suositellaan Intenseä. Reit
 
 `placements` määrittää estealueiden keskipisteet pikseleinä. Tuetut tyypit ovat `ledges`, `kickerwalls`, `rockslopes` ja `bigairs`. Esimerkiksi `ledges:2` ja `placements:{ledges:[1200,2200]}` sijoittavat kaksi hyllyosuutta valittuihin kohtiin. Esteiden mitat määräytyvät edelleen siemenluvusta ja vaikeudesta. Jätä tilaa vauhdinotolle ja laskeutumiselle: syöksyhyppy tarvitsee noin 1 500 pikselin alueen. Päällekkäinen tai kentän reunojen yli menevä käsin asetettu alue aiheuttaa virheen. Ilman sijoitusmääritystä käytetään entistä satunnaissijoittelua.
 
+### Kenttägeneraattori v2 (reseptit, `gen:2`)
+
+Kaikki kentät ovat reseptejä: jokainen `LEVELS`-rivi kulkee saman generaattorin (`buildLevel2`), piirron, assettikerroksen, editorin ja mittauksen läpi. Vanhat 19 kenttää on muunnettu resepteiksi (`terrain` kohinasta, `features:{strategy:'random',fit:true,counts:{...}}`, Hylätty louhos `placed`-listalla) ja niiden ennätykset alkavat alusta (`recordVersion:2`; vanhat ennätykset säilyvät selaimen tallennuksessa). Tekniikkaradat rakentuvat `TECHNICAL_ROUTES`-palalistoista, jotka `routeToSections` muuntaa osuuksiksi: jokainen pala on estekirjaston este tarkoin mitoin, joten radat käyttävät samaa maastoa, kalliokaistoja, kallio-biomin puita ja spritejä kuin muut kentät (`stairs`- ja `stairsdown`-palat, `slab`, `slabdown`, `slope` ja `pipe` ovat myös estekirjastossa). Generaattori-ryhmän viisi reittiä on tehty resepteinä uusilla mekaniikoilla ja mitattu haastaviksi: **Kelokallio** (tiivis resepti, kallio, käsin sijoitettu syöksy ja rotko-hylly), **Louhosportaat** (käsin piirretty porrastettu louhos, venytetyt pystysuorat portaat ja hyllyjonot 60 px:n välein), **Suurvaara** (korkeuserot 1.9, rotkoja ja syöksyjä huippujen rytmissä), **Rotkoraja** (pelkkiä ilmalentoja kasvavassa järjestyksessä) ja **Korpiraivio** (matalan vauhdin tekniikkaa 40 px:n välein). Yksinkertaisempi esimerkki on tiedostossa `tools/recipes/esimerkki.json`.
+
+**Tiivis resepti** riittää useimpiin kenttiin: kuusi pääsäädintä, jotka generaattori laajentaa täydeksi reseptiksi (`levelgen.js expand <id>` näyttää tuloksen).
+
+```js
+{id:'kallioketo',name:'Kallioketo',tier:7,gen:2,desc:'...',seed:331,length:7800,
+ style:'kallio',relief:.6,challenge:.55,rhythm:'rising',biome:'kangas',variation:.6}
+```
+
+| Säädin | Merkitys |
+|---|---|
+| `style` | maaston tyyli: `kumpu` (pyöreä kohina), `harju` (terävät harjut), `vaara` (pitkät nousut), `kallio` (porrastettu kallio), `notko` (keskipistesiirto), `lasku` (laskureitti) |
+| `relief` 0…2 | korkeuserot: amplitudi (50…350 px, yli 1 = vaaramaisema 350…800 px ja pidemmät kummut), kaltevuusraja (20…46°) ja kallion askelkorkeus |
+| `challenge` 0…1 | haastavuus: `hard`, esteiden määrä ja estetyypit, joiden intensiteetti on lähellä arvoa; tarkistuspisteväli ja suosituspyörä |
+| `rhythm` | `even` (tasavälit), `clustered` (esteryhmät), `rising` (kiihtyvä), `peaks` (kaksi huippua) |
+| `biome` | metsätyyppi (ks. `assets`) |
+| `variation` 0…1 | esteiden mittahajonta, macro-vaihtelu, karheus, tiheiköt ja aukeat |
+
+Täysi resepti (alla) on edelleen käytettävissä, ja tiiviissä reseptissä nimenomaiset `terrain`-, `difficulty`-, `features`- ja `assets`-avaimet sekä noodimäärät ohittavat laajennuksen. Jos esteet eivät mahdu tiiviin reseptin pituuteen, generaattori pudottaa esteitä, kunnes ne mahtuvat; täydessä reseptissä se on virhe.
+
+```js
+{id:'harjukierros',name:'Harjukierros',tier:7,gen:2,desc:'...',seed:302,length:8000,
+ terrain:{algo:'ridged',amp:230,wl:1500,octaves:3,gain:.3,rough:6,maxSlope:30},
+ difficulty:{hard:.35,curve:[.6,1,1.2],target:{gated:[4,8],finished:true}},
+ features:{strategy:'rhythm',sequence:['bumps','ledge','rest','gap','rocks','kickerwall','rest','rockslope','bigair'],gap:260},
+ assets:{obstacles:1,stones:1,forest:1},rec:1,lowNodes:3,okNodes:1,newNodes:3}
+```
+
+**`terrain`** valitsee pohjamaaston algoritmin ja korkeuserot (`amp` = korkeus px, `wl` = kumpujen pituus px):
+
+| `algo` | Luonne | Omat säätimet |
+|---|---|---|
+| `noise` | pyöreät kummut (fBm) | `octaves`, `gain`, `lacunarity` |
+| `ridged` | terävät harjut ja syvät notkot | `sharp` |
+| `midpoint` | keskipistesiirto, fraktaalinen karheus | `H` (0.6 rosoinen … 1.0 sileä) |
+| `spline` | käsin piirretty profiili | `points:[[x,h],...]`, h = korkeus ylöspäin |
+
+Jälkikäsittelyt toimivat kaikkien kanssa: `detailAmp`/`detailWl` (pienet kumpareet ison muodon päälle), `rough` (pintakarheus), `descent` (alamäkireitin kokonaispudotus; negatiivinen arvo tekee nousureitin), `terrace` (korkeus porrastetaan askelkorkeuteen; alle 18 px rullataan yli, siitä ylöspäin keula on nostettava), `maxSlope` (kaltevuusraja asteina; 50° on nousun fysikaalinen raja; spline-profiilille oletus 38°, jotta piirretyt nousut pääsee ylös) ja `macro` (0…1: korkeus ja kumpujen pituus vaihtelevat hitaasti matkan mukana, jolloin reitillä on sekä tasaisia että mäkisiä jaksoja).
+
+**`difficulty`**: `hard` (0…1.25) skaalaa esteiden mittoja kuten ennenkin, `curve` kertoo sen matkan funktiona (esim. `[.3,.7,1.1]` = kevyt alku, tiukka loppu), `variety` (0…1) painottaa esteiden mitat ääripäihin (samassa kentässä matalia ja korkeita hyllyjä, lyhyitä ja pitkiä rotkoja) ja `target` on mitattu tavoitehaarukka siemenhakua ja testejä varten (`score`, `gated`, `climb`, `finished`).
+
+**`features`** on sijoittelustrategia tai lista strategioita, jotka sijoitetaan samaan kenttään järjestyksessä:
+
+- `random` + `counts:{ledge:2,gap:1,...}`: kuten vanha generaattori, mutta este, joka ei mahdu, on virhe eikä katoa hiljaa.
+- `rhythm` + `sequence:['ledge','rest','gap',{type:'bigair',hard:.9}]`: esteet tässä järjestyksessä tasaisin välein; `rest` lisää levähdysvälin (`gap` px).
+- `curve` + `count`, `pool`: haastavuuskäyrä valitsee esteet niiden intensiteetin (`cost`) mukaan, kevyet alkuun ja raskaat loppuun.
+- `manual` + `list:[{type,x,hard}]`: keskipisteet pikseleinä.
+
+Reseptin `placed:[{type,x,hard,stretch,gap}]` on lyhyt tapa lisätä käsin sijoitettuja esteitä minkä tahansa strategian rinnalle (editorin "Lisää este" kirjoittaa tähän): ne sijoitetaan ensin, ja automaattiset esteet sovitetaan niiden väliin jääviin vapaisiin jaksoihin. Esteen `hard` (0…2) on sen oma koko, `stretch` (0.4…4) venyttää sitä pituussuunnassa (portaat, töyssyt, kivikot ja lohkareikot saavat lisää toistoja samalla askelkoolla, rotkot ja kuopat levenevät), `size` (0.3…3) skaalaa sen korkeuksia alustaan nähden (editorissa raahaus ylös tai alas) ja `gap` on sen oma vähimmäisväli naapureihin pikseleinä. Reseptin `minGap` asettaa kaikkien esteiden vähimmäisvälin, jolloin estejonosta saa tiiviin: väli 24…200 px tarkoittaa, ettei esteiden väliin jää vauhdinottoa. Samat avaimet käyvät `manual`- ja `rhythm`-strategioiden esteolioissa.
+
+`rhythm` ja `curve` ottavat lisäksi `spacing:'even'|'clustered'`: tasavälit tai esteryhmiä ja pitkiä tyhjiä jaksoja välissä (kuten tekniikkaradoilla).
+
+Tuetut estetyypit ovat `FEATURES`-kirjaston avaimet (38): `bigair`, `roadgap`, `stepdown`, `chute`, `rollers`, `ledge`, `combo`, `kickerwall`, `doublegap`, `dropseries`, `rockslope`, `plateau` (hylly ylös, laki ja pudotus), `hump` (iso pyöreä kumpare), `valley` (syvä painanne), `stepsdown` (laskevat hyllyt), `rockgarden` (erikokoisia kiviä hajallaan), `tabletop` (pöytähyppy), `doubles` (kaksoishyppy, notko välissä), `whoops` (epätasaiset töyssyt), `logledge` (hylly ja tukki sen laella), `rootclimb` (juurakkonousu 26…36°), `boulderfield` (2…3 lohkaretta), `sinkhole` (kapea kuoppa, 40° nousu ulos), `ridge` (terävä harjanne), `gapledge` (rotko ja heti hylly), `boulder`, `stump`, `roots`, `trunk`, `gap`, `wall`, `drop`, `stairs` (pystysuorat askelmat, venytys lisää askelmia samalla korkeudella), `water` (lampi kallion painanteessa: matala, enintään 24 px, hidastaa ja syvä upottaa, joten syvä ylitetään vauhdilla tai bunnyhopilla), `slab`, `slabdown`, `slope`, `pipe`, `bog`, `logpile`, `kicker`, `bumps`, `rocks` (monikkomuodot käyvät myös). Testi ajaa jokaisen tyypin tekniikkakuskilla läpi. Jokainen este saa automaattisesti tasaisen vauhdinoton ja tasanteen maaston luonnolliseen korkeuteen esteen keskellä: alustalle noustaan tai laskeudutaan loivalla rampilla ja esteen jälkeen palataan rampilla pohjamaaston korkeuteen. Näin hylly ei osu alamäen pohjalle, rinteen keskelle ei synny seinää ja pohjamaaston korkeuserot säilyvät koko matkalla myös tiheässä estejonossa.
+
+**`assets`** säätää maanpinnan assettien tiheyttä (`obstacles`, `stones`, `forest`; 1 = oletus), metsätyyppiä (`biome`: `seka`, `kangas` = kuiva männikkö ja kantoja, `korpi` = tiheä kuusikko, sieniä ja runkoja, `lehto` = koivua ja pensaita, `kallio` = keloja, katajia ja kiviä) ja aukeita (`glades` 0…1). Metsän tiheys vaihtelee reitillä tiheiköistä aukeisiin. Generaattori valitsee assetin maaston mukaan: jyrkkiin rinteisiin ja lakiin kiviä, mäntyjä, keloja ja katajia; notkoihin ja suon laitaan kuusia, koivuja ja sieniä; tasaiselle metsämaalle tukkeja, kantoja, lohkareita ja varvikkoa. Maassa makaavat esteet kaiverretaan maastoon spriten omasta profiilista (törmäys = kuva) ja vain loiviin kohtiin; puita ei laiteta jyrkänteisiin, esteiden eikä noodien päälle.
+
+Mittaus ja siemenhaku ilman selainta (`tools/levelgen.js`, sama fysiikka kuin pelissä):
+
+```bash
+deno run --allow-read tools/levelgen.js report harjukierros          # geometria, este-estekohtainen portitus, tekniikkakuskin ajo, haastavuusluku
+deno run --allow-read tools/levelgen.js profile harjukierros         # ASCII-korkeusprofiili esteineen, noodeineen ja tarkistuspisteineen
+deno run --allow-read tools/levelgen.js sweep harjukierros --seeds 301-340   # mitkä siemenet osuvat difficulty.target-haarukkaan
+deno run --allow-read tools/levelgen.js report tools/recipes/esimerkki.json  # resepti tiedostosta ilman index.html:n muokkausta
+```
+
+**Editori.** `tools/editor.html` on selaineditori: tiiviin reseptin kuusi pääsäädintä, "Piirrä reitti" (koko reitin korkeusprofiili piirretään hiirellä kartalle; piirroksesta tulee spline-ohjauspisteet, jyrkimmät kohdat loivennetaan ajettaviksi ja esteet, assetit ja noodit hoituvat algoritmeilla), "Lisää este" (estetyyppi valitaan valikosta tai muotokuvista, paikka klikataan kartalta; käsin lisättyjä esteitä voi raahata ja säätää niiden kokoa, venytystä ja väliä), lisäasetukset erillisen otsikon alla (laskettu arvo harmaana, muutettu arvo kirjautuu reseptiin ohituksena), profiilikuva esteineen ja noodeineen samassa mittakaavassa kuin pelissä (valinnalla "venytä korkeus" pystysuunta venytetään), mittaus ja siemenhaku samalla fysiikalla, LEVELS-rivin kopiointi ja "Pelaa luonnos", joka avaa pelin osoitteella `index.html#recipe=<base64>` (luonnos lisätään väliaikaisesti Generaattori-ryhmään eikä sen ennätyksiä tallenneta). Käynnistä `python3 -m http.server 8765` ja avaa `http://localhost:8765/tools/editor.html`. Komentorivillä `levelgen.js row resepti.json` tulostaa saman LEVELS-rivin.
+
+**Varianssi.** Kentät alkavat muistuttaa toisiaan, jos pohja-algoritmi, `wl`, estetyypit ja välit ovat samat. Keinot erottaa kentät: eri `algo` (pyöreä kohina, terävät harjut, keskipistesiirto, käsin piirretty spline), `macro` (mäkiset ja tasaiset jaksot samassa kentässä), `terrace` (porrastettu kallio), `variety` (esteiden mitat ääripäihin), `spacing:'clustered'` (esteryhmät ja pitkät rullausjaksot), `curve` (eri rytmi: kevyt alku tai vaikea alku), `biome` ja `glades` (eri metsä ja aukeat), uudet estetyypit (`plateau`, `hump`, `valley`, `stepsdown`, `rockgarden`) sekä `descent` (laskureitti) ja `dusk` (hämärä). Esimerkkikentät käyttävät näitä eri tavoin: Harjukierros on ryhmitetty kalliobiomi, Porraskallio kangasmetsän porraskallio aukeineen, Notkelmat macro-vaihteleva korpi.
+
+Raportin *portitettu* este on sellainen, jonka pelkkä kaasu ja jarru ei ohita vähintään kolmella neljästä vauhdista; *tekniikkakuski* nostaa keulan, siirtää painoa ja jarruttaa laskuissa, ja sen on päästävä maaliin. Haastavuusluku 0…1 painottaa portteja (40 %), jyrkkyyttä, nousumetrejä ja kuskin kaatumisia (20 % kukin). Työnkulku: kirjoita resepti, aja `profile` ja `report`, säädä, hae `sweep`-komennolla siemen, joka osuu tavoitteeseen, ja kokeile selaimessa.
+
 Tekniset tarkistukset (Deno):
 
 ```bash
-deno test --allow-read --allow-run=git tests/game_test.js
+deno test --allow-read tests/game_test.js   # generaattori, fysiikka, ennätykset
+deno test --allow-read tests/smoke_test.js  # savutesti: koko skripti tynkä-DOM:lla, valikko ja jokainen kenttä käynnistyy
 ```
 
-Testit tarkistavat ennätysten siirron ja järjestyksestä riippumattomuuden, vanhojen kenttien säilymisen sekä louhoksen estejärjestyksen. Ajettavuus ja hyppyjen vaikeustaso on lisäksi kokeiltava selaimessa.
+Testit tarkistavat ennätysten siirron ja järjestyksestä riippumattomuuden, että jokainen kenttä on resepti ja rakentuu, louhoksen estejärjestyksen sekä reseptikentät: rakentuminen ja esteiden välit, maanpinnan assettien kaiverrus ja puiden sijoittelu, pohja-algoritmien kaltevuusraja, porrastus ja spline-pisteet, sijoitteluvirheet, ja että tekniikkakuski ajaa jokaisen reseptikentän maaliin tavoitehaarukassa. Ajettavuus ja hyppyjen vaikeustaso on lisäksi kokeiltava selaimessa.
 
 ## Tekniikka
 
-Kolme Trials-henkistä kalliorataa, joilla ei ole akunvaihtoa eikä kuuluvuustehtäviä: pelkkää ajotekniikkaa graniitilla. **Graniittiportaat** (5 osuutta) opettaa perustaidot yksi kerrallaan: 35° silokallion nousu ja lasku, pystysuora hylly, kaksoisporras, lohkare ja 60° porras sekä 42° lasku matalaan hyllyyn. **Kallionkieli** (6 osuutta) yhdistelee: 42° laki ja ahdas pohja, lohkareet ja porras, hylly ja pudotus kapealle tasanteelle, vauhtia vaativa rotko ja sen jälkeinen porras, kolmen hyllyn portaikko ja 46° loppulasku kivikkoon. **Kivinen kruunu** (6 osuutta) laittaa kaiken peräkkäin tiukoilla tasanteilla: 47° silokalliot, kasvavat hyllyt lyhenevillä tasanteilla, pitkä kielekehyppy, lohkarepuutarha, pudotusportaat ja kruunu. Jokaisen osuuden edessä on tarkistuspiste; osuuden ajaminen kaatumatta palkitaan ("Puhtaasti!"). Suosituspyörä on Intense.
+Neljä Trials-henkistä kalliorataa korkean vaaran laella, joilla ei ole akunvaihtoa eikä kuuluvuustehtäviä: pelkkää teknistä ajamista graniitilla, vauhti ei ratkaise. Radat piirretään omilla kallioasseteilla (graniittitiili `granite`, kalliovaarat `hills_rock`, kelot, katajat, varvikot `heath`, latomukset `cairn`, avainkuva `keyart6`), ja jokaisella radalla on lampia (`water`-pala): matala kahlataan, syvä ylitetään vauhdilla tai bunnyhopilla. **Kalliokärki** (7 osuutta) on tehty uusille mekaniikoille (säädelty keulan nosto, perän ja keulan ponnistus askelmaa vasten): 30–36 px:n hyllyt, pystysuorat portaat ylös ja alas (`stairs`- ja `stairsdown`-palat), kaksoishylly 64 px:n välein, rotko ja korkea porras, lohkarerinne, pudotus hyllylle ja 48° kärki. **Graniittiportaat** (5 osuutta) opettaa perustaidot yksi kerrallaan: 35° silokallion nousu ja lasku, pystysuora hylly, kaksoisporras, lohkare ja 60° porras sekä 42° lasku matalaan hyllyyn. **Kallionkieli** (6 osuutta) yhdistelee: 42° laki ja ahdas pohja, lohkareet ja porras, hylly ja pudotus kapealle tasanteelle, vauhtia vaativa rotko ja sen jälkeinen porras, kolmen hyllyn portaikko ja 46° loppulasku kivikkoon. **Kivinen kruunu** (6 osuutta) laittaa kaiken peräkkäin tiukoilla tasanteilla: 47° silokalliot, kasvavat hyllyt lyhenevillä tasanteilla, pitkä kielekehyppy, lohkarepuutarha, pudotusportaat ja kruunu. Jokaisen osuuden edessä on tarkistuspiste; osuuden ajaminen kaatumatta palkitaan ("Puhtaasti!"). Suosituspyörä on Intense.
 
 Radat on suunniteltu niin, että pelkkä kaasun ja jarrun annostelu **ei** riitä: pystysuorat hyllyt (24–34 px, korkeampia kuin renkaan säde) pysäyttävät etupyörän ja vaativat keulan noston (← + ↑) ja heti perään painonsiirron eteen (→); 45–47° silokalliot vaativat vauhdin säilyttämisen ja painon eteen, jotta pyörä ei looppaa; 40–46° laskut ja pudotukset vaativat painon taakse ja jarrun annostelun; rotkot vaativat vauhtia, mutta heti laskeutumisen jälkeen tuleva hylly rajaa sen ylhäältä. HUD näyttää osuuden nimen, suositellun vauhdin ja ajovihjeen.
 

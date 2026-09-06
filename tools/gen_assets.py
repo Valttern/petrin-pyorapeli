@@ -201,10 +201,20 @@ def postprocess(a):
             img = img.crop((0, int(img.height * a["crop_top"]), img.width, img.height))
         img = shrink(img, 512, 512)
         w, h = img.size
-        quad = Image.new("RGB", (w * 2, h * 2))
-        quad.paste(img, (0, 0)); quad.paste(img.transpose(Image.FLIP_LEFT_RIGHT), (w, 0))
-        quad.paste(img.transpose(Image.FLIP_TOP_BOTTOM), (0, h)); quad.paste(img.transpose(Image.ROTATE_180), (w, h))
-        img = quad.resize((768, 768), Image.LANCZOS)
+        if a.get("seamless") == "blend":
+            # tasainen rakeinen tekstuuri (esim. graniitti): siirretään puolikkaan verran ja ristihäivytetään saumat,
+            # jolloin toisto on saumaton ilman peilikuvia (peilaus tekisi kaleidoskooppikuvion)
+            arr = np.asarray(img).astype(np.float32)
+            rolled = np.roll(np.roll(arr, w // 2, axis=1), h // 2, axis=0)
+            wx = np.clip(np.minimum(np.arange(w), w - 1 - np.arange(w)) / (w * 0.22), 0, 1)
+            wy = np.clip(np.minimum(np.arange(h), h - 1 - np.arange(h)) / (h * 0.22), 0, 1)
+            mask = (wy[:, None] * wx[None, :])[:, :, None]
+            img = Image.fromarray(np.clip(arr * mask + rolled * (1 - mask), 0, 255).astype(np.uint8)).resize((768, 768), Image.LANCZOS)
+        else:
+            quad = Image.new("RGB", (w * 2, h * 2))
+            quad.paste(img, (0, 0)); quad.paste(img.transpose(Image.FLIP_LEFT_RIGHT), (w, 0))
+            quad.paste(img.transpose(Image.FLIP_TOP_BOTTOM), (0, h)); quad.paste(img.transpose(Image.ROTATE_180), (w, h))
+            img = quad.resize((768, 768), Image.LANCZOS)
     elif kind == "portrait":
         img = shrink(img.convert("RGB"), 320, 320)
     elif kind == "art":

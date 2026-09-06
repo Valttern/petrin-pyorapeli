@@ -1,0 +1,316 @@
+<!doctype html>
+<html lang="fi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Kenttäeditori · Petrin pyöräpeli</title>
+<style>
+:root{--bg:#141a17;--panel:#1d2521;--line:#2f3b35;--txt:#e6e9e2;--dim:#9aa79f;--acc:#7fd6c2;--warn:#f2b441;--bad:#ef5a4e;--good:#5ad682}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--txt);font:13px/1.45 system-ui,sans-serif}
+header{display:flex;align-items:center;gap:14px;padding:10px 16px;border-bottom:1px solid var(--line)}header h1{font-size:15px;margin:0;letter-spacing:.06em;text-transform:uppercase;color:var(--acc)}header span{color:var(--dim)}
+main{display:grid;grid-template-columns:400px 1fr;min-height:calc(100vh - 44px)}
+aside{border-right:1px solid var(--line);padding:12px;overflow:auto;max-height:calc(100vh - 44px)}
+section{padding:12px;overflow:auto}
+fieldset{border:1px solid var(--line);border-radius:6px;margin:0 0 10px;padding:8px 10px}legend{color:var(--acc);font-size:11px;letter-spacing:.08em;text-transform:uppercase;padding:0 4px}
+details{border:1px solid var(--line);border-radius:6px;margin:0 0 10px;padding:6px 10px}summary{cursor:pointer;color:var(--dim);font-size:12px}details[open] summary{margin-bottom:6px}
+.row{display:grid;grid-template-columns:104px 1fr 54px;align-items:center;gap:8px;margin:3px 0}.row label{color:var(--dim);font-size:12px}.row output{text-align:right;font-variant-numeric:tabular-nums}.row.auto output{color:var(--dim)}
+.big .row label{color:var(--txt);font-weight:600}
+input[type=range]{width:100%}select,input[type=text],input[type=number],textarea{background:#101512;color:var(--txt);border:1px solid var(--line);border-radius:4px;padding:4px 6px;font:12px/1.4 ui-monospace,monospace;width:100%}
+textarea{min-height:160px;resize:vertical;white-space:pre}
+button{background:#25322c;color:var(--txt);border:1px solid var(--line);border-radius:5px;padding:6px 10px;cursor:pointer;font:12px system-ui}button:hover{border-color:var(--acc)}button.primary{background:#1f4a40;border-color:#2f7a68}button.small{padding:2px 8px;font-size:11px}
+.btns{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0;align-items:center}
+#cv{width:100%;height:380px;background:#0d110f;border:1px solid var(--line);border-radius:6px;display:block}
+canvas.icon{width:56px;height:18px;vertical-align:middle;margin-right:6px;background:#0d110f;border-radius:2px}
+pre{background:#101512;border:1px solid var(--line);border-radius:6px;padding:10px;white-space:pre-wrap;font:12px/1.4 ui-monospace,monospace;margin:10px 0 0;color:#d5dbd2}
+#err{color:var(--warn);white-space:pre-wrap;margin:8px 0;font-family:ui-monospace,monospace}.hint{color:var(--dim);margin:4px 0 6px;font-size:12px}
+.stat{display:inline-block;margin:0 14px 6px 0;color:var(--dim)}.stat b{color:var(--txt);font-weight:600}
+table{border-collapse:collapse;font:12px ui-monospace,monospace;margin-top:8px}td,th{padding:2px 8px;border-bottom:1px solid var(--line);text-align:right}th{color:var(--dim);font-weight:normal}td:first-child,th:first-child{text-align:left}tr.ok td{color:var(--good)}tr[data-seed] td:first-child{cursor:pointer;text-decoration:underline}
+</style>
+</head>
+<body>
+<header><h1>Kenttäeditori</h1><span>kuusi pääsäädintä → profiili → mittaus → peli. Aja <code>python3 -m http.server 8765</code> ja avaa <code>http://localhost:8765/tools/editor.html</code></span></header>
+<main>
+<aside>
+  <fieldset class="big"><legend>Pääsäätimet</legend>
+    <div class="row"><label>id</label><input type="text" id="f_id" placeholder="oma-kentta"><span></span></div>
+    <div class="row"><label>nimi</label><input type="text" id="f_name"><span></span></div>
+    <div class="row"><label>siemen</label><input type="number" id="f_seed" min="1" step="1"><button id="btnSeed" class="small" title="arvo uusi siemen">↻</button></div>
+    <div class="row"><label>maaston tyyli</label><select id="f_style"></select><span></span></div>
+    <div class="row"><label>korkeuserot</label><input type="range" id="f_relief" min="0" max="2" step=".05"><output></output></div>
+    <div class="row"><label>haastavuus</label><input type="range" id="f_challenge" min="0" max="1" step=".05"><output></output></div>
+    <div class="row"><label>rytmi</label><select id="f_rhythm"><option value="even">tasainen</option><option value="clustered">ryhmitetty</option><option value="rising">kiihtyvä</option><option value="peaks">huiput</option></select><span></span></div>
+    <div class="row"><label>metsä</label><select id="f_biome"></select><span></span></div>
+    <div class="row"><label>vaihtelu</label><input type="range" id="f_variation" min="0" max="1" step=".05"><output></output></div>
+    <div class="row"><label>pituus</label><input type="range" id="f_length" min="3000" max="14000" step="200"><output></output></div>
+    <div class="hint">Haastavuus valitsee estetyypit ja niiden koon, korkeuserot (yli 1 = vaaramaisema, satojen pikselien nousut) maaston amplitudin, porrastuksen ja kaltevuusrajan, vaihtelu esteiden mittahajonnan, tiheikköjen ja aukeiden määrän sekä macro-vaihtelun.</div>
+  </fieldset>
+  <details><summary>Lisäasetukset (ohittavat pääsäätimet, harmaa = laskettu arvo)</summary>
+    <div class="hint">Muutettu liukusäädin kirjataan reseptiin nimenomaisena arvona. <button id="btnReset" class="small">Poista ohitukset</button></div>
+    <div class="row"><label>algo</label><select id="f_algo"><option value="">(tyylin mukaan)</option><option>noise</option><option>ridged</option><option>midpoint</option><option>spline</option></select><span></span></div>
+    <div id="rows_terrain"></div>
+    <div class="row"><label>curve</label><input type="text" id="f_curve" placeholder="rytmin mukaan, esim. .3,.7,1.1"><span></span></div>
+    <div id="rows_diff"></div>
+    <div class="row"><label>strategia</label><select id="f_strategy"><option value="">(curve, haastavuuden mukaan)</option><option>rhythm</option><option>curve</option><option>random</option><option>manual</option></select><span></span></div>
+    <div class="hint">sequence / counts / pool / list muokataan JSON-kentässä. Tyypit: <span id="types"></span></div>
+    <div id="rows_assets"></div>
+    <div id="rows_nodes"></div>
+  </details>
+  <fieldset><legend>Resepti (JSON)</legend>
+    <textarea id="json" spellcheck="false"></textarea>
+    <div class="btns"><button id="btnApply" class="primary">Käytä JSON</button><button id="btnLoadFile">Avaa tiedosto…</button><input type="file" id="file" accept=".json" hidden></div>
+    <details><summary>Laajennettu resepti (mitä generaattori käyttää)</summary><pre id="expanded"></pre></details>
+  </fieldset>
+</aside>
+<section>
+  <div class="btns">
+    <button id="btnMeasure" class="primary">Mittaa (ajaa kuskit)</button>
+    <button id="btnSweep">Siemenhaku 20 siementä</button>
+    <button id="btnRow">Kopioi LEVELS-rivi</button>
+    <button id="btnPlay">Pelaa luonnos ▶</button>
+    <label style="color:var(--dim)"><input type="checkbox" id="autoMeasure"> mittaa automaattisesti</label>
+    <label style="color:var(--dim)" title="Oletuksena sama mittakaava vaaka- ja pystysuunnassa, kuten pelissä"><input type="checkbox" id="stretch"> venytä korkeus (liioittelee jyrkkyyttä)</label>
+  </div>
+  <div class="btns">
+    <button id="btnDraw">✏️ Piirrä reitti</button>
+    <button id="btnClearDraw" hidden>Poista piirretty reitti</button>
+    <span class="hint" id="drawHint">Piirrä koko reitin korkeusprofiili hiirellä vasemmalta oikealle. Piirroksesta tulee spline-ohjauspisteet; jyrkimmät kohdat loivennetaan ajettaviksi (38°), ja esteet, assetit ja noodit hoituvat algoritmeilla.</span>
+  </div>
+  <div class="btns">
+    <span id="addIcon"></span><select id="addType" style="width:auto"></select>
+    <button id="btnGrid" class="small" title="näytä estetyyppien muodot listana">muodot ▾</button>
+    <button id="btnAdd">➕ Lisää este (klikkaa karttaa)</button>
+    <label class="hint" title="Kaikkien esteiden vähimmäisväli pikseleinä. Pieni arvo = tiivis estejono ilman vauhdinottoa.">min. väli <input type="number" id="minGap" step="20" min="24" placeholder="auto" style="width:70px"></label>
+    <button id="btnPin" class="small" title="Muuttaa kaikki automaattiset esteet käsin sijoitetuiksi, jolloin ne pysyvät paikoillaan ja niitä voi raahata">📌 Kiinnitä kaikki esteet</button>
+  </div>
+  <div id="featGrid" hidden style="border:1px solid var(--line);border-radius:6px;padding:6px 8px;margin:4px 0 8px">
+    <input type="text" id="featSearch" placeholder="hae estetyyppiä…" style="width:220px;margin-bottom:6px">
+    <div id="featList" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:1px 12px"></div>
+  </div>
+  <div class="btns">
+    <span id="featPanel" hidden style="display:inline-flex;flex-wrap:wrap;gap:8px;align-items:center;border:1px solid var(--line);border-radius:5px;padding:3px 8px">
+      <b id="featName"></b> x <input type="number" id="featX" step="8" style="width:80px">
+      koko <input type="range" id="featHard" min="0" max="2" step=".05" style="width:110px"><output id="featHardOut"></output>
+      venytys <input type="range" id="featStretch" min=".4" max="4" step=".1" style="width:110px"><output id="featStretchOut"></output>
+      korkeus <input type="range" id="featSize" min=".3" max="3" step=".05" style="width:110px"><output id="featSizeOut"></output>
+      väli <input type="number" id="featGap" step="20" min="24" placeholder="auto" style="width:70px">
+      <button id="btnFeatDel" class="small">Poista</button>
+    </span>
+    <span class="hint">Käsin lisätyt esteet (✎) voi raahata paikoilleen; automaattiset esteet sovitetaan niiden väliin. Raahaus sivulle siirtää, raahaus ylös/alas skaalaa korkeuksia (korkeus 0.3–3×). Koko = esteen oma hard (0–2), venytys pidentää estettä ja lisää toistoja (portaat, töyssyt, kivet), väli = esteen oma vähimmäisväli naapureihin. Delete poistaa valitun.</span>
+  </div>
+  <div id="err"></div>
+  <div id="stats"></div>
+  <canvas id="cv" width="1400" height="380"></canvas>
+  <div class="hint">Värilliset kaistat = esteiden alueet (nimi ja paikallinen hard), pisteet = kaiverretut spritet, tolpat = noodit (tarkistuspisteet) (punainen tyhjä, vihreä toimiva, sininen gateway).</div>
+  <pre id="out">Lataa peli…</pre>
+  <div id="sweep"></div>
+  <pre id="row" hidden></pre>
+</section>
+<script type="module">
+import { extractCore } from './gamecore.js';
+import { formatReport, formatLevelRow } from './report.js';
+const $ = (s) => document.querySelector(s);
+const html = await (await fetch('../index.html')).text();
+const core = extractCore(html);
+const { buildLevel, measureLevel, reportMeetsTarget, FEATURES, expandRecipe, RECIPE_STYLES, BIOMES } = core;
+$('#types').textContent = Object.keys(FEATURES).join(', ');
+const STYLE_NAMES = { kumpu: 'kumpuileva (noise)', harju: 'harjuinen (ridged)', vaara: 'vaara, pitkät nousut', kallio: 'porrastettu kallio', notko: 'notkelmat (midpoint)', lasku: 'laskureitti' };
+$('#f_style').innerHTML = Object.keys(RECIPE_STYLES).map((k) => `<option value="${k}">${STYLE_NAMES[k] ?? k}</option>`).join('');
+$('#f_biome').innerHTML = Object.keys(BIOMES).map((k) => `<option>${k}</option>`).join('');
+
+// ---- resepti: tiivis muoto on lähtökohta, lisäasetukset ovat ohituksia ----
+let def = { id: 'oma-kentta', name: 'Oma kenttä', tier: 7, gen: 2, seed: 17, length: 7000, style: 'kumpu', relief: .5, challenge: .4, rhythm: 'even', biome: 'seka', variation: .4 };
+const hashDef = location.hash.match(/^#recipe=(.+)$/); if (hashDef) { try { def = JSON.parse(decodeURIComponent(escape(atob(hashDef[1])))); } catch (e) { console.warn(e); } }
+
+const DETAIL = {
+  terrain: [['amp', 0, 900, 10, 'korkeus px'], ['wl', 600, 5000, 50, 'kummun pituus'], ['octaves', 1, 4, 1, 'oktaavit'], ['gain', 0, .6, .02, 'gain'], ['rough', 0, 20, 1, 'karheus'], ['macro', 0, 1, .05, 'macro'],
+    ['detailAmp', 0, 60, 2, 'detailAmp'], ['H', .5, 1, .05, 'H (midpoint)'], ['terrace', 0, 40, 1, 'porrastus px'], ['maxSlope', 0, 55, 1, 'kaltevuusraja °'], ['descent', -2500, 2500, 50, 'lasku (−) = nousu']],
+  difficulty: [['hard', 0, 1.25, .05, 'hard'], ['variety', 0, 1, .05, 'variety']],
+  assets: [['obstacles', 0, 3, .1, 'esteet'], ['stones', 0, 3, .1, 'kivet'], ['forest', 0, 2, .1, 'metsä'], ['glades', 0, 1, .05, 'aukeat']],
+  nodes: [['lowNodes', 0, 6, 1, 'tyhjät noodit'], ['okNodes', 0, 3, 1, 'toimivat noodit'], ['newNodes', 0, 6, 1, 'uudet noodit'], ['cpEvery', 0, 3000, 100, 'tarkistuspisteväli']],
+};
+const holder = (d, g, create) => g === 'nodes' ? d : (create ? (d[g] ??= {}) : d[g]);
+for (const [g, host] of [['terrain', '#rows_terrain'], ['difficulty', '#rows_diff'], ['assets', '#rows_assets'], ['nodes', '#rows_nodes']])
+  $(host).innerHTML = DETAIL[g].map(([k, a, b, st, lbl]) => `<div class="row"><label title="${g}.${k}">${lbl}</label><input type="range" data-g="${g}" data-k="${k}" min="${a}" max="${b}" step="${st}"><output></output></div>`).join('');
+
+function syncFromDef() {
+  const ex = expandRecipe(structuredClone(def));
+  $('#f_id').value = def.id ?? ''; $('#f_name').value = def.name ?? ''; $('#f_seed').value = def.seed ?? 1;
+  $('#f_style').value = def.style ?? 'kumpu'; $('#f_rhythm').value = def.rhythm ?? 'even'; $('#f_biome').value = def.biome ?? def.assets?.biome ?? 'seka';
+  for (const [id, k, dflt] of [['f_relief', 'relief', .5], ['f_challenge', 'challenge', .5], ['f_variation', 'variation', .4], ['f_length', 'length', 7000]]) { const el = $('#' + id); el.value = def[k] ?? dflt; el.nextElementSibling.value = el.value; }
+  $('#f_algo').value = def.terrain?.algo ?? ''; $('#f_curve').value = (def.difficulty?.curve ?? []).join(',');
+  const F = Array.isArray(def.features) ? def.features[0] : def.features; $('#f_strategy').value = F?.strategy ?? '';
+  for (const el of document.querySelectorAll('input[type=range][data-g]')) { const own = holder(def, el.dataset.g, false)?.[el.dataset.k], v = own ?? holder(ex, el.dataset.g, false)?.[el.dataset.k]; el.value = v ?? el.min; el.nextElementSibling.value = v ?? '–'; el.parentElement.classList.toggle('auto', own == null); }
+  $('#json').value = JSON.stringify(def, null, 1); $('#expanded').textContent = JSON.stringify(ex, null, 1); $('#minGap').value = def.minGap ?? '';
+}
+function readMain() {
+  def.id = $('#f_id').value.trim() || 'oma-kentta'; def.name = $('#f_name').value.trim() || def.id; def.seed = +$('#f_seed').value || 1; def.gen = 2; def.tier ??= 7;
+  def.style = $('#f_style').value; def.rhythm = $('#f_rhythm').value; def.biome = $('#f_biome').value;
+  def.relief = +$('#f_relief').value; def.challenge = +$('#f_challenge').value; def.variation = +$('#f_variation').value; def.length = +$('#f_length').value;
+  const algo = $('#f_algo').value; if (algo) (def.terrain ??= {}).algo = algo; else if (def.terrain) delete def.terrain.algo;
+  const cv = $('#f_curve').value.split(',').map((s) => +s.trim()).filter(Number.isFinite); if (cv.length) (def.difficulty ??= {}).curve = cv; else if (def.difficulty) delete def.difficulty.curve;
+  const st = $('#f_strategy').value; if (st) { const F = Array.isArray(def.features) ? def.features[0] : (def.features ??= {}); F.strategy = st; } else if (def.features && !Array.isArray(def.features) && Object.keys(def.features).length === 1) delete def.features;
+  for (const g of ['terrain', 'difficulty', 'assets']) if (def[g] && !Object.keys(def[g]).length) delete def[g];
+}
+for (const id of ['f_relief', 'f_challenge', 'f_variation', 'f_length']) $('#' + id).addEventListener('input', () => { readMain(); syncFromDef(); build(); });
+for (const id of ['f_id', 'f_name', 'f_seed', 'f_style', 'f_rhythm', 'f_biome', 'f_algo', 'f_curve', 'f_strategy']) $('#' + id).addEventListener('change', () => { readMain(); syncFromDef(); build(); });
+document.querySelectorAll('input[type=range][data-g]').forEach((el) => el.addEventListener('input', () => { holder(def, el.dataset.g, true)[el.dataset.k] = +el.value; syncFromDef(); build(); }));
+$('#btnReset').addEventListener('click', () => { for (const g of ['terrain', 'assets', 'features']) delete def[g]; if (def.difficulty) { const t = def.difficulty.target; def.difficulty = t ? { target: t } : undefined; if (!def.difficulty) delete def.difficulty; } for (const k of ['lowNodes', 'okNodes', 'newNodes', 'cpEvery', 'rec']) delete def[k]; syncFromDef(); build(); });
+$('#btnSeed').addEventListener('click', () => { def.seed = Math.floor(1 + Math.random() * 999); syncFromDef(); build(); });
+$('#btnApply').addEventListener('click', () => { try { def = JSON.parse($('#json').value); def.gen = 2; syncFromDef(); build(); } catch (e) { $('#err').textContent = 'JSON ei kelpaa: ' + e.message; } });
+$('#btnLoadFile').addEventListener('click', () => $('#file').click());
+$('#file').addEventListener('change', async () => { const f = $('#file').files[0]; if (!f) return; try { def = JSON.parse(await f.text()); def.gen = 2; syncFromDef(); build(); } catch (e) { $('#err').textContent = 'Tiedosto ei kelpaa: ' + e.message; } });
+
+// ---- rakennus ja piirto ----
+let lv = null, timer = null;
+const hue = (t) => { let h = 0; for (const c of t) h = (h * 31 + c.charCodeAt(0)) % 360; return `hsl(${h} 70% 65%)`; };
+function build() {
+  clearTimeout(timer);
+  timer = setTimeout(() => {
+    $('#err').textContent = '';
+    try { lv = buildLevel(structuredClone(def)); } catch (e) { $('#err').textContent = e.message; lv = null; draw(); return; }
+    draw(); quickStats();
+    if (lv.warnings?.length) $('#err').textContent = 'Huom: ' + lv.warnings.join(' · ');
+    if ($('#autoMeasure').checked) measure();
+  }, 60);
+}
+function draw() {
+  const cv = $('#cv'), ctx = cv.getContext('2d'), W = cv.width, H = cv.height; ctx.clearRect(0, 0, W, H); if (!lv) return;
+  $('#btnClearDraw').hidden = !(def.terrain?.points && def.terrain.algo === 'spline');
+  // Mittakaava: sama px-skaala molempiin suuntiin (kuten pelissä), ellei "venytä korkeus" ole valittu. Profiili keskitetään pystysuunnassa.
+  const pad = 30, range = Math.max(120, lv.maxY - lv.minY), stretch = $('#stretch').checked;
+  const sx = stretch ? W / (lv.L + 200) : Math.min(W / (lv.L + 200), (H - 2 * pad) / range), sy = stretch ? (H - 2 * pad) / range : sx;
+  const minY = lv.minY, top = stretch ? pad : (H - range * sy) / 2, X = (x) => (x + 100) * sx, Y = (y) => top + (y - minY) * sy; lastScale = { sx, sy, top, minY };
+  if (def.terrain?.points && def.terrain.algo === 'spline') { ctx.fillStyle = '#7fd6c2'; for (const [px, h] of def.terrain.points) { ctx.beginPath(); ctx.arc(X(px), Y(core.tY(lv, px)), 3, 0, Math.PI * 2); ctx.fill(); } }
+  ctx.fillStyle = '#9aa79f'; ctx.font = '11px system-ui'; ctx.fillText(stretch ? `pysty venytetty ${(sy / sx).toFixed(1)}×` : `mittakaava 1:1 · korkeusero ${Math.round(range)} px · pyörän akseliväli = ${Math.max(1, Math.round(60 * sx))} px`, 8, 14);
+  if (!stretch) { ctx.fillStyle = '#d5d8cf'; ctx.fillRect(8, 20, Math.max(1, 60 * sx), 2); }
+  ctx.fillStyle = '#26382a'; ctx.beginPath(); ctx.moveTo(X(0), H); for (let i = 0; i < lv.n; i++) ctx.lineTo(X(i * 8), Y(lv.gys[i])); ctx.lineTo(X(lv.L), H); ctx.closePath(); ctx.fill();
+  ctx.strokeStyle = '#cfd2bc'; ctx.lineWidth = 1; ctx.beginPath(); for (let i = 0; i < lv.n; i++) ctx.lineTo(X(i * 8), Y(lv.ys[i])); ctx.stroke();
+  for (const p of lv.plan ?? []) { const c = hue(p.type), pi = (def.placed ?? []).findIndex((f) => f.x === p.cx), manual = pi >= 0, isSel = manual && pi === sel;
+    ctx.fillStyle = c.replace(')', manual ? ' / .32)' : ' / .18)'); ctx.fillRect(X(p.cx - p.hw), 0, 2 * p.hw * sx, H);
+    if (manual) { ctx.strokeStyle = isSel ? '#fff' : c; ctx.lineWidth = isSel ? 2 : 1; ctx.strokeRect(X(p.cx - p.hw) + .5, 24.5, 2 * p.hw * sx - 1, H - 25); }
+    ctx.fillStyle = isSel ? '#fff' : c; ctx.font = '11px system-ui'; ctx.save(); ctx.translate(X(p.cx) + 4, 28); ctx.rotate(Math.PI / 2); ctx.fillText((manual ? '✎ ' : '') + p.type + (p.hard != null ? ' ' + p.hard.toFixed(2) : ''), 0, 0); ctx.restore(); }
+  for (const f of lv.feats) if (f.spr) { ctx.fillStyle = f.type === 'stone' ? '#777' : hue(f.type); ctx.beginPath(); ctx.arc(X(f.x), Y(f.by) - 3, f.type === 'stone' ? 1.5 : 3, 0, Math.PI * 2); ctx.fill(); }
+  for (const nd of lv.nodes) { ctx.fillStyle = nd.kind === 'gateway' ? '#8fa6ff' : nd.state === 'low' ? '#ef5a4e' : '#5ad682'; ctx.fillRect(X(nd.x) - 2, Y(nd.y) - 34, 4, 34); ctx.beginPath(); ctx.arc(X(nd.x), Y(nd.y) - 36, 4, 0, Math.PI * 2); ctx.fill(); }
+  ctx.fillStyle = '#9aa79f'; ctx.font = '11px system-ui'; for (let x = 0; x <= lv.L; x += 1000) { ctx.fillText((x / 1000).toFixed(0) + ' km', X(x) + 2, H - 4); ctx.fillRect(X(x), H - 16, 1, 4); }
+}
+$('#cv').addEventListener('mousemove', (e) => { if (!lv) return; const r = $('#cv').getBoundingClientRect(); const x = Math.max(0, Math.min(lv.L, (e.clientX - r.left) / r.width * (lv.L + 200) - 100)); const s = Math.atan2(core.tY(lv, x + 12) - core.tY(lv, x - 12), 24) * 180 / Math.PI; const h = $('#hover'); if (h) h.textContent = `x ${Math.round(x)} · y ${core.tY(lv, x).toFixed(0)} · kaltevuus ${s.toFixed(0)}°`; });
+function quickStats() {
+  const rep = measureLevel(lv, { ride: false });
+  $('#stats').innerHTML = `<span class="stat">pituus <b>${(lv.L / 1000).toFixed(1)} km</b></span><span class="stat">nousua <b>${rep.climb}</b> laskua <b>${rep.descent}</b> px</span><span class="stat">jyrkin <b>${rep.maxUpDeg}° / ${rep.maxDownDeg}°</b></span><span class="stat">esteitä <b>${(lv.plan ?? []).length}</b> + spritejä <b>${lv.feats.filter((f) => f.spr && f.type !== 'stone').length}</b></span><span class="stat">noodeja <b>${lv.nodes.length - 1}</b> (tarkistuspisteet)</span><span class="stat">kuuluvuustavoite <b>${lv.target} %</b></span><span class="stat" id="hover"></span>`;
+  $('#out').textContent = 'Paina "Mittaa", niin kuskit ajavat kentän ja raportti kertoo portit, kaatumiset ja haastavuusluvun.';
+}
+function measure() { if (!lv) return; $('#out').textContent = 'Mitataan…'; setTimeout(() => { const rep = measureLevel(lv); $('#out').textContent = formatReport(rep, lv.def, reportMeetsTarget(rep, lv.def.difficulty?.target)); }, 10); }
+$('#btnMeasure').addEventListener('click', measure);
+$('#stretch').addEventListener('change', draw);
+
+// ---- esteiden lisääminen kartalle, valinta, raahaus ja koko ----
+$('#addType').innerHTML = Object.keys(FEATURES).map((k) => `<option>${k}</option>`).join('');
+let addMode = false, sel = -1, dragOff = null;
+const worldX = (e) => { const r = $('#cv').getBoundingClientRect(); return (e.clientX - r.left) / r.width * $('#cv').width / (lastScale?.sx ?? 1) - 100; };
+function setAddMode(on) { addMode = on; $('#btnAdd').classList.toggle('primary', on); $('#btnAdd').textContent = on ? '➕ Klikkaa kartalta esteen paikka (Esc lopettaa)' : '➕ Lisää este (klikkaa karttaa)'; $('#cv').style.cursor = on ? 'copy' : drawing ? 'crosshair' : 'default'; }
+$('#btnAdd').addEventListener('click', () => { setDrawMode(false); setAddMode(!addMode); });
+function selectFeat(i) { sel = i; const f = def.placed?.[i]; $('#featPanel').hidden = !f; if (f) { $('#featName').textContent = f.type; $('#featX').value = Math.round(f.x); $('#featHard').value = f.hard ?? .5; $('#featHardOut').value = (f.hard ?? .5).toFixed(2); $('#featStretch').value = f.stretch ?? 1; $('#featStretchOut').value = (f.stretch ?? 1).toFixed(1) + '×'; $('#featSize').value = f.size ?? 1; $('#featSizeOut').value = (f.size ?? 1).toFixed(2) + '×'; $('#featGap').value = f.gap ?? ''; } draw(); }
+$('#featSize').addEventListener('input', () => { const f = def.placed?.[sel]; if (!f) return; const old = f.size; if (tryPlace(() => { f.size = +$('#featSize').value; }, () => { f.size = old; })) { $('#featSizeOut').value = f.size.toFixed(2) + '×'; $('#json').value = JSON.stringify(def, null, 1); build(); } });
+$('#featStretch').addEventListener('input', () => { const f = def.placed?.[sel]; if (!f) return; const old = f.stretch, oldDims = f.dims; if (tryPlace(() => { f.stretch = +$('#featStretch').value; delete f.dims; }, () => { f.stretch = old; if (oldDims) f.dims = oldDims; })) { $('#featStretchOut').value = f.stretch.toFixed(1) + '×'; $('#json').value = JSON.stringify(def, null, 1); build(); } else $('#featStretch').value = old ?? 1; });
+$('#featGap').addEventListener('change', () => { const f = def.placed?.[sel]; if (!f) return; const old = f.gap, v = $('#featGap').value; if (tryPlace(() => { if (v === '') delete f.gap; else f.gap = +v; }, () => { if (old == null) delete f.gap; else f.gap = old; })) { syncFromDef(); build(); } });
+$('#minGap').addEventListener('change', () => { const v = $('#minGap').value; if (v === '') delete def.minGap; else def.minGap = +v; syncFromDef(); build(); });
+// ---- estetyyppien muodot: pieni profiili-ikoni (56×18 px) nimen vieressä, haettava lista ----
+const thumbs = {};
+function thumbOf(type) {
+  if (thumbs[type]) return thumbs[type];
+  const c = document.createElement('canvas'); c.width = 56; c.height = 18; c.className = 'icon'; thumbs[type] = c; const ctx = c.getContext('2d');
+  try {
+    const l = buildLevel({ id: 't', name: 't', tier: 7, gen: 2, seed: 3, length: 4000, lowNodes: 0, okNodes: 0, newNodes: 0, cpEvery: 0, terrain: { algo: 'noise', amp: 0, wl: 1000 }, difficulty: { hard: .6 }, features: { strategy: 'manual', list: [{ type, x: 2000, hard: .6 }] }, assets: { obstacles: 0, stones: 0 } });
+    const p = l.plan[0], a = p.cx - p.hw - 30, b = p.cx + p.hw + 30, ys = []; for (let x = a; x <= b; x += 4) ys.push(core.tY(l, x));
+    const mn = Math.min(...ys), mx = Math.max(...ys), kx = 54 / (b - a), ky = 12 / Math.max(24, mx - mn), oy = 2 + (12 - (mx - mn) * ky) / 2;   // vaaka sovitetaan, pysty liioitellaan hieman, jotta muoto erottuu
+    ctx.fillStyle = '#2f4a36'; ctx.beginPath(); ctx.moveTo(1, 18); ys.forEach((y, i) => ctx.lineTo(1 + i * 4 * kx, oy + (y - mn) * ky)); ctx.lineTo(1 + (b - a) * kx, 18); ctx.closePath(); ctx.fill();
+    ctx.strokeStyle = '#e6e9e2'; ctx.lineWidth = 1; ctx.beginPath(); ys.forEach((y, i) => ctx.lineTo(1 + i * 4 * kx, oy + (y - mn) * ky)); ctx.stroke();
+    ctx.fillStyle = '#c9c7bd'; for (const f of l.feats) if (f.spr && f.x > a && f.x < b) { ctx.beginPath(); ctx.arc(1 + (f.x - a) * kx, oy + (f.by - mn) * ky - 1.5, Math.max(1.2, f.h * ky * .5), 0, Math.PI * 2); ctx.fill(); }
+  } catch (e) { ctx.fillStyle = '#ef5a4e'; ctx.fillText('?', 26, 13); }
+  return c;
+}
+function renderGrid() {
+  const list = $('#featList'), q = $('#featSearch').value.trim().toLowerCase();
+  if (!list.childElementCount) for (const type of Object.keys(FEATURES)) { const el = document.createElement('div'); el.className = 'thumb'; el.dataset.type = type; el.style.cssText = 'display:flex;align-items:center;padding:2px 4px;border-radius:4px;cursor:pointer;font-size:12px;white-space:nowrap'; el.appendChild(thumbOf(type)); el.appendChild(document.createTextNode(type)); el.title = `${type} · cost ${FEATURES[type].cost}${FEATURES[type].gated ? ' · vaatii tekniikkaa' : ''}`;
+    el.addEventListener('click', () => { $('#addType').value = type; renderGrid(); showAddIcon(); setAddMode(true); }); list.appendChild(el); }
+  list.querySelectorAll('.thumb').forEach((el) => { const on = el.dataset.type === $('#addType').value; el.style.background = on ? '#1f4a40' : ''; el.style.color = on ? '#fff' : 'var(--txt)'; el.hidden = q && !el.dataset.type.includes(q); });
+}
+$('#featSearch').addEventListener('input', renderGrid);
+$('#btnGrid').addEventListener('click', () => { const g = $('#featGrid'); g.hidden = !g.hidden; if (!g.hidden) renderGrid(); });
+$('#addType').addEventListener('change', () => { renderGrid(); showAddIcon(); });
+function showAddIcon() { const ic = $('#addIcon'), c = thumbOf($('#addType').value), d = document.createElement('canvas'); d.width = c.width; d.height = c.height; d.className = 'icon'; d.getContext('2d').drawImage(c, 0, 0); ic.innerHTML = ''; ic.appendChild(d); }   // kopio, koska sama canvas voi olla vain yhdessä paikassa
+showAddIcon();
+function tryPlace(mutate, revert) { mutate(); try { buildLevel(structuredClone(def)); } catch (e) { revert(); $('#err').textContent = e.message; return false; } return true; }
+// Kiinnitys: kaikki kentän esteet (myös automaattiset) kirjataan placed-listaan tarkoilla paikoillaan ja automaattinen sijoittelu poistetaan,
+// jolloin esteet pysyvät paikoillaan ja mitä tahansa niistä voi raahata. Palautus: "Poista ohitukset" tai poista placed JSON:sta.
+function pinAll() {
+  if (!lv) return false;
+  const placed = lv.plan.map((p) => ({ type: p.type, x: p.cx, hard: p.hard ?? .5, ...(p.stretch && p.stretch !== 1 ? { stretch: p.stretch } : {}), ...(p.size && p.size !== 1 ? { size: p.size } : {}), ...(p.gap != null ? { gap: p.gap } : {}), dims: p.dims }));   // dims: mitat säilyvät täsmälleen
+  const old = { placed: def.placed, features: def.features };
+  def.placed = placed; def.features = [];
+  try { lv = buildLevel(structuredClone(def)); } catch (e) { def.placed = old.placed; def.features = old.features; $('#err').textContent = 'Kiinnitys ei onnistunut: ' + e.message; return false; }
+  syncFromDef(); draw(); quickStats(); return true;
+}
+$('#btnPin').addEventListener('click', () => { pinAll(); });
+const planHit = (wx) => { if (!lv) return -1; let best = -1, bd = 1e9; lv.plan.forEach((p, i) => { const d = Math.abs(wx - p.cx); if (d <= p.hw && d < bd) { bd = d; best = i; } }); return best; };   // päällekkäisistä lähin keskipiste
+$('#cv').addEventListener('mousedown', (e) => {
+  if (drawing || !lastScale || !lv) return; const wx = Math.round(worldX(e) / 8) * 8;
+  if (addMode) { const type = $('#addType').value, hard = +(lv.def.difficulty?.hard ?? .5); def.placed ??= []; const item = { type, x: wx, hard };
+    // jos kohta on varattu, este siirretään lähimpään vapaaseen kohtaan (enintään 1500 px)
+    let placedAt = null, firstErr = '';
+    for (let d = 0; d <= 1500 && placedAt == null; d += 8) for (const x of d ? [wx - d, wx + d] : [wx]) { item.x = x; if (tryPlace(() => def.placed.push(item), () => def.placed.pop())) { placedAt = x; break; } else if (!firstErr) firstErr = $('#err').textContent; }
+    if (placedAt == null) { $('#err').textContent = firstErr; return; }
+    $('#err').textContent = placedAt === wx ? '' : `Kohta ${wx} oli varattu, este lisättiin kohtaan ${placedAt}.`; syncFromDef(); build(); selectFeat(def.placed.length - 1); return; }
+  const hit = planHit(wx); if (hit < 0) { selectFeat(-1); return; }
+  const cx = lv.plan[hit].cx;
+  if (!(def.placed ?? []).some((f) => f.x === cx)) { if (!pinAll()) return; }              // automaattinen este: kiinnitetään kaikki, sitten raahataan
+  const idx = def.placed.findIndex((f) => f.x === cx);
+  selectFeat(idx); if (idx >= 0) { dragOff = wx - def.placed[idx].x; dragStart = { py: canvasPt(e).py, size: def.placed[idx].size ?? 1 }; e.preventDefault(); }
+});
+let dragStart = null;
+$('#cv').addEventListener('mousemove', (e) => {
+  if (dragOff == null || sel < 0) { if (lv && lastScale && !drawing && !addMode) $('#cv').style.cursor = planHit(Math.round(worldX(e) / 8) * 8) >= 0 ? 'grab' : 'default'; return; }
+  const f = def.placed[sel], nx = Math.round((worldX(e) - dragOff) / 8) * 8, ns = dragStart ? +Math.max(.3, Math.min(3, dragStart.size - (canvasPt(e).py - dragStart.py) / 160)).toFixed(2) : (f.size ?? 1);   // ylös = isompi
+  if (nx === f.x && ns === (f.size ?? 1)) return; const old = { x: f.x, size: f.size };
+  if (tryPlace(() => { f.x = nx; if (ns !== 1) f.size = ns; else delete f.size; }, () => { f.x = old.x; if (old.size != null) f.size = old.size; else delete f.size; })) { $('#err').textContent = ''; $('#featX').value = nx; $('#featSize').value = ns; $('#featSizeOut').value = ns.toFixed(2) + '×'; $('#json').value = JSON.stringify(def, null, 1); build(); } });
+window.addEventListener('mouseup', () => { if (dragOff != null) { dragOff = null; dragStart = null; syncFromDef(); } });
+$('#featX').addEventListener('change', () => { const f = def.placed?.[sel]; if (!f) return; const old = f.x; if (tryPlace(() => { f.x = +$('#featX').value; }, () => { f.x = old; })) { syncFromDef(); build(); } });
+$('#featHard').addEventListener('input', () => { const f = def.placed?.[sel]; if (!f) return; const old = f.hard, oldDims = f.dims; if (tryPlace(() => { f.hard = +$('#featHard').value; delete f.dims; }, () => { f.hard = old; if (oldDims) f.dims = oldDims; })) { $('#featHardOut').value = f.hard.toFixed(2); $('#json').value = JSON.stringify(def, null, 1); build(); } });
+$('#btnFeatDel').addEventListener('click', () => { if (sel < 0) return; def.placed.splice(sel, 1); if (!def.placed.length) delete def.placed; selectFeat(-1); syncFromDef(); build(); });
+window.addEventListener('keydown', (e) => { if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return; if (e.key === 'Escape') { setAddMode(false); setDrawMode(false); selectFeat(-1); } if (e.key === 'Delete' && sel >= 0) $('#btnFeatDel').click(); });
+
+// ---- reitin piirtäminen: vapaalla kädellä piirretty profiili -> terrain.points (spline), loput algoritmeilta ----
+let drawing = false, stroke = null, lastScale = null;
+const canvasPt = (e) => { const r = $('#cv').getBoundingClientRect(); return { px: (e.clientX - r.left) / r.width * $('#cv').width, py: (e.clientY - r.top) / r.height * $('#cv').height }; };
+function setDrawMode(on) { if (on && typeof setAddMode === 'function') setAddMode(false); drawing = on; $('#btnDraw').classList.toggle('primary', on); $('#btnDraw').textContent = on ? '✏️ Piirretään… (vedä hiirellä)' : '✏️ Piirrä reitti'; $('#cv').style.cursor = on ? 'crosshair' : 'default'; }
+$('#btnDraw').addEventListener('click', () => setDrawMode(!drawing));
+$('#btnClearDraw').addEventListener('click', () => { if (def.terrain) { delete def.terrain.points; delete def.terrain.algo; if (!Object.keys(def.terrain).length) delete def.terrain; } $('#btnClearDraw').hidden = true; syncFromDef(); build(); });
+$('#cv').addEventListener('mousedown', (e) => { if (!drawing || !lastScale) return; stroke = [canvasPt(e)]; e.preventDefault(); });
+$('#cv').addEventListener('mousemove', (e) => { if (!drawing || !stroke) return; stroke.push(canvasPt(e)); draw(); const ctx = $('#cv').getContext('2d'); ctx.strokeStyle = '#7fd6c2'; ctx.lineWidth = 2; ctx.beginPath(); stroke.forEach((p, i) => i ? ctx.lineTo(p.px, p.py) : ctx.moveTo(p.px, p.py)); ctx.stroke(); });
+window.addEventListener('mouseup', () => {
+  if (!drawing || !stroke) return; const pts = stroke; stroke = null; setDrawMode(false);
+  const { sx, sy } = lastScale, L = def.length || 7000, xOf = (p) => p.px / sx - 100;
+  const ordered = pts.filter((p, i) => !i || xOf(p) > xOf(pts[i - 1])).map((p) => ({ x: Math.max(0, Math.min(L, xOf(p))), py: p.py }));
+  if (ordered.length < 3 || ordered[ordered.length - 1].x - ordered[0].x < L * .4) { $('#err').textContent = 'Piirrä profiili vasemmalta oikealle vähintään 40 % reitin pituudesta.'; return; }
+  const step = Math.max(250, L / 24), points = [], y0 = ordered[0].py;
+  for (let x = 0; x <= L; x += step) { let best = ordered[0]; for (const o of ordered) if (Math.abs(o.x - x) < Math.abs(best.x - x)) best = o; if (Math.abs(best.x - x) > step) continue; points.push([Math.round(x), Math.round((y0 - best.py) / sy)]); }
+  if (points[0][0] > 0) points.unshift([0, 0]); if (points[points.length - 1][0] < L) points.push([L, points[points.length - 1][1]]);
+  (def.terrain ??= {}).algo = 'spline'; def.terrain.points = points; delete def.terrain.amp; $('#btnClearDraw').hidden = false; $('#err').textContent = ''; syncFromDef(); build();
+});
+$('#btnSweep').addEventListener('click', () => {
+  const target = def.difficulty?.target, rows = [], start = def.seed;
+  $('#sweep').innerHTML = 'Siemenhaku…';
+  setTimeout(() => {
+    for (let seed = start; seed < start + 20; seed++) { try { const l = buildLevel({ ...structuredClone(def), seed }), rep = measureLevel(l); rows.push({ seed, rep, ok: reportMeetsTarget(rep, target) }); } catch (e) { rows.push({ seed, err: e.message }); } }
+    rows.sort((p, q) => (q.ok ? 1 : 0) - (p.ok ? 1 : 0) || (p.rep?.score ?? 9) - (q.rep?.score ?? 9));
+    $('#sweep').innerHTML = `<table><tr><th>siemen</th><th>haast.</th><th>portit</th><th>nousu</th><th>jyrkin</th><th>kuski</th><th>tavoite</th></tr>` + rows.map((r) => r.err ? `<tr><td>${r.seed}</td><td colspan="6" style="text-align:left;color:var(--bad)">${r.err}</td></tr>`
+      : `<tr class="${r.ok ? 'ok' : ''}" data-seed="${r.seed}"><td>${r.seed}</td><td>${r.rep.score}</td><td>${r.rep.gated}</td><td>${r.rep.climb}</td><td>${r.rep.maxUpDeg}°</td><td>${r.rep.ride.finished ? 'maaliin, ' + r.rep.ride.crashes + ' kaat.' : 'juuttui ' + r.rep.ride.stuckAt}</td><td>${r.ok ? 'ok' : (target ? '–' : '')}</td></tr>`).join('') + '</table><div class="hint">Klikkaa siementä ottaaksesi sen käyttöön.' + (target ? '' : ' Lisää difficulty.target JSON-kenttään, niin haku suodattaa tavoitteeseen.') + '</div>';
+    $('#sweep').querySelectorAll('tr[data-seed] td:first-child').forEach((td) => td.addEventListener('click', () => { def.seed = +td.parentElement.dataset.seed; syncFromDef(); build(); }));
+  }, 10);
+});
+$('#btnRow').addEventListener('click', async () => { const row = formatLevelRow(def); $('#row').hidden = false; $('#row').textContent = row; try { await navigator.clipboard.writeText(row); $('#row').textContent = row + '\n\n(kopioitu leikepöydälle: liitä index.html:n LEVELS-taulukkoon)'; } catch (e) {} });
+$('#btnPlay').addEventListener('click', () => { const b64 = btoa(unescape(encodeURIComponent(JSON.stringify(def)))); window.open('../index.html#recipe=' + b64, 'petri-luonnos'); });
+syncFromDef(); build();
+</script>
+</body>
+</html>

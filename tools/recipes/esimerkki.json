@@ -1,0 +1,6 @@
+{"id":"harjukierros-kokeilu","name":"Harjukierros (kokeilu)","tier":7,"gen":2,"seed":303,"length":8000,
+ "terrain":{"algo":"ridged","amp":230,"wl":1500,"octaves":3,"gain":0.3,"rough":6,"maxSlope":30},
+ "difficulty":{"hard":0.35,"curve":[0.6,1,1.2]},
+ "features":{"strategy":"rhythm","sequence":["bumps","ledge","rest","gap","rocks","kickerwall","rest","rockslope","bigair"],"gap":260},
+ "assets":{"obstacles":1,"stones":1,"forest":1},
+ "lowNodes":3,"okNodes":1,"newNodes":3,"cpEvery":1600,"rec":1}
