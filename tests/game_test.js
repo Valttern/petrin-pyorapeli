@@ -355,3 +355,19 @@ Deno.test('karhupako: the chase level is pure terrain, sprays are rare, and the 
   const x0 = K.x; for (let s = 0; s < 120; s++) K.step(b); assert(K.x < x0 - 60, 'the bear recoils after the spray');
   K.x = b.midX - 600; assert(!K.spray(b), 'spray does nothing when the bear is far');
 });
+
+// Suorituskyky ilman selainta: kenttien rakennus ja simulaatio pysyvät budjetissa (väljät rajat, jotta hitaampikin kone läpäisee;
+// piirron mittaus vaatii selaimen: F-näppäin pelissä tai headless-harness).
+Deno.test('performance: every level builds within budget and a full-speed simulation with the bear runs far faster than real time', () => {
+  const times = [];
+  for (const def of v2.LEVELS) { const t0 = performance.now(); const lv = v2.buildLevel(def); times.push([def.id, performance.now() - t0, lv.decor.length]); }
+  const slow = times.filter(([, ms]) => ms > 2500);
+  assert(slow.length === 0, `levels build in under 2.5 s: ${slow.map(([id, ms]) => `${id} ${ms.toFixed(0)} ms`).join(', ')}`);
+  const total = times.reduce((s, [, ms]) => s + ms, 0);
+  assert(total < 12000, `all ${times.length} levels build in under 12 s (${total.toFixed(0)} ms)`);
+  const def = v2.LEVELS.find((l) => l.chase), lv = v2.buildLevel(def), b = new v2.Bike(lv, v2.BIKES[1]); b.spawn(178, 1); const K = new v2.Bear(lv, 178 - v2.BEAR.gap0);
+  const t0 = performance.now(); let inp = { gas: true };
+  for (let s = 0; s < 1200; s++) { if (s % 6 === 0) inp = b.vt > 6 ? {} : { gas: true }; if (b.step(inp) === 'crash') break; K.step(b); }
+  const ms = performance.now() - t0;
+  assert(ms < 400, `10 s of physics (1200 steps, bike + bear) simulates in under 0.4 s (${ms.toFixed(0)} ms)`);
+});

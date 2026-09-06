@@ -222,6 +222,7 @@ button.b:hover,button.b:focus-visible{filter:brightness(1.12);outline:none}
         <div><kbd class="k">R</kbd> Viimeiselle noodille</div>
         <div><kbd class="k">ESC</kbd> Tauko</div>
         <div><kbd class="k">M</kbd> Äänet päälle / pois</div>
+        <div><kbd class="k">F</kbd> Suorituskykymittari</div>
       </div>
       <h2>Valitse pyörä</h2>
       <div class="bikes" id="bikeList"></div>
@@ -1620,9 +1621,9 @@ function line(x1,y1,x2,y2){ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);c
 function rr(x,y,w,h,r){ctx.beginPath();ctx.roundRect(x,y,w,h,r);}
 const viewL=()=>cam.x-W/(2*S), viewR=()=>cam.x+W/(2*S);
 
-function drawSky(){
+function drawSky(){const dawn=dawnOf(game.level); screenLayer('sky:'+(dawn?1:0),()=>paintSky(dawn));}
+function paintSky(dawn){
   screen();
-  const dawn=dawnOf(game.level);
   const g=ctx.createLinearGradient(0,0,0,H);
   if(dawn){                                                    // syysaamun auringonnousu: syvä sini ylhäällä, kulta horisontissa
     g.addColorStop(0,'#5d86b0');g.addColorStop(.34,'#9fbcd2');g.addColorStop(.62,'#e8cfa8');g.addColorStop(.86,'#f6d9a4');g.addColorStop(1,'#f3cf98');
@@ -1717,7 +1718,7 @@ function drawRidgeLayer(r){
   layer(r.f,r.fy); const by=game.level.baseY, top=by+r.base-r.amp-210, bot=by+r.base+r.amp+230;
   const xl=cam.x*r.f-W/(2*S), xr=cam.x*r.f+W/(2*S);
   const k0=Math.floor((xl-20)/STRIP), k1=Math.floor((xr+20)/STRIP);
-  for(let k=k0;k<=k1;k++){const st=stripOf('ridge'+r.f,k,top,bot,(x0,x1)=>paintRidge(r,x0,x1)); ctx.drawImage(st.c,0,0,st.c.width,st.c.height,st.x0,st.top,st.c.width/st.sc,st.c.height/st.sc);}
+  for(let k=k0;k<=k1;k++){const st=stripOf('ridge'+r.f,k,top,bot,(x0,x1)=>paintRidge(r,x0,x1)); blitStrip(st);}
   ctx.fillStyle=r.fill2; ctx.fillRect(xl-40,bot-.5,xr-xl+80,1400);
 }
 function drawClouds(){
@@ -1764,9 +1765,9 @@ function drawMidForest(){
     if(h1<.72){tri(x-w,gy2,x+w,gy2,x,gy2-h);tri(x-w*.8,gy2-h*.35,x+w*.8,gy2-h*.35,x,gy2-h*1.12);}
     else{ctx.fillRect(x-1.5,gy2-h*.7,3,h*.7);circ(x,gy2-h*.75,w*1.4);}
   }
-  screen(); if(duskOf(lv)>0)ctx.globalCompositeOperation='source-atop';
-  const g=ctx.createLinearGradient(0,0,0,H);g.addColorStop(0,'rgba(207,227,234,0)');g.addColorStop(.55,'rgba(207,227,234,.28)');g.addColorStop(1,'rgba(207,227,234,.05)');
-  ctx.fillStyle=g;ctx.fillRect(0,0,W,H); ctx.globalCompositeOperation='source-over';
+  if(duskOf(lv)>0)ctx.globalCompositeOperation='source-atop';
+  screenLayer('midfog',()=>{const g=ctx.createLinearGradient(0,0,0,H);g.addColorStop(0,'rgba(207,227,234,0)');g.addColorStop(.55,'rgba(207,227,234,.28)');g.addColorStop(1,'rgba(207,227,234,.05)');ctx.fillStyle=g;ctx.fillRect(0,0,W,H);});
+  ctx.globalCompositeOperation='source-over';
 }
 // ---------- staattinen maailma kaistoina ----------
 // Maa, esteet ja puut piirretään kerran 400 px:n kaistoihin (offscreen-canvas) ja blitataan joka ruudussa:
@@ -1781,12 +1782,28 @@ function stripOf(kind,k,top,bot,paint){
   if(strips.key!==key){clearStrips();strips.key=key;}
   const id=kind+':'+k; let st=strips.map.get(id); if(st){strips.map.delete(id);strips.map.set(id,st);return st;}
   const x0=k*STRIP, x1=x0+STRIP, sc=stripScale();
-  const c=document.createElement('canvas'); c.width=Math.ceil(STRIP*sc); c.height=Math.ceil((bot-top)*sc);
+  const c=document.createElement('canvas'); c.width=Math.ceil(STRIP*sc); c.height=Math.ceil((bot-top)*sc); PERF.paints++;
   const g=c.getContext('2d'); g.setTransform(sc,0,0,sc,-x0*sc,-top*sc);
   const saved=ctx; ctx=g; try{ paint(x0,x1); } finally { ctx=saved; }
   st={c,x0,top,bot,sc}; strips.map.set(id,st);
   while(strips.map.size>24){const first=strips.map.keys().next().value;strips.map.delete(first);}
   return st;
+}
+// Kaistan blittaus: kun kaistan mittakaava on täsmälleen ruudun (S*dpr), piirto on 1:1 ja pehmennys vain sumentaa ja maksaa
+// (mitattu: 2,7 ms -> 0,3 ms per harjannekerros ohjelmistopiirrolla). Skaalattuna (S*dpr > 2,5) pehmennys pidetään.
+function blitStrip(st){
+  const exact=Math.abs(st.sc-S*dpr)<1e-6; if(exact)ctx.imageSmoothingEnabled=false;
+  ctx.drawImage(st.c,0,0,st.c.width,st.c.height,st.x0,st.top,st.c.width/st.sc,st.c.height/st.sc);
+  if(exact)ctx.imageSmoothingEnabled=true;
+}
+// Koko ruudun kokoiset staattiset kerrokset (taivaan liukuväri, usvat) piirretään kerran välimuistikanvakselle ja blitataan:
+// liukuväritäyttö maksaa 1,8-3,4 ms ruutua kohti, valmiin kanvaksen blittaus 0,3 ms. Avaimen on sisällettävä kaikki, mistä sisältö riippuu.
+const screenCache=new Map();
+function screenLayer(key,paint){
+  const k=key+':'+W+'x'+H+':'+dpr; let c=screenCache.get(key);
+  if(!c||c.k!==k){c={k,cv:document.createElement('canvas')}; c.cv.width=Math.max(1,Math.round(W*dpr)); c.cv.height=Math.max(1,Math.round(H*dpr)); const g=c.cv.getContext('2d'); g.setTransform(dpr,0,0,dpr,0,0);
+    const saved=ctx; ctx=g; try{paint();} finally{ctx=saved;} screenCache.delete(key); screenCache.set(key,c); while(screenCache.size>10){screenCache.delete(screenCache.keys().next().value);}}
+  screen(); ctx.drawImage(c.cv,0,0,W,H);
 }
 function getStrip(k){
   const lv=game.level, x0=k*STRIP, x1=x0+STRIP;
@@ -1796,7 +1813,7 @@ function getStrip(k){
 function drawWorld(){
   layer(1); const deep=illustrated()&&sprite('soil')?'#1a1109':'#4a3826', screenBot=cam.y+H/(2*S)+200;
   const k0=Math.floor((viewL()-20)/STRIP), k1=Math.floor((viewR()+20)/STRIP);
-  for(let k=k0;k<=k1;k++){const st=getStrip(k); ctx.drawImage(st.c,0,0,st.c.width,st.c.height,st.x0,st.top,st.c.width/st.sc,st.c.height/st.sc); if(screenBot>st.bot){ctx.fillStyle=deep;ctx.fillRect(st.x0-.5,st.bot-.5,STRIP+1,screenBot-st.bot+1);}}
+  for(let k=k0;k<=k1;k++){const st=getStrip(k); blitStrip(st); if(screenBot>st.bot){ctx.fillStyle=deep;ctx.fillRect(st.x0-.5,st.bot-.5,STRIP+1,screenBot-st.bot+1);}}
   drawCps();
 }
 function drawCps(){
@@ -2273,7 +2290,9 @@ function skyStops(d){let a=SKY_KEYS[0],b=SKY_KEYS[1];for(let i=0;i<SKY_KEYS.leng
 // sävytetty kopio spritestä (source-atop-täyttö), välimuistissa avaimella: pilvet ruskotukseen tai yön siluetiksi
 function tintOf(name,key,rgba){const a=ASSETS[name];if(!a)return null;a.tints=a.tints||{};if(a.tints[key])return a.tints[key];try{const c=document.createElement('canvas');c.width=a.w;c.height=a.h;const g=c.getContext('2d');g.drawImage(a.img,0,0);g.globalCompositeOperation='source-atop';g.fillStyle=rgba;g.fillRect(0,0,c.width,c.height);a.tints[key]=c;return c;}catch(e){return a.img;}}
 let darkC=null,darkG=null;
-function darkCtx(){if(!darkC||darkC.width!==canvas.width||darkC.height!==canvas.height){darkC=document.createElement('canvas');darkC.width=canvas.width;darkC.height=canvas.height;darkG=darkC.getContext('2d');}return darkG;}
+// pimeyskerroksen resoluutiojakaja: mitattu 1 = 1,9 ms, 2 = 2,5 ms (skaalattu blittaus source-atopilla maksaa enemmän kuin täytöt säästävät), joten 1
+const DARK_DIV=1;
+function darkCtx(){const w=Math.ceil(canvas.width/DARK_DIV),h=Math.ceil(canvas.height/DARK_DIV); if(!darkC||darkC.width!==w||darkC.height!==h){darkC=document.createElement('canvas');darkC.width=w;darkC.height=h;darkG=darkC.getContext('2d');}return darkG;}
 const toScr=(x,y)=>[W/2+(x-cam.x)*S,H/2+(y-cam.y)*S];
 function headlamp(b){                                                        // otsalamppu: kypärästä ajosuuntaan, hieman alaviistoon
   let ex=b.B.x-b.A.x,ey=b.B.y-b.A.y;const el=Math.hypot(ex,ey)||1;ex/=el;ey/=el;const fx=ex*b.dir,fy=ey*b.dir;
@@ -2281,7 +2300,7 @@ function headlamp(b){                                                        // 
 }
 function drawDarkness(d){
   const g=darkCtx(), lv=game.level, b=game.bike;
-  g.setTransform(dpr,0,0,dpr,0,0); g.globalCompositeOperation='source-over'; g.globalAlpha=1;
+  g.setTransform(dpr/DARK_DIV,0,0,dpr/DARK_DIV,0,0); g.globalCompositeOperation='source-over'; g.globalAlpha=1;
   g.fillStyle=mixHex('#2a2352','#03050e',clamp((d-.35)/.65,0,1)); g.fillRect(0,0,W,H);
   g.globalCompositeOperation='destination-out';
   const hole=(x,y,r,k)=>{const [sx,sy]=toScr(x,y),R_=r*S; if(sx<-R_||sx>W+R_||sy<-R_||sy>H+R_)return; const rg=g.createRadialGradient(sx,sy,0,sx,sy,R_); rg.addColorStop(0,`rgba(0,0,0,${k})`); rg.addColorStop(.5,`rgba(0,0,0,${(k*.45).toFixed(3)})`); rg.addColorStop(1,'rgba(0,0,0,0)'); g.fillStyle=rg; g.fillRect(sx-R_,sy-R_,2*R_,2*R_);};
@@ -2294,7 +2313,7 @@ function drawDarkness(d){
   if(lv.def.chase){const K=game.bear; if(K&&K.x>viewL()-200&&K.x<viewR()+200)hole(K.x+10,K.y-30,120,.45);                      // karhu häämöttää hämärässä
     for(const sp of lv.sprays){if(sp.taken||sp.x<viewL()-80||sp.x>viewR()+80)continue; hole(sp.x,sp.y-14,70,.8);}}
   g.globalCompositeOperation='source-over';
-  screen(); ctx.globalCompositeOperation='source-atop'; ctx.globalAlpha=lerp(.16,.9,d)*(lv.def.moonlit?.86:1); ctx.drawImage(darkC,0,0,W,H); ctx.globalAlpha=1; ctx.globalCompositeOperation='source-over';
+  screen(); ctx.globalCompositeOperation='source-atop'; ctx.globalAlpha=lerp(.16,.9,d)*(lv.def.moonlit?.86:1); if(DARK_DIV>1)ctx.imageSmoothingEnabled=false; ctx.drawImage(darkC,0,0,W,H); ctx.imageSmoothingEnabled=true; ctx.globalAlpha=1; ctx.globalCompositeOperation='source-over';
 }
 function drawLights(d){                                                      // valonlähteiden hehkut (additiivinen), voimistuvat pimeässä
   const lv=game.level,t=game.t,b=game.bike,k=lerp(.3,1,d),ill=illustrated(); layer(1); ctx.globalCompositeOperation='lighter';
@@ -2336,13 +2355,18 @@ function drawSkyDusk(d){                                                     // 
   drawClouds(); screen();
   const st=clamp((d-.5)/.3,0,1);
   if(st>0){for(let i=0;i<170;i++){const h1=hash(i*7+3),h2=hash(i*7+4),h3=hash(i*7+5); const x=(((h1*W*2.2-cam.x*.03*S)%(W*1.1))+W*1.1)%(W*1.1)-W*.05, y=h2*h2*hy*1.05; const tw=.55+.45*Math.sin(t*(1.5+h3*3)+i); ctx.fillStyle=`rgba(255,250,235,${(st*tw*(.35+h3*.65)).toFixed(3)})`; const sz=.7+h3*1.4; ctx.fillRect(x,y,sz,sz);}}
-  const mo=clamp((d-.55)/.2,0,1);                                            // kuu nousee vasemmalta
-  if(mo>0){const mx=W*.24-cam.x*.012*S, my=hy*(.72-(d-.55)*.55), r=24*S; const gl=ctx.createRadialGradient(mx,my,r*.6,mx,my,r*7); gl.addColorStop(0,`rgba(230,235,255,${(.28*mo).toFixed(3)})`); gl.addColorStop(.4,`rgba(200,210,255,${(.08*mo).toFixed(3)})`); gl.addColorStop(1,'rgba(200,210,255,0)'); ctx.fillStyle=gl; ctx.fillRect(mx-r*7,my-r*7,r*14,r*14);
-    ctx.globalAlpha=mo; const ms=illustrated()&&sprite('moon'); if(ms)ctx.drawImage(ms.img,mx-r,my-r,2*r,2*r); else {ctx.fillStyle='#f1eedc';circ(mx,my,r);ctx.fillStyle='rgba(190,190,175,.5)';circ(mx-r*.3,my-r*.15,r*.25);circ(mx+r*.25,my+r*.3,r*.19);} ctx.globalAlpha=1;}
+  // liukuväri, aurinko ja kuu riippuvat vain hämärästä, horisontin korkeudesta (8 px:n askelin) ja kuun parallaksista: välimuistikanvas
+  const mxq=Math.round((W*.24-cam.x*.012*S)/4)*4, hyq=Math.round(hy/8)*8;
+  screenLayer('dusk:'+d.toFixed(3)+':'+hyq+':'+mxq+':'+(illustrated()?1:0),()=>paintDuskSky(d,hyq,mxq));
+  ctx.globalCompositeOperation='source-over';
+}
+function paintDuskSky(d,hy,mx){
+  const c=skyStops(d), g=ctx.createLinearGradient(0,0,0,H), hh=hy/H; g.addColorStop(0,c[0]);g.addColorStop(Math.min(.9,hh*.45),c[1]);g.addColorStop(Math.min(.95,hh*.85),c[2]);g.addColorStop(Math.min(1,hh*1.15),c[3]);g.addColorStop(1,c[3]); ctx.fillStyle=g; ctx.fillRect(0,0,W,H);
   const su=1-clamp((d-.42)/.15,0,1);                                         // aurinko vajoaa horisonttiin ja punertuu
   if(su>0){const sx=W*.8,sy=hy*(.55+d*.9), col=mixHex('#fff8dc','#ff7a30',clamp(d/.4,0,1)), gr=(220+d*220)*S; const gl=ctx.createRadialGradient(sx,sy,10,sx,sy,gr); gl.addColorStop(0,`rgba(255,200,140,${(.85*su).toFixed(3)})`); gl.addColorStop(.3,`rgba(255,160,100,${(.3*su).toFixed(3)})`); gl.addColorStop(1,'rgba(255,160,100,0)'); ctx.fillStyle=gl; ctx.fillRect(0,0,W,H); ctx.globalAlpha=su; ctx.fillStyle=col; circ(sx,sy,(26+d*24)*S); ctx.globalAlpha=1;}
-  const c=skyStops(d), g=ctx.createLinearGradient(0,0,0,H), hh=hy/H; g.addColorStop(0,c[0]);g.addColorStop(Math.min(.9,hh*.45),c[1]);g.addColorStop(Math.min(.95,hh*.85),c[2]);g.addColorStop(Math.min(1,hh*1.15),c[3]);g.addColorStop(1,c[3]); ctx.fillStyle=g; ctx.fillRect(0,0,W,H);
-  ctx.globalCompositeOperation='source-over';
+  const mo=clamp((d-.55)/.2,0,1);                                            // kuu nousee vasemmalta
+  if(mo>0){const my=hy*(.72-(d-.55)*.55), r=24*S; const gl=ctx.createRadialGradient(mx,my,r*.6,mx,my,r*7); gl.addColorStop(0,`rgba(230,235,255,${(.28*mo).toFixed(3)})`); gl.addColorStop(.4,`rgba(200,210,255,${(.08*mo).toFixed(3)})`); gl.addColorStop(1,'rgba(200,210,255,0)'); ctx.fillStyle=gl; ctx.fillRect(mx-r*7,my-r*7,r*14,r*14);
+    ctx.globalAlpha=mo; const ms=illustrated()&&sprite('moon'); if(ms)ctx.drawImage(ms.img,mx-r,my-r,2*r,2*r); else {ctx.fillStyle='#f1eedc';circ(mx,my,r);ctx.fillStyle='rgba(190,190,175,.5)';circ(mx-r*.3,my-r*.15,r*.25);circ(mx+r*.25,my+r*.3,r*.19);} ctx.globalAlpha=1;}
 }
 function drawEffects(){
   layer(1);const g=game;
@@ -2361,7 +2385,8 @@ function render(){
     drawRidge(.10,.08,-250,40,320,d>0?'#6a6c93':'#a9bfcc',1);
     const hn=d>0&&sprite('hills_dusk')?'hills_dusk':lv.def.tech&&sprite('hills_rock')?'hills_rock':'hills', hb=sprite(hn);   // tekniikkarata: kalliovaarat drawBand(hn,.18,.08,by-120,.42); fillBelow(.18,.08,by-121,hb.bottom||'#7f9aa6',d>0?'#33355a':'#7d9895',160);
     for(const r of RIDGES) drawRidgeLayer(r);
-    screen(); if(d>0)ctx.globalCompositeOperation='source-atop'; const dw=dawnOf(lv), hz=d>0?'110,118,170':dw?'255,206,150':'207,227,234'; const g=ctx.createLinearGradient(0,0,0,H);g.addColorStop(0,`rgba(${hz},0)`);g.addColorStop(.5,`rgba(${hz},${d>0?.12:dw?.26:.18})`);g.addColorStop(1,`rgba(${hz},${dw?.10:.03})`);ctx.fillStyle=g;ctx.fillRect(0,0,W,H); ctx.globalCompositeOperation='source-over';
+    if(d>0)ctx.globalCompositeOperation='source-atop'; const dw=dawnOf(lv), hz=d>0?'110,118,170':dw?'255,206,150':'207,227,234';
+    screenLayer('hz:'+hz+':'+(d>0?1:0)+':'+(dw?1:0),()=>{const g=ctx.createLinearGradient(0,0,0,H);g.addColorStop(0,`rgba(${hz},0)`);g.addColorStop(.5,`rgba(${hz},${d>0?.12:dw?.26:.18})`);g.addColorStop(1,`rgba(${hz},${dw?.10:.03})`);ctx.fillStyle=g;ctx.fillRect(0,0,W,H);}); ctx.globalCompositeOperation='source-over';
   } else {
     drawRidge(.12,.12,-205,42,300,'#aac0ca',1);
     drawRidge(.28,.28,-150,58,220,'#7f9aa6',5);
@@ -2611,7 +2636,7 @@ const SFX={
 
 // ---------- pelitila ----------
 const game={state:'menu',level:null,bike:null,li:0,bikeIdx:1,style:'kuvitettu',t:0,time:0,started:false,inv:{bat:0,node:0},checkpoint:{x:178,dir:1},
-  service:null,action:null,crashT:0,pulses:[],parts:[],texts:[],muted:false,unlocked:false,finishMsgT:0,levels:[],mapW:0,
+  service:null,action:null,crashT:0,pulses:[],parts:[],texts:[],muted:false,unlocked:false,finishMsgT:0,levels:[],mapW:0,perf:false,
   bear:null,spray:0,sprayUsed:0,shake:0,bearGap:1e9,caughtT:0,chaseEscaped:false,useHeld:false,bestDist:0};
 const input={gas:false,brake:false,left:false,right:false,use:false};
 const NOINPUT={gas:false,brake:false,left:false,right:false,use:false};
@@ -2996,6 +3021,7 @@ window.addEventListener('keydown',e=>{
   if(e.repeat){if(keyMap[e.code])e.preventDefault();return;}
   const c=e.code;
   if(c==='KeyM'){game.muted=!game.muted;toast(game.muted?'Äänet pois':'Äänet päällä',1.2);return;}
+  if(c==='KeyF'){game.perf=!game.perf;PERF.reset();toast(game.perf?'Suorituskykymittari päällä':'Mittari pois',1.2);return;}
   if(game.state==='menu'){ if(c==='Enter'||c==='Space'){ac();startLevel(0);e.preventDefault();} if(c.startsWith('Digit')){const n=c==='Digit0'?9:+c.slice(5)-1;if(LEVELS[n]){ac();startLevel(n);}} if(c==='ArrowLeft'||c==='ArrowRight'){selectBike((game.bikeIdx+(c==='ArrowRight'?1:BIKES.length-1))%BIKES.length);e.preventDefault();} return; }
   if(game.state==='done'){ if(c==='Enter'||c==='Space'){if(game.level&&game.level.def.chase)startLevel(game.li);else if(game.li<LEVELS.length-1)startLevel(game.li+1);else toMenu();e.preventDefault();} if(c==='Escape')toMenu(); return; }
   if(c==='Escape'||c==='KeyP'){ if(game.state==='play')pause(); else if(game.state==='pause')resume(); e.preventDefault(); return; }
@@ -3008,11 +3034,24 @@ window.addEventListener('keyup',e=>{if(keyMap[e.code]){input[keyMap[e.code]]=fal
 window.addEventListener('blur',()=>{for(const k in input)input[k]=false;if(game.state==='play')pause();});
 
 // ---------- silmukka ----------
+// Suorituskykymittari (F): ruudun, simulaation ja piirron ajat liukuvana keskiarvona sekunnin ikkunassa, p95 ja pahin ruutu, kaistojen
+// maalaukset ja välimuistin koko. Näkyy myös ruudun oikeassa yläkulmassa; sama data on PERF-oliossa selaimen konsolille.
+const PERF={t:[],sim:[],ren:[],paints:0,worst:0,reset(){this.t.length=0;this.sim.length=0;this.ren.length=0;this.paints=0;this.worst=0;},
+  push(t,sim,ren){this.t.push(t);this.sim.push(sim);this.ren.push(ren);if(t>this.worst)this.worst=t;if(this.t.length>90){this.t.shift();this.sim.shift();this.ren.shift();}},
+  stats(){const n=this.t.length||1,avg=a=>a.reduce((x,y)=>x+y,0)/n,srt=this.t.slice().sort((a,b)=>a-b);return {n,frame:avg(this.t),sim:avg(this.sim),ren:avg(this.ren),p95:srt[Math.floor(srt.length*.95)]||0,worst:this.worst,fps:1000/Math.max(.01,avg(this.t))};}};
+function drawPerf(dt){
+  const st=PERF.stats(), lines=[`${(1000/Math.max(.001,dt*1000)).toFixed(0)} fps · ruutu ${st.frame.toFixed(1)} ms (p95 ${st.p95.toFixed(1)}, pahin ${st.worst.toFixed(1)})`,`sim ${st.sim.toFixed(2)} ms · piirto ${st.ren.toFixed(1)} ms · kaistat ${strips.map.size} (maalattu ${PERF.paints})`,
+    `${W}x${H} @${dpr} · S ${S.toFixed(2)} · ${game.style} · decor ${game.level?game.level.decor.length:0} · hiukkaset ${game.parts.length}`];
+  screen(); ctx.font='12px ui-monospace,monospace'; ctx.textAlign='left'; const w=430,h=14*lines.length+10, x=W-w-10, y=H*.5;
+  ctx.fillStyle='rgba(0,0,0,.6)'; ctx.fillRect(x,y,w,h); ctx.fillStyle=st.frame>16.7?'#ff8a5a':'#b5dd4f'; lines.forEach((l,i)=>ctx.fillText(l,x+8,y+15+i*14));
+}
 let last=performance.now(),acc=0;
 function frame(now){
   let dt=Math.min(.05,(now-last)/1000);last=now;
+  const pf=game.perf, t0=pf?performance.now():0; let tSim=0;
   if(game.state==='play'||game.state==='crash'||game.state==='caught'){
     acc+=dt;let n=0;while(acc>=STEP&&n<8){simStep();acc-=STEP;n++;}
+    if(pf)tSim=performance.now()-t0;
     const b=game.bike,lv=game.level;
     const vx=(b.A.x-b.A.px)*30;
     const rg=b.rag, tx=clamp(rg?rg.hip.x:b.midX+b.dir*110+vx,W/(2*S)-EDGE_VIEW,lv.L-W/(2*S)+EDGE_VIEW),ty=rg?rg.hip.y-40:b.midY-70;   // kaatuessa kamera seuraa kuskia;   // kamera näkee hieman seinän yli metsään
@@ -3021,7 +3060,7 @@ function frame(now){
   }
   if(game.state==='menu')menuDrift(dt);
   if(game.state==='play'||game.state==='crash'||game.state==='caught')ambientUpdate(dt);
-  render();updateHUD(dt);audioUpdate(dt);
+  const r0=pf?performance.now():0; render(); if(pf){PERF.push(performance.now()-t0,tSim,performance.now()-r0);drawPerf(dt);} updateHUD(dt);audioUpdate(dt);
   requestAnimationFrame(frame);
 }
 resize();renderBikeList();renderLevelList();menuScene();requestAnimationFrame(frame);
