@@ -6,6 +6,9 @@
 //   deno run --allow-read tools/levelgen.js sweep   <id|resepti.json> [--seeds 1-40] [--top 5] [--quick]
 //   deno run --allow-read tools/levelgen.js row     <resepti.json>            tulostaa LEVELS-rivin liitettäväksi index.html:ään
 //   deno run --allow-read tools/levelgen.js expand  <id|resepti.json>         näyttää, miksi tiivis resepti (style, relief, challenge...) laajenee
+//   deno run --allow-read tools/levelgen.js retune  <id|all> [--profile auto|kevyt|keski|tekninen|raskas|hamara|yo|alamaki] [--seeds 1-30] [--out dir] [--rows 1]
+//        soveltaa haasteprofiilin kenttään: tekninen estejono ~2 estettä/km, välit 200-450 px, ja hakee siemenen, jolla
+//        tekniikkakuski pääsee maaliin ja portteja on tavoitteen verran; tulostaa LEVELS-rivin (ja tallentaa JSON:n, jos --out)
 //   deno run --allow-read tools/levelgen.js list
 //
 // Resepti on JSON-tiedosto samassa muodossa kuin LEVELS-rivi (gen:2). Ks. README "Kenttägeneraattori v2".
@@ -18,7 +21,47 @@ const opt = (name, dflt) => { const i = args.indexOf('--' + name); if (i < 0) re
 const flag = (name) => { const i = args.indexOf('--' + name); if (i < 0) return false; args.splice(i, 1); return true; };
 
 const { core } = await loadCore();
-const { LEVELS, BIKES, buildLevel, measureLevel, reportMeetsTarget, expandRecipe } = core;
+const { LEVELS, BIKES, buildLevel, measureLevel, reportMeetsTarget, expandRecipe, FEATURES, mulberry32 } = core;
+// Haasteprofiilit: estepooli (tekninen ajaminen, ei vauhti), tiheys esteitä/km, hard, koon ja venytyksen hajonta, väli (esimerkkikentässä
+// esteiden väli on vain noin 50 px) ja mitattu tavoite. 'auto' valitsee profiilin vaikeustason (tier) mukaan ja teemapooli kentän nimen mukaan.
+const TECH = ['dropseries', 'stairs', 'stepsdown', 'slab', 'slabdown', 'rootclimb', 'pipe', 'logpile', 'doubles', 'ledge', 'boulderfield', 'rockgarden', 'plateau', 'whoops', 'logledge', 'sinkhole', 'boulder', 'trunk'];
+const PROFILES = {
+  kevyt:    { pool: ['stairs', 'stepsdown', 'slab', 'slabdown', 'logpile', 'doubles', 'ledge', 'rockgarden', 'whoops', 'boulder', 'trunk', 'bumps', 'hump', 'kicker'], perKm: 1.7, hard: [.15, .35], size: [.8, 1.2], stretch: [.8, 1.3], minGap: 90, target: { gatedPerKm: [.8, 3], finished: true, maxCrashes: 1 } },
+  keski:    { pool: TECH, perKm: 2.0, hard: [.3, .5], size: [.8, 1.4], stretch: [.8, 1.5], minGap: 70, target: { gatedPerKm: [1.4, 4], finished: true, maxCrashes: 2 } },
+  tekninen: { pool: TECH, perKm: 2.2, hard: [.35, .55], size: [.8, 1.6], stretch: [.8, 1.6], minGap: 60, target: { gatedPerKm: [1.6, 4], finished: true, maxCrashes: 2 } },
+  raskas:   { pool: [...TECH, 'gapledge', 'kickerwall', 'combo', 'doublegap'], perKm: 2.5, hard: [.5, .8], size: [1, 1.9], stretch: [.9, 1.8], minGap: 50, target: { gatedPerKm: [2, 5], finished: true, maxCrashes: 3 } },
+  hamara:   { pool: ['ledge', 'stump', 'roots', 'trunk', 'combo', 'kickerwall', 'boulder', 'boulderfield', 'dropseries', 'rockslope', 'logledge', 'stairs', 'doubles'], perKm: 2.0, hard: [.4, .65], size: [.9, 1.5], stretch: [.8, 1.5], minGap: 80, target: { gatedPerKm: [1.4, 4], finished: true, maxCrashes: 2 } },
+  yo:       { pool: ['ledge', 'roots', 'trunk', 'combo', 'kickerwall', 'boulderfield', 'dropseries', 'rockslope', 'gapledge', 'doublegap', 'stairs', 'plateau', 'sinkhole'], perKm: 2.3, hard: [.55, .85], size: [1, 1.7], stretch: [.9, 1.6], minGap: 60, target: { gatedPerKm: [1.8, 5], finished: true, maxCrashes: 3 } },
+  alamaki:  { pool: ['stepdown', 'rollers', 'roadgap', 'chute', 'rockslope', 'doubles', 'tabletop', 'whoops', 'boulderfield', 'dropseries'], perKm: 1.6, hard: [.4, .8], size: [.9, 1.5], stretch: [.9, 1.6], minGap: 120, target: { gatedPerKm: [.6, 4], finished: true, maxCrashes: 2 } },
+};
+const TIER_PROFILE = { 0: 'kevyt', 1: 'keski', 2: 'raskas', 3: 'hamara', 4: 'yo', 5: 'alamaki', 7: 'raskas' };
+// Teemapoolit kentän tunnuksen mukaan: näitä painotetaan kaksinkertaisesti, jotta Juurakko on juurakkoinen ja Louhikko louhikkoinen
+const THEMES = { juurakko: ['roots', 'rootclimb', 'trunk', 'logledge'], louhikko: ['boulder', 'boulderfield', 'rockgarden', 'rockslope', 'rocks'], lohkareikko: ['boulder', 'boulderfield', 'rockgarden', 'plateau'],
+  suonlaita: ['bog', 'logpile', 'trunk', 'whoops'], rotko: ['gap', 'doublegap', 'sinkhole', 'gapledge'], jyrkanteet: ['drop', 'dropseries', 'wall', 'plateau', 'stepsdown'], kalliopolku: ['stairs', 'ledge', 'stepsdown', 'pipe', 'slab'],
+  kotimetsa: ['bumps', 'logpile', 'stump', 'hump'], harjumaasto: ['ridge', 'hump', 'slab', 'slabdown'], vaara: ['slab', 'slabdown', 'ridge', 'ledge', 'stairs'], louhos: ['ledge', 'kickerwall', 'rockslope', 'bigair', 'plateau'],
+  kouru: ['chute', 'rockslope', 'boulderfield'], syoksy: ['stepdown', 'roadgap', 'tabletop', 'doubles'], rinne: ['rollers', 'stepdown', 'whoops'], kelo: ['ledge', 'slab', 'pipe', 'boulderfield'], portaat: ['stairs', 'stepsdown', 'ledge', 'plateau'], korpi: ['roots', 'rootclimb', 'trunk', 'rockgarden', 'whoops', 'logledge'] };
+function profileFor(def, name) {
+  const base = PROFILES[name === 'auto' ? (TIER_PROFILE[def.tier] ?? 'tekninen') : name]; if (!base) throw new Error('tuntematon profiili ' + name);
+  const theme = Object.entries(THEMES).find(([k]) => def.id.includes(k));
+  return theme ? { ...base, pool: [...theme[1], ...theme[1], ...base.pool], theme: theme[0] } : { ...base, theme: '-' };
+}
+// Rakentaa kentälle profiilin mukaisen rytmijonon (satunnaisjärjestys, ei samaa tyyppiä peräkkäin), säilyttää maaston, biomin ja tehtävät.
+function retuneDef(def, prof, seed) {
+  const rnd = mulberry32(seed * 7919 + 13 + def.id.length * 101), km = def.length / 1000, n = Math.max(4, Math.round(km * prof.perKm)), seq = []; let prev = null;   // siemen ja tunnus: eri kentille eri jonot
+  const pick = (a, b) => a + rnd() * (b - a);
+  for (let i = 0; i < n; i++) { let t; do { t = prof.pool[Math.floor(rnd() * prof.pool.length)]; } while (t === prev && prof.pool.length > 1); prev = t;
+    const o = { type: t, hard: +pick(...prof.hard).toFixed(2) }; if (rnd() < .5) o.size = +pick(...prof.size).toFixed(2); if (rnd() < .4) o.stretch = +pick(...prof.stretch).toFixed(2); seq.push(o); }
+  const ex = expandRecipe(structuredClone(def));
+  const out = { id: def.id, name: def.name, tier: def.tier, gen: 2, recordVersion: (def.recordVersion || 1) + 1, desc: def.desc, seed, length: def.length };
+  for (const k of ['dusk', 'moonlit', 'dh', 'fog']) if (k in def) out[k] = def[k];
+  out.minGap = prof.minGap;
+  out.terrain = ex.terrain; if (out.terrain.maxSlope == null) out.terrain.maxSlope = 36;
+  out.difficulty = { hard: +((prof.hard[0] + prof.hard[1]) / 2).toFixed(2), variety: .5, target: prof.target };
+  out.features = { strategy: 'rhythm', spacing: 'clustered', sequence: seq, fit: true };
+  out.assets = ex.assets; for (const k of ['rec', 'lowNodes', 'okNodes', 'newNodes', 'nodePositions']) if (k in ex) out[k] = ex[k];
+  delete out.assets?.undefined;
+  return out;
+}
 
 async function loadDef(what) {
   if (!what) throw new Error('anna kentän id tai reseptitiedosto');
@@ -58,6 +101,19 @@ try {
     if (json) console.log(JSON.stringify(rep, null, 1)); else printReport(rep, def);
   } else if (cmd === 'expand') {
     console.log(JSON.stringify(expandRecipe(await loadDef(args.shift())), null, 1));
+  } else if (cmd === 'retune') {
+    const what = args.shift(), profName = opt('profile', 'auto');
+    const [a, b] = String(opt('seeds', '1-30')).split('-').map(Number), outDir = opt('out');
+    const defs = what === 'all' ? LEVELS.filter((l) => !l.tech) : [await loadDef(what)];
+    for (const def of defs) {
+      const prof = profileFor(def, profName); let best = null; const tried = [];
+      for (let seed = a; seed <= (b ?? a); seed++) { const cand = retuneDef(def, prof, seed);
+        try { const lv = buildLevel(cand), rep = measureLevel(lv); const ok = reportMeetsTarget(rep, prof.target); tried.push({ seed, ok, rep });
+          if (ok && (!best || rep.gatedPerKm > best.rep.gatedPerKm)) best = { cand, rep }; } catch (e) { tried.push({ seed, err: e.message }); } }
+      const line = best ? `${def.id.padEnd(16)} [${(TIER_PROFILE[def.tier] ?? 'tekninen')}/${prof.theme}] OK  siemen ${best.cand.seed}  portit ${best.rep.gated} (${best.rep.gatedPerKm}/km)  haast. ${best.rep.score}  kaat. ${best.rep.ride.crashes}  nousu ${best.rep.climb}` : `${def.id.padEnd(16)} EI LÖYTYNYT (${tried.filter((t) => t.err).length} virhettä, ${tried.filter((t) => t.rep && t.rep.ride.finished).length} maaliin, mutta portteja liian vähän tai kaatumisia liikaa)`;
+      console.log(line);
+      if (best) { if (opt('rows')) console.log(formatLevelRow(best.cand)); if (outDir) { await Deno.mkdir(outDir, { recursive: true }); await Deno.writeTextFile(`${outDir}/${def.id}.json`, JSON.stringify(best.cand, null, 1)); } }
+    }
   } else if (cmd === 'row') {
     console.log(formatLevelRow(await loadDef(args.shift())));
   } else if (cmd === 'profile') {
@@ -78,6 +134,6 @@ try {
     const best = rows.filter((r) => r.ok).sort((p, q) => mid == null ? 0 : Math.abs(p.rep.score - mid) - Math.abs(q.rep.score - mid)).slice(0, top);
     if (best.length) console.log(`\nParhaat siemenet tavoitteeseen: ${best.map((r) => r.seed).join(', ')}`);
   } else {
-    console.log('Käyttö: levelgen.js report|profile|sweep|row|expand|list ...  (ks. tiedoston alku)');
+    console.log('Käyttö: levelgen.js report|profile|sweep|retune|row|expand|list ...  (ks. tiedoston alku)');
   }
 } catch (e) { console.error('Virhe:', e.message); Deno.exit(1); }

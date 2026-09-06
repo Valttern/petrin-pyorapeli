@@ -388,10 +388,10 @@ const LEVELS=[
   assets:{obstacles:0,stones:1,forest:1,biome:'seka'},
   recordVersion:2,placed:[{type:'ledge',x:1200},{type:'ledge',x:2200},{type:'kickerwall',x:3500},{type:'rockslope',x:4700},{type:'bigair',x:6700}],rec:1,lowNodes:3,okNodes:1,newNodes:4,cpEvery:1300},
  // ---- tekniikkaradat: osuudet TECHNICAL_ROUTES-palalistoista (routeToSections), tasainen kallio ja kallio-biomi ----
- {id:'graniittiportaat',name:'Graniittiportaat',tier:6,tech:true,gen:2,technicalGrade:0,recordVersion:5,desc:'Kallion laella: 38° silokalliot, 28 px:n hyllyt, kaksoisporras, lohkare ja porras, 44° lasku pystysuoriin askelmiin, matalat lammet kahlattaviksi. Viisi osuutta.',seed:227,length:8312,amp:0,amp2:0,wl:1500,wl2:300,rough:0,obstacles:0,drops:0,lowNodes:0,okNodes:0,newNodes:0,cpEvery:0,rec:1},
- {id:'kallionkieli',name:'Kallionkieli',tier:6,tech:true,gen:2,technicalGrade:1,recordVersion:5,desc:'Yhdistelmiä: hylly laen reunalla, lohkareet ja 60° porras, hylly ja kaksi pudotusta, rotko ja syvä lampi (vauhdilla tai bunnyhopilla), kolmen hylly ja neljä askelmaa alas. Kuusi osuutta.',seed:229,length:10142,amp:0,amp2:0,wl:1500,wl2:300,rough:0,obstacles:0,drops:0,lowNodes:0,okNodes:0,newNodes:0,cpEvery:0,rec:1},
- {id:'kalliokarki',name:'Kalliokärki',tier:6,tech:true,gen:2,technicalGrade:2,recordVersion:3,desc:'Korkeat hyllyt (30-36 px), pystysuorat portaat ylös ja alas, kaksoishylly 64 px:n välein, rotko ja korkea porras, lohkarerinne lampineen, pudotus hyllylle ja 48° kärki. Seitsemän osuutta.',seed:231,length:11452,amp:0,amp2:0,wl:1500,wl2:300,rough:0,obstacles:0,drops:0,lowNodes:0,okNodes:0,newNodes:0,cpEvery:0,rec:1},
- {id:'kivinen-kruunu',name:'Kivinen kruunu',tier:6,tech:true,gen:2,technicalGrade:3,recordVersion:5,desc:'Kaikki peräkkäin: 47° silokalliot ja lampi, kasvavat hyllyt lyhenevillä tasanteilla, pitkä rotko ja 36 px:n hylly, lohkarepuutarha askelmineen, pudotusportaat ja kruunu. Kuusi osuutta.',seed:233,length:10068,amp:0,amp2:0,wl:1500,wl2:300,rough:0,obstacles:0,drops:0,lowNodes:0,okNodes:0,newNodes:0,cpEvery:0,rec:1},
+ {id:'graniittiportaat',name:'Graniittiportaat',tier:6,tech:true,gen:2,technicalGrade:0,recordVersion:5,desc:'Kallion laella: 38° silokalliot, 28 px:n hyllyt, kaksoisporras, lohkare ja porras, 44° lasku pystysuoriin askelmiin. Viisi osuutta.',seed:227,length:8088,amp:0,amp2:0,wl:1500,wl2:300,rough:0,obstacles:0,drops:0,lowNodes:0,okNodes:0,newNodes:0,cpEvery:0,rec:1},
+ {id:'kallionkieli',name:'Kallionkieli',tier:6,tech:true,gen:2,technicalGrade:1,recordVersion:5,desc:'Yhdistelmiä: hylly laen reunalla, lohkareet ja 60° porras, hylly ja kaksi pudotusta, rotko ja pudotus, kolmen hylly ja neljä askelmaa alas. Kuusi osuutta.',seed:229,length:9778,amp:0,amp2:0,wl:1500,wl2:300,rough:0,obstacles:0,drops:0,lowNodes:0,okNodes:0,newNodes:0,cpEvery:0,rec:1},
+ {id:'kalliokarki',name:'Kalliokärki',tier:6,tech:true,gen:2,technicalGrade:2,recordVersion:3,desc:'Korkeat hyllyt (30-36 px), pystysuorat portaat ylös ja alas, kaksoishylly 64 px:n välein, rotko ja korkea porras, lohkarerinne portaineen, pudotus hyllylle ja 48° kärki. Seitsemän osuutta.',seed:231,length:10940,amp:0,amp2:0,wl:1500,wl2:300,rough:0,obstacles:0,drops:0,lowNodes:0,okNodes:0,newNodes:0,cpEvery:0,rec:1},
+ {id:'kivinen-kruunu',name:'Kivinen kruunu',tier:6,tech:true,gen:2,technicalGrade:3,recordVersion:5,desc:'Kaikki peräkkäin: 47° silokalliot ja lohkare, kasvavat hyllyt lyhenevillä tasanteilla, pitkä rotko ja 36 px:n hylly, lohkarepuutarha askelmineen, pudotusportaat ja kruunu. Kuusi osuutta.',seed:233,length:9932,amp:0,amp2:0,wl:1500,wl2:300,rough:0,obstacles:0,drops:0,lowNodes:0,okNodes:0,newNodes:0,cpEvery:0,rec:1},
  // ---- generaattori v2 (gen:2): reseptikentät. terrain = pohja-algoritmi, difficulty = haastavuus ja sen käyrä, features = sijoittelu,
  //      assets = maanpinnan assettien tiheys. Mittaa ja hae siemeniä: deno run --allow-read tools/levelgen.js report|profile|sweep <id> ----
  {id:'kelokallio',name:'Kelokallio',tier:7,gen:2,desc:'Tiivis resepti: kallioinen kelomaasto, ryhmitetyt esteet, iso syöksyhyppy ja rotko-hylly käsin sijoitettuna. Porrastettu kallio ja katajat.',seed:436,length:10400,
@@ -466,7 +466,6 @@ function tY(lv,x){const f=clamp(x/DX,0,lv.n-1.0001),i=Math.floor(f),t=f-i;return
 function gY(lv,x){const f=clamp(x/DX,0,lv.n-1.0001),i=Math.floor(f),t=f-i;return lv.gys[i]*(1-t)+lv.gys[i+1]*t;}
 function slopeAt(lv,x){return (tY(lv,x+10)-tY(lv,x-10))/20;}
 function inBog(lv,x){for(const b of lv.bogs)if(x>b[0]&&x<b[1])return true;return false;}
-function waterAt(lv,x){if(!lv.waters)return null;for(const w of lv.waters)if(x>w[0]&&x<w[1])return w;return null;}   // [x0,x1,pinta-y] tai null
 const BIGFEAT=new Set(['drop','wall','gap','combo','kickerwall','dropseries','ledge','rockslope','bigair','stepdown','roadgap','chute']);   // isot maastopiirteet: noodit ja liput kauas niistä
 
 // Maassa oleva este (kivi, tukki, kanto, lohkare, juurakko, runko) kaiverretaan maastoon spriten oman yläreunaprofiilin mukaan
@@ -501,21 +500,20 @@ function buildLevel(def){return buildLevel2(def);}
 //  ['pipe',h,r]              neljännesputki ylös hyllylle (säde r >= h)
 //  ['kicker',len,h]          hyppyri: nousu len, huippu h, lyhyt takaluiska
 //  ['stairs',cnt,tread,h]    portaat ylös: cnt pystysuoraa askelmaa (h px) tasantein (tread px); ['stairsdown',cnt,tread,h] alas
-//  ['water',w,d]             lampi kallion painanteessa: leveys w, syvyys d (<= 24 kahlataan hitaasti, syvempi upottaa: vauhdilla yli tai bunnyhop)
 //  ['rocks',len,cnt,h]       kivikko: cnt kiveä (sprite) korkeus n. h, kaiverretaan maastoon
 //  ['boulder',h] ['trunk',h] ['stump',h] ['log',h] ['roots',cnt,h]   yksittäiset sprite-esteet
 // Osuudella: name, hint (HUD), speed (suositeltu lähestymisvauhti px/askel, testikuskin tavoite), parts.
 const TECHNICAL_ROUTES=[
  // ---- Graniittiportaat: perustaidot kallion laella, mutta jo vaativina ----
  [
-  {name:'Silokallio',speed:2.5,hint:'38° silokallio ylös ja 36° alas, pohjalla matala lampi: kahlaa hitaasti tai hyppää.',
-   parts:[['flat',200],['rocks',150,3,10],['flat',80],['slab',170,38,40],['flat',100],['slab',200,-36,60],['flat',60],['water',90,18],['flat',160]]},
+  {name:'Silokallio',speed:2.5,hint:'38° silokallio ylös ja 36° alas, pohjalla kivikko.',
+   parts:[['flat',200],['rocks',150,3,10],['flat',80],['slab',170,38,40],['flat',100],['slab',200,-36,60],['flat',60],['rocks',120,3,11],['flat',160]]},
   {name:'Ensimmäinen hylly',speed:2,hint:'28 px:n hylly: nosta keula (←+↑) ja pidä kaasu, perä ponnistaa perässä. Pudotus ja toinen hylly.',
    parts:[['flat',240],['ledge',28,1],['flat',160],['drop',42],['flat',100],['ledge',24,1],['flat',240]]},
   {name:'Kaksoisporras',speed:2,hint:'Kaksi hyllyä 72 px:n välein, sitten kolme askelmaa alas. Rytmi: nosto, kaasu, nosto.',
    parts:[['flat',240],['ledge',26,1],['flat',72],['ledge',28,1],['flat',120],['stairsdown',3,56,14],['flat',200]]},
-  {name:'Lohkare ja porras',speed:2,hint:'Lohkareen yli keula kevyenä, 60° porras ja lampi. Hitaasti ja tarkasti.',
-   parts:[['flat',240],['boulder',28],['flat',120],['ledge',32,2],['flat',90],['water',110,22],['flat',220]]},
+  {name:'Lohkare ja porras',speed:2,hint:'Lohkareen yli keula kevyenä, 60° porras ja lohkare. Hitaasti ja tarkasti.',
+   parts:[['flat',240],['boulder',28],['flat',120],['ledge',32,2],['flat',90],['boulder',24],['flat',220]]},
   {name:'Pitkä lasku',speed:2,hint:'44° lasku, matala hylly ja kolme pystysuoraa askelmaa. Paino taakse laskussa, nosto joka askelmalle.',
    parts:[['flat',200],['slab',200,-44,70],['flat',90],['ledge',26,1],['flat',80],['stairs',3,60,16],['flat',240]]},
  ],
@@ -523,12 +521,12 @@ const TECHNICAL_ROUTES=[
  [
   {name:'Kallion laki',speed:2.5,hint:'44° silokallio, hylly heti laella ja 42° lasku kivikkoon. Ylhäällä paino eteen, alhaalla taakse.',
    parts:[['flat',200],['slab',200,44,40],['flat',100],['ledge',24,1],['flat',120],['slab',230,-42,70],['flat',60],['rocks',150,4,12],['flat',160]]},
-  {name:'Lohkareiden lomassa',speed:2,hint:'Kaksi lohkaretta, 60° porras ja lampi. Pidä vauhti pienenä ja keula kevyenä.',
-   parts:[['flat',240],['boulder',28],['flat',60],['boulder',30],['flat',100],['ledge',34,2],['flat',80],['water',100,22],['flat',200]]},
+  {name:'Lohkareiden lomassa',speed:2,hint:'Kaksi lohkaretta, 60° porras ja kanto. Pidä vauhti pienenä ja keula kevyenä.',
+   parts:[['flat',240],['boulder',28],['flat',60],['boulder',30],['flat',100],['ledge',34,2],['flat',80],['stump',14],['flat',200]]},
   {name:'Hylly ja pudotus',speed:2,hint:'Hylly, pudotus kapealle tasanteelle, hylly ja toinen pudotus. Pudota hitaasti, paino taakse.',
    parts:[['flat',240],['ledge',30,1],['flat',100],['drop',56],['flat',96],['ledge',26,1],['flat',80],['drop',40],['flat',220]]},
-  {name:'Rantakallion rotko',speed:4,hint:'Rotko vaatii vauhtia, laskeutumisen jälkeen porras ja syvä lampi: yli vauhdilla tai bunnyhopilla.',
-   parts:[['flat',300],['gap',100,60,18],['flat',130],['ledge',30,2],['flat',80],['water',120,30],['flat',220]]},
+  {name:'Rantakallion rotko',speed:4,hint:'Rotko vaatii vauhtia, laskeutumisen jälkeen porras ja pudotus.',
+   parts:[['flat',300],['gap',100,60,18],['flat',130],['ledge',30,2],['flat',80],['drop',36],['flat',220]]},
   {name:'Kolmen porras',speed:2,hint:'Kolme hyllyä 72 px:n tasanteilla ja neljä askelmaa alas. Rytmi: nosto, paino eteen, nosto.',
    parts:[['flat',240],['ledge',24,1],['flat',72],['ledge',24,1],['flat',72],['ledge',26,1],['flat',100],['stairsdown',4,56,14],['flat',220]]},
   {name:'Loppulasku',speed:2,hint:'46° lasku kivikkoon ja lohkare. Jarru ja paino taakse ennen reunaa; kivikossa kevyt kaasu.',
@@ -538,14 +536,14 @@ const TECHNICAL_ROUTES=[
  [
   {name:'Korkea hylly',speed:2,hint:'36 px:n hylly: nosta keula hyllylle ja pidä kaasu, perä ponnistaa perässä. Pudotus ja 32 px:n hylly.',
    parts:[['flat',260],['ledge',36,1],['flat',180],['drop',50],['flat',110],['ledge',32,1],['flat',240]]},
-  {name:'Pystysuorat portaat',speed:2,hint:'Neljä 17 px:n pystysuoraa askelmaa ylös, kolme alas ja lampi. Nosto ja kaasu joka askelmalle.',
-   parts:[['flat',240],['stairs',4,60,17],['flat',120],['stairsdown',3,56,17],['flat',80],['water',100,20],['flat',220]]},
+  {name:'Pystysuorat portaat',speed:2,hint:'Neljä 17 px:n pystysuoraa askelmaa ylös, kolme alas ja vielä hylly. Nosto ja kaasu joka askelmalle.',
+   parts:[['flat',240],['stairs',4,60,17],['flat',120],['stairsdown',3,56,17],['flat',80],['ledge',26,1],['flat',220]]},
   {name:'Kaksoishylly',speed:2,hint:'Kaksi hyllyä vain 64 px:n välein, pudotus ja vielä hylly. Toinen nosto alkaa heti kun perä on ylhäällä.',
    parts:[['flat',260],['ledge',30,1],['flat',64],['ledge',32,1],['flat',100],['drop',40],['flat',80],['ledge',24,1],['flat',240]]},
   {name:'Rotko ja korkea porras',speed:4.5,hint:'Rotko täydellä vauhdilla, laskeutumisen jälkeen jarru ja 34 px:n hylly. Vauhdin annostelu ratkaisee.',
    parts:[['flat',300],['gap',110,70,20],['flat',130],['ledge',34,1],['flat',240]]},
-  {name:'Lohkarerinne',speed:2.5,hint:'Kivikko, kaksi lohkaretta, runko ja lampi ilman taukoa. Kevyt kaasu, keula kevyenä, perä ponnistaa.',
-   parts:[['flat',220],['rocks',160,4,14],['flat',48],['boulder',30],['flat',56],['boulder',32],['flat',60],['trunk',20],['flat',100],['water',120,22],['flat',240]]},
+  {name:'Lohkarerinne',speed:2.5,hint:'Kivikko, kaksi lohkaretta, runko ilman taukoa. Kevyt kaasu, keula kevyenä, perä ponnistaa.',
+   parts:[['flat',220],['rocks',160,4,14],['flat',48],['boulder',30],['flat',56],['boulder',32],['flat',60],['trunk',20],['flat',240]]},
   {name:'Pudotus hyllylle',speed:1.5,hint:'Pudotus kapealle tasanteelle, 34 px:n hylly ja 30 px:n hylly. Paino taakse pudotuksessa, nosto heti laskeuduttua.',
    parts:[['flat',240],['drop',60],['flat',90],['ledge',34,1],['flat',80],['ledge',30,1],['flat',240]]},
   {name:'Kärki',speed:2.5,hint:'48° silokallio laelle, hylly laen reunalla, pudotus laskeutumisrinteeseen ja kivikko. Paino eteen nousussa.',
@@ -553,16 +551,16 @@ const TECHNICAL_ROUTES=[
  ],
  // ---- Kivinen kruunu: kaikki peräkkäin, tiukat tasanteet ----
  [
-  {name:'Kruunun juuri',speed:2.5,hint:'47° silokallio, hylly laen reunalla ja lampi. Paino eteen nousussa, nosto vasta reunalla.',
-   parts:[['flat',220],['slab',160,47,36],['flat',48],['ledge',28,1],['flat',90],['water',90,20],['flat',240]]},
+  {name:'Kruunun juuri',speed:2.5,hint:'47° silokallio, hylly laen reunalla ja lohkare. Paino eteen nousussa, nosto vasta reunalla.',
+   parts:[['flat',220],['slab',160,47,36],['flat',48],['ledge',28,1],['flat',90],['boulder',28],['flat',240]]},
   {name:'Askelmat',speed:2,hint:'Kolme kasvavaa hyllyä lyhenevillä tasanteilla. Jokaisen jälkeen paino heti eteen.',
    parts:[['flat',260],['ledge',28,1],['flat',72],['ledge',30,1],['flat',64],['ledge',32,1],['flat',240]]},
   {name:'Kielekehyppy',speed:4,hint:'Pitkä rotko täydellä vauhdilla. Laskeutumisen jälkeen jarru pohjaan, edessä 36 px:n hylly.',
    parts:[['flat',320],['gap',120,70,20],['flat',160],['ledge',36,1],['flat',240]]},
   {name:'Lohkarepuutarha',speed:2,hint:'Lohkareita, kiviä, runko ja kolme 18 px:n askelmaa ilman taukoa. Kevyt vauhti, keula kevyenä.',
    parts:[['flat',220],['boulder',26],['flat',56],['rocks',120,3,13],['flat',60],['trunk',18],['flat',60],['boulder',32],['flat',80],['stairs',3,58,18],['flat',240]]},
-  {name:'Pudotusportaat',speed:1.5,hint:'Kaksi pudotusta kapeille tasanteille, 34 px:n hylly ja lampi. Hitaasti, paino taakse joka reunalla.',
-   parts:[['flat',240],['drop',48],['flat',96],['drop',52],['flat',96],['ledge',34,1],['flat',90],['water',110,22],['flat',240]]},
+  {name:'Pudotusportaat',speed:1.5,hint:'Kaksi pudotusta kapeille tasanteille, 34 px:n hylly ja laskuportaat. Hitaasti, paino taakse joka reunalla.',
+   parts:[['flat',240],['drop',48],['flat',96],['drop',52],['flat',96],['ledge',34,1],['flat',90],['stairsdown',3,56,16],['flat',240]]},
   {name:'Kruunu',speed:2.5,hint:'48° nousu laelle, hylly, pudotus laskeutumisrinteeseen ja kivikko. Viimeinen: paino taakse, jarru irti kivikossa.',
    parts:[['flat',220],['slab',170,48,36],['flat',100],['ledge',32,1],['flat',90],['drop',64],['slab',160,-24,40],['flat',60],['rocks',170,4,13],['flat',260]]},
  ],
@@ -584,7 +582,6 @@ function routeToSections(route){
       else if(k==='drop'){push('drop',{h:a,sig:2.5,lip:0,hw:24});}
       else if(k==='gap'){const w=a,d=b,lip=c||0; push('gap',{w,d,lip,lipLen:80,flat:true,hw:(80+w+60)/2});}
       else if(k==='pipe'){const h=a,r=Math.max(b||h+30,h); push('pipe',{h,r,hw:r/2+10});}
-      else if(k==='water'){push('water',{w:a,d:b,hw:(a+120)/2});}
       else if(k==='kicker'){push('kicker',{h:b,len:a,tech:true,hw:(a+36)/2});}
       else if(k==='rocks'){const len=a,cnt=b,h=c,rs=[]; for(let j=0;j<cnt;j++){const u=(j+.5)/cnt+(hash(Math.round(j*17))-.5)*.35/cnt; rs.push([len*u,h*(0.85+0.3*hash(Math.round(j*7)))]);} push('rocks',{cnt,rs,w:len,hw:len/2});}
       else if(k==='boulder'||k==='trunk'||k==='stump'||k==='log'){const sink={boulder:.38,trunk:.25,stump:.06,log:.12}[k], w=a/(1-sink)*rockAspect(k), hw=Math.ceil((w+24)/2/DX)*DX; push(k,{h:a,hw});}
@@ -879,11 +876,6 @@ const FEATURES={
   apply(g,xs,p){const {ys,n}=g,{w,d,h,hw}=p,x=xs+260,xl=x+w+110;
    for(let i=0;i<n;i++){const xi=i*DX,u=(xi-x)/w; if(u>0&&u<1)ys[i]+=d*Math.pow(Math.sin(u*Math.PI),0.6); const r=(x-xi)/60; if(r>=0&&r<1)ys[i]-=14*(1-Math.cos((1-r)*Math.PI/2)); const q=(xi-(x+w))/60; if(q>=0&&q<1)ys[i]-=10*(1-q); ys[i]-=h/(1+Math.exp(-(xi-xl)/2.2));}
    g.feats.push({type:'gapledge',x,w:w+110,h:d,hw,cx:xs+hw,gapX:x,ledgeX:xl,rock:[x-20,xl+30]});}},
- water:{cost:.45,gated:false,                                                                    // vesieste: kallion painanteessa lampi. Matala (d <= 24) hidastaa, syvä upottaa: yli vauhdilla tai bunnyhopilla
-  dims(r,hard,k){const w=(lerp(90,160,r())+hard*30)*k,d=lerp(18,34,r())+hard*8;return {w,d,hw:(w+120)/2};},
-  apply(g,xs,p){const {ys,n,tYi}=g,{w,d,hw}=p,x=xs+60,surface=tYi(x)-2;
-   for(let i=0;i<n;i++){const u=(i*DX-x)/w; if(u>0&&u<1)ys[i]+=d*Math.pow(Math.sin(u*Math.PI),0.7);}
-   g.feats.push({type:'water',x,w,h:d,hw,cx:xs+hw,surface,rock:[x-30,x-4],rock2:[x+w+4,x+w+30]});}},
  slab:{cost:.4,gated:false,                                                                      // silokallio ylös: suora rinne kulmassa deg, päät pyöristetty rr px:n matkalla
   dims(r,hard,k){const len=lerp(160,220,r())*k,deg=lerp(30,42,r())+hard*6;return {len,deg,rr:40,hw:len/2};},
   apply(g,xs,p){const {ys,n}=g,{len,deg,hw}=p,rr=Math.min(p.rr||40,len/2),x=xs+hw-len/2,kk=Math.tan(deg*Math.PI/180),rise=kk*(len-rr);
@@ -1034,7 +1026,7 @@ function placeAssets2(lv,rnd,A){
   const {L,feats,def}=lv, fc=f=>f.cx!==undefined?f.cx:f.x+(f.hw||0), cl=terrainClass(lv), hard=(def.difficulty||{}).hard||0, biome=A.biome||'seka';
   if(!BIOMES[biome])throw new Error(`Kenttä ${def.id}: tuntematon biomi "${biome}" (${Object.keys(BIOMES).join(', ')})`);
   const addObst=(type,spr,x,h,sink,extra)=>carveObst(lv.ys,lv.n,feats,type,spr,x,h,sink,extra);
-  const blocked=(x,m)=>feats.some(f=>f.garden?Math.abs(f.x-x)<60:Math.abs(fc(f)-x)<(f.hw||0)+m)||lv.bogs.some(b=>x>b[0]-40&&x<b[1]+40)||(lv.waters||[]).some(b=>x>b[0]-60&&x<b[1]+60);
+  const blocked=(x,m)=>feats.some(f=>f.garden?Math.abs(f.x-x)<60:Math.abs(fc(f)-x)<(f.hw||0)+m)||lv.bogs.some(b=>x>b[0]-40&&x<b[1]+40);
   const density=A.obstacles!=null?A.obstacles:1, stones=A.stones!=null?A.stones:1;
   // 1) kaiverretut esteet: tyyppi maaston mukaan. Kivet rinteille ja lakiin, tukit ja kannot tasaiseen metsään, lohkareet loiviin rinteisiin.
   const want=Math.round(L/900*density);
@@ -1063,7 +1055,7 @@ function placeDecor2(lv,rnd,A){
   const dens=x=>forest*clamp(.55+.75*(.5+.5*nDens(x/650+3)),.3,1.5), glade=x=>glades>0&&nGlade(x/900+7)>1-glades*.9;
   const inGate=x=>lv.sections?lv.sections.some(s=>s.gates.some(g=>x>g.x-70&&x<g.x+(g.w||0)+90)):false;   // tekniikkarata: osuuksien esteiden kohdalle ei puita
   const decorOK=(x,type)=>{
-    if(x<300||x>L-300)return false; if(lv.bogs.some(b=>x>b[0]-10&&x<b[1]+10))return false; if((lv.waters||[]).some(b=>x>b[0]-10&&x<b[1]+10))return false; if(inGate(x)&&type!=='stone')return false;
+    if(x<300||x>L-300)return false; if(lv.bogs.some(b=>x>b[0]-10&&x<b[1]+10))return false; if(inGate(x)&&type!=='stone')return false;
     if(type==='cairn'&&(cl(x).slope>8||lv.decor.some(d=>d.type==='cairn'&&Math.abs(d.x-x)<900)))return false;   // latomus vain tasaiselle, harvakseltaan
     if(type!=='shroom'&&type!=='bush'&&type!=='juniper'&&type!=='stone'&&type!=='heath'){ if(lv.nodes.some(nd=>Math.abs(nd.x-x)<40))return false; if(feats.some(f=>f.spr&&Math.abs(f.x-x)<f.hw+6))return false; if(cl(x).slope>38)return false; }
     return true; };
@@ -1164,7 +1156,6 @@ function buildLevel2(def){
   for(const f of feats) if(f.rocksAt) for(const rx of f.rocksAt) g.addObst('rock',hash(Math.round(rx))<.5?'stone1':'stone2',rx,lerp(9,14,rnd())+((def.difficulty||{}).hard||0)*3,.3,{garden:true});
   const lv={def,L,n,ys,gys,feats,nodes:[],decor:[],cells:Math.ceil(L/CELL),cps:[],wallL:100,wallR:L-50,warnings,plan:plan.map(it=>({type:it.type,cx:it.cx,hw:it.p.hw,hard:it.p.hard,stretch:it.p.stretch,size:it.p.size,gap:it.p.minGap,dims:it.p}))};
   lv.bogs=feats.filter(f=>f.type==='bog').map(f=>[f.x-20,f.x+f.w+20]);
-  lv.waters=feats.filter(f=>f.type==='water').map(f=>[f.x+2,f.x+f.w-2,f.surface]);
   placeAssets2(lv,rnd,def.assets||{});
   for(const f of feats) f.y=tY(lv,f.x);
   let mn=1e9,mx=-1e9,sum=0; for(let i=0;i<n;i++){mn=Math.min(mn,ys[i]);mx=Math.max(mx,ys[i]);sum+=ys[i];} lv.minY=mn; lv.maxY=mx; lv.baseY=sum/n;
@@ -1390,7 +1381,6 @@ class Bike{
         for(const q of pts){const rx=q.x-cx,ry=q.y-cy;q.px-=j*(-ry);q.py-=j*(rx);}
       }
       const bog=n.touch&&inBog(lv,p.x); if(bog) vt*=def.bogDrag;   // suo upottaa
-      const wet=waterAt(lv,p.x); if(wet&&p.y+R>wet[2]) vt*=0.975-Math.min(0.03,(p.y+R-wet[2])/600);   // vesi jarruttaa sitä enemmän, mitä syvemmällä rengas on
       if(!this.crashed){
         if(isRear&&inp.gas&&vt<def.vmax) vt=Math.min(def.vmax,vt+def.acc*(bog?.6:1)*(1-Math.max(0,vt)/def.vmax*.45));
         if(inp.brake){ if(vt>0.25||inp.hold) vt*=def.brake; else if(isRear) vt=Math.max(-def.rev,vt-0.05); }   // jarru pakittaa
@@ -1437,7 +1427,6 @@ class Bike{
      } else {tdy+=3; tt+=0.55;}
      const p=this.pose, r=contact?0.045:0.03; p.dx+=(tdx-p.dx)*r; p.dy+=(tdy-p.dy)*r; p.t+=(tt-p.t)*r;}
     if(!this.crashed&&collideCircle(lv,H,HEADR,true)){this.crash();return 'crash';}
-    if(!this.crashed){const wet=waterAt(lv,this.midX); if(wet&&this.midY>wet[2]+10){this.sank=true;return 'crash';}}   // runko veden alla: upposi
     return null;
   }
 }
@@ -1445,7 +1434,7 @@ class Bike{
 // ---------- mittaus: ohjelmalliset kuskit ja kentän haastavuusraportti (ei selainta) ----------
 // Kaksi kuskia samalla fysiikalla kuin peli. naive: vain kaasu ja jarru tavoitevauhtiin. tech: nostaa keulan hyllyille, siirtää painoa
 // rinteissä ja ilmassa, jarruttaa laskuissa. Tavoitevauhti voi olla luku tai funktio (b,lv) -> px/askel.
-const FAST_FEATS=new Set(['gap','bigair','kickerwall','roadgap','wall','combo','stepdown','valley','sinkhole','doubles','ridge','water']), SLOW_FEATS=new Set(['rockslope','dropseries','chute','ledge','boulder','stump','roots','trunk','stairs','logpile','drop','plateau','stepsdown','rockgarden','logledge','boulderfield','whoops']);
+const FAST_FEATS=new Set(['gap','bigair','kickerwall','roadgap','wall','combo','stepdown','valley','sinkhole','doubles','ridge']), SLOW_FEATS=new Set(['rockslope','dropseries','chute','ledge','boulder','stump','roots','trunk','stairs','logpile','drop','plateau','stepsdown','rockgarden','logledge','boulderfield','whoops']);
 const featCx=f=>f.cx!==undefined?f.cx:f.x+(f.hw||0);
 // suositusvauhti kohdassa x: rotkot, syöksyt ja seinät täydellä vauhdilla 600 px:n vauhdinotolla, tekniset esteet hitaasti
 function speedAt(lv,x,base){
@@ -1535,7 +1524,7 @@ function measureLevel(lv,opts){
 // Tarkistaa reseptin difficulty.target-haarukat: {score:[lo,hi], gated:[lo,hi], climb:[lo,hi], finished:true}
 function reportMeetsTarget(rep,target){
   if(!target)return true; const inR=(v,r)=>!r||(v>=r[0]&&v<=r[1]);
-  return inR(rep.score,target.score)&&inR(rep.gated,target.gated)&&inR(rep.climb,target.climb)&&(!target.finished||(rep.ride&&rep.ride.finished));
+  return inR(rep.score,target.score)&&inR(rep.gated,target.gated)&&inR(rep.gatedPerKm,target.gatedPerKm)&&inR(rep.climb,target.climb)&&(!target.finished||(rep.ride&&rep.ride.finished))&&(target.maxCrashes==null||(rep.ride&&rep.ride.crashes<=target.maxCrashes));
 }
 
 // ---------- renderöinti ----------
@@ -1795,13 +1784,6 @@ function paintFeats(lv,x0,x1,ill){
       for(const [xa,xb] of ranges){
       ctx.lineJoin='round';ctx.strokeStyle='#8c8a80';ctx.lineWidth=9;ctx.beginPath();for(let x=xa;x<=xb;x+=DX){const y=tY(lv,x)+2;x===xa?ctx.moveTo(x,y):ctx.lineTo(x,y);}ctx.stroke();
       ctx.strokeStyle='#a5a399';ctx.lineWidth=2;ctx.beginPath();for(let x=xa;x<=xb;x+=DX){const y=tY(lv,x)-1.5;x===xa?ctx.moveTo(x,y):ctx.lineTo(x,y);}ctx.stroke();}
-    } else if(f.type==='water'){                                             // lampi: pinta, syvyysliuku ja väreet
-      const xa=f.x, xb=f.x+f.w, sy=f.surface, deep=tY(lv,f.x+f.w/2);
-      ctx.save(); ctx.beginPath(); ctx.moveTo(xa,sy); for(let x=xa;x<=xb;x+=DX)ctx.lineTo(x,Math.max(sy,tY(lv,x)+1)); ctx.lineTo(xb,sy); ctx.closePath();
-      const wg=ctx.createLinearGradient(0,sy,0,deep+2); wg.addColorStop(0,'rgba(120,170,200,.55)'); wg.addColorStop(1,'rgba(20,50,80,.9)'); ctx.fillStyle=wg; ctx.fill(); ctx.restore();
-      ctx.strokeStyle='rgba(225,240,250,.55)';ctx.lineWidth=1.2;line(xa+3,sy,xb-3,sy);
-      const t=(typeof game!=='undefined'&&game.t)||0; ctx.strokeStyle='rgba(225,240,250,.28)';ctx.lineWidth=1;
-      for(let x=xa+14;x<xb-14;x+=22){const k=hash(Math.floor(x)+31), ph=Math.sin(t*1.6+k*6.28)*3; line(x+ph,sy+3+k*3,x+ph+9,sy+3+k*3);}
     } else if(f.type==='bog'){                                               // suonsilmä
       const xa=f.x-30, xb=f.x+f.w+30;
       ctx.fillStyle='rgba(36,42,30,.9)';ctx.beginPath();ctx.moveTo(xa,tY(lv,xa)+1);for(let x=xa;x<=xb;x+=DX)ctx.lineTo(x,tY(lv,x)+1);ctx.lineTo(xb,tY(lv,xb)+24);ctx.lineTo(xa,tY(lv,xa)+24);ctx.closePath();ctx.fill();

@@ -95,7 +95,7 @@ Deno.test('technical routes: every section is rideable with technique, and most 
     for(const sec of lv.sections){
       assert(sec.end<lv.L-215&&sec.cp>lv.wallL+60&&sec.hint&&sec.speed>0,'section inside route with hint and speed');
       assert(sec.gates.length>0,`${def.id}/${sec.name}: has at least one obstacle`);
-      const t=ride(lv,sec,tech(sec.speed),Bike,BIKES[1]);
+      const t=ride(lv,sec,v2.RIDERS.tech(sec.speed),Bike,BIKES[1]);   // pelin oma tekniikkakuski (sama kuin mittauksessa ja editorissa)
       assert(t==='pass',`technique rider failed ${def.id}/${sec.name}: ${t}`);
       const fails=[1.5,2.5,3.5,5].filter(v=>ride(lv,sec,naive(v),Bike,BIKES[1],25)!=='pass').length;
       if(fails>=3)routeGated++;
