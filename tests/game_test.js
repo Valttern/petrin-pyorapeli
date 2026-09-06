@@ -321,7 +321,7 @@ Deno.test('physics: a crash releases the rider as a ragdoll that flies clear of 
   const lv = v2.buildLevel({ ...base, length: 5000, terrain: { algo: 'noise', amp: 0, wl: 1000 }, features: [], assets: { obstacles: 0, stones: 0 } });
   const b = new v2.Bike(lv, v2.BIKES[1]); b.spawn(1000, 1); for (let i = 0; i < 300; i++) b.step({ gas: true });
   assert(!b.rag && !b.crashed && b.speed > 2, 'riding at speed');
-  b.crash(); assert(b.rag && b.crashed && b.rag.pts.length === 11, 'ragdoll created');
+  b.crash(); assert(b.rag && b.crashed && b.rag.pts.length === 10, 'ragdoll created');
   let far = 0, top = 0, ok = true;
   for (let i = 0; i < 360; i++) { b.step({}); const rg = b.rag; far = Math.max(far, rg.hip.x - b.midX);
     for (const p of rg.pts) { const g = v2.tY(lv, p.x); if (!Number.isFinite(p.x + p.y) || p.y > g - p.r + 1.5) ok = false; top = Math.max(top, g - p.y); } }

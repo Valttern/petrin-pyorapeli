@@ -1214,7 +1214,7 @@ const STEP=1/120, G=0.062, HOP_G=0.014, R=15, WB=60, LH=Math.hypot(30,58), COM_B
 // COM_BACK: kuljettajan painopiste on akselivälin keskikohdan takana (LHR = etäisyys takarenkaaseen, LHF eturenkaaseen), jolloin keula kevenee luonnostaan
 // ja perä pysyy maassa. Etäisyydet vaihtavat paikkaa, kun pyörä käännetään (dir).
 const LIFT_PITCH=0.62, LIFT_KP=0.0045, LIFT_KD=0.09;   // säädelty keulan nosto maassa: tavoitekulma (rad, n. 35°), jäykkyys ja vaimennus
-// Ragdoll: kaatuessa kuljettaja irtoaa pyörästä omaksi Verlet-nivelketjukseen (lantio, olkapää, pää, kaksi kättä, kaksi jalkaa) ja pyörä
+// Ragdoll: kaatuessa kuljettaja irtoaa pyörästä omaksi Verlet-nivelketjukseen (lantio, olkapää, pää, rinta, yksi käsi, kaksi jalkaa) ja pyörä
 // jatkaa omillaan. Luiden mitat vastaavat piirron mittoja; pää ja olkapää ovat jäykkä kolmio lantion kanssa, koska torso-sprite on yksi kuva.
 // top = kaatuneen pyörän rungon yläpisteen (H: tanko/satula) etäisyys akseleista, jotta nurin mennyt pyörä lepää oikean korkuisena.
 const RAG={torso:27,neck:17,hipHead:44,uarm:15,farm:26,thigh:20,shin:19,r:4.5,headR:8,damp:0.995,fric:0.55,rest:0.15,throw:0.35,top:Math.hypot(30,28)};
@@ -1274,31 +1274,35 @@ class Bike{
     const ikW=(a,b,l1,l2,px,py)=>{const dx=b.x-a.x,dy=b.y-a.y,d=Math.hypot(dx,dy)||1e-6,dd=clamp(d,Math.abs(l1-l2)+.01,l1+l2-.01),an=Math.acos(clamp((l1*l1+dd*dd-l2*l2)/(2*l1*dd),-1,1)),ang=Math.atan2(dy,dx);
       const k1={x:a.x+Math.cos(ang+an)*l1,y:a.y+Math.sin(ang+an)*l1},k2={x:a.x+Math.cos(ang-an)*l1,y:a.y+Math.sin(ang-an)*l1};
       const k=((k1.x-a.x)*px+(k1.y-a.y)*py>=(k2.x-a.x)*px+(k2.y-a.y)*py)?k1:k2; return {x:k.x,y:k.y,px:k.x,py:k.y,r:RAG.r,v0x:0,v0y:0};};
-    const hip=P(-12,34), sh=P(8,52), head=P(14,68,RAG.headR), c=this.crank;                       // lantio satulalla, torso n. 40° eteen
-    const foot=[P(-3-Math.cos(c)*8,6+Math.sin(c)*8),P(-3+Math.cos(c)*8,6-Math.sin(c)*8)], hand=[P(24,37),P(26,39)];   // jalat polkimilla, kädet kahvoilla
+    const hip=P(-12,34), sh=P(8,52), head=P(14,68,RAG.headR), chest=P(7,43), c=this.crank, dl=(a,b)=>Math.hypot(a.x-b.x,a.y-b.y);   // lantio satulalla, torso n. 40° eteen; rintapiste jäykistää torson
+    const foot=[P(-3-Math.cos(c)*8,6+Math.sin(c)*8),P(-3+Math.cos(c)*8,6-Math.sin(c)*8)], hand=[P(24,37)];   // jalat polkimilla, käsi kahvalla (vain lähempi käsi, kuten satulassa)
     const knee=foot.map(f=>ikW(hip,f,RAG.thigh,RAG.shin,fx,fy)), el=hand.map(h=>ikW(sh,h,RAG.uarm,RAG.farm,-ux,-uy));   // polvi eteen, kyynärpää alas
     const side=(a,j,b)=>Math.sign((b.x-a.x)*(j.y-a.y)-(b.y-a.y)*(j.x-a.x))||1;                    // nivelen puoli luun suorasta: säilytetään
-    const rg={hip,sh,head,el,hand,knee,foot,dir,pts:[hip,sh,head,...el,...hand,...knee,...foot],hit:0,hitP:hip,rest:0,t:0,
-      bones:[[hip,sh,RAG.torso],[sh,head,RAG.neck],[hip,head,RAG.hipHead],[sh,el[0],RAG.uarm],[el[0],hand[0],RAG.farm],[sh,el[1],RAG.uarm],[el[1],hand[1],RAG.farm],
+    const rg={hip,sh,head,chest,el,hand,knee,foot,dir,pts:[hip,sh,head,chest,...el,...hand,...knee,...foot],hit:0,hitP:hip,rest:0,t:0,
+      bones:[[hip,sh,RAG.torso],[sh,head,RAG.neck],[hip,head,RAG.hipHead],[hip,chest,dl(hip,chest)],[sh,chest,dl(sh,chest)],[head,chest,dl(head,chest)],[sh,el[0],RAG.uarm],[el[0],hand[0],RAG.farm],
              [hip,knee[0],RAG.thigh],[knee[0],foot[0],RAG.shin],[hip,knee[1],RAG.thigh],[knee[1],foot[1],RAG.shin]],
-      mins:[[hip,foot[0],18],[hip,foot[1],18],[sh,hand[0],16],[sh,hand[1],16],[sh,knee[0],26],[sh,knee[1],26]],   // vähimmäisetäisyydet: raaja ei taitu kasaan
-      hinges:[[hip,knee[0],foot[0],side(hip,knee[0],foot[0])],[hip,knee[1],foot[1],side(hip,knee[1],foot[1])],[sh,el[0],hand[0],side(sh,el[0],hand[0])],[sh,el[1],hand[1],side(sh,el[1],hand[1])]]};
+      mins:[[hip,foot[0],18],[hip,foot[1],18],[sh,hand[0],16],[sh,knee[0],26],[sh,knee[1],26]],   // vähimmäisetäisyydet: raaja ei taitu kasaan
+      hinges:[[hip,knee[0],foot[0],side(hip,knee[0],foot[0])],[hip,knee[1],foot[1],side(hip,knee[1],foot[1])],[sh,el[0],hand[0],side(sh,el[0],hand[0])]]};
     const sp=Math.hypot(H.v0x,H.v0y), thr=Math.min(2.2,sp*RAG.throw), vx=H.v0x*(1+RAG.throw), vy=H.v0y*(1+RAG.throw)-thr;   // heitto: vauhdin suuntaan ja ylös
+    this.rag=rg; this.ragSolve(8);                                                                  // alkuasento maaston päälle ennen heittoa
     for(const p of rg.pts){p.px=p.x-vx+(Math.random()-.5)*.15; p.py=p.y-vy+(Math.random()-.5)*.15;}
-    this.rag=rg;
     const tx=mx+ux*28, ty=my+uy*28; H.px+=tx-H.x; H.py+=ty-H.y; H.x=tx; H.y=ty;                   // rungon yläpiste: nopeus säilyy, paikka vaihtuu
   }
   // Ragdollin askel: sama integraattori kuin pyörällä; luut etäisyysrajoitteina, nivelrajat vähimmäisetäisyyksinä ja nivelen puolen
   // peilauksena (polvi ja kyynärpää taipuvat vain oikeaan suuntaan), maasto collideCirclellä pienellä säteellä, kitka kosketuksessa.
+  ragSolve(n){
+    const rg=this.rag, lv=this.lv;
+    for(let it=0;it<n;it++){
+      for(const p of rg.pts){if(p.x<lv.wallL+p.r)p.x=lv.wallL+p.r;if(p.x>lv.wallR-p.r)p.x=lv.wallR-p.r;collideCircle(lv,p,p.r,false,0);}
+      for(const [a,b,l] of rg.mins){const dx=b.x-a.x,dy=b.y-a.y,d=Math.hypot(dx,dy)||1e-6;if(d<l){const k=(l-d)/d*.5;a.x-=dx*k;a.y-=dy*k;b.x+=dx*k;b.y+=dy*k;}}
+      for(const [a,j,b,sd] of rg.hinges){const ex=b.x-a.x,ey=b.y-a.y,l2=ex*ex+ey*ey;if(l2>1e-3&&(ex*(j.y-a.y)-ey*(j.x-a.x))*sd<0){const t=((j.x-a.x)*ex+(j.y-a.y)*ey)/l2,fx=a.x+ex*t,fy=a.y+ey*t;j.x=2*fx-j.x;j.y=2*fy-j.y;}}
+      for(const [a,b,l] of rg.bones)distC(a,b,l,1);                                                // luut viimeisenä: raajan pituus pitää aina
+    }
+  }
   ragStep(){
     const rg=this.rag, lv=this.lv; rg.t++; rg.hit=0;
     for(const p of rg.pts){const vx=(p.x-p.px)*RAG.damp,vy=(p.y-p.py)*RAG.damp;p.px=p.x;p.py=p.y;p.x+=vx;p.y+=vy+G;p.v0x=vx;p.v0y=vy+G;}
-    for(let it=0;it<6;it++){
-      for(const [a,b,l] of rg.bones)distC(a,b,l,1);
-      for(const [a,b,l] of rg.mins){const dx=b.x-a.x,dy=b.y-a.y,d=Math.hypot(dx,dy)||1e-6;if(d<l){const k=(l-d)/d*.5;a.x-=dx*k;a.y-=dy*k;b.x+=dx*k;b.y+=dy*k;}}
-      for(const [a,j,b,sd] of rg.hinges){const ex=b.x-a.x,ey=b.y-a.y,l2=ex*ex+ey*ey;if(l2>1e-3&&(ex*(j.y-a.y)-ey*(j.x-a.x))*sd<0){const t=((j.x-a.x)*ex+(j.y-a.y)*ey)/l2,fx=a.x+ex*t,fy=a.y+ey*t;j.x=2*fx-j.x;j.y=2*fy-j.y;}}
-      for(const p of rg.pts){if(p.x<lv.wallL+p.r)p.x=lv.wallL+p.r;if(p.x>lv.wallR-p.r)p.x=lv.wallR-p.r;collideCircle(lv,p,p.r,false,0);}
-    }
+    this.ragSolve(10);
     let moving=0;
     for(const p of rg.pts){
       const gy=tY(lv,p.x);if(p.y>gy+p.r){p.y=gy-p.r;p.py=p.y;}                                    // tunneloinnin varmistus
@@ -2014,21 +2018,20 @@ function ragFrame(rg){
   return {hip, u:{x:ux,y:uy}, f:{x:-uy*rg.dir,y:ux*rg.dir}};
 }
 function drawRagdollIllustrated(b,o){
-  const rg=b.rag, {rd,ua,fa,kr,hipS,hdS}=o, def=b.def, {f,u,hip}=ragFrame(rg), arms=ua&&fa&&ua.anchors&&fa.anchors;
+  const rg=b.rag, {rd,ua,fa,kr,hipS,shS,hdS}=o, def=b.def, {f,u,hip}=ragFrame(rg), arms=ua&&fa&&ua.anchors&&fa.anchors;
   ctx.save();ctx.transform(f.x,f.y,u.x,u.y,hip.x,hip.y);ctx.scale(1,-1);        // paikallinen kehys: X kuljettajan eteen, Y alas
   const L=p=>({x:(p.x-hip.x)*f.x+(p.y-hip.y)*f.y, y:-((p.x-hip.x)*u.x+(p.y-hip.y)*u.y)});
   const O={x:0,y:0}, sh=L(rg.sh), hd=L(rg.head), el=rg.el.map(L), hand=rg.hand.map(L), knee=rg.knee.map(L), foot=rg.foot.map(L);
-  const rot=Math.atan2(hd.y,hd.x)-Math.atan2(hdS[1]-hipS[1],hdS[0]-hipS[0]);   // torso-spriten lantio->pää ragdollin mukaan
+  const rot=Math.atan2(sh.y,sh.x)-Math.atan2(shS[1]-hipS[1],shS[0]-hipS[0]);   // torso-spriten lantio->olkapää ragdollin mukaan: kädet pysyvät olkapäässä
   const thigh=(K,near)=>limb(0,0,K.x,K.y,7.4,5.2,near?'#d9308f':'#9a2263',near?'#f48ccb':null);
   const shin=(K,F,near)=>{limb(K.x,K.y,F.x,F.y,5.2,3.4,near?'#df3f9b':'#a52a70',near?'#f48ccb':null);
     ctx.fillStyle=near?'#1a1a1c':'#101012';rr(F.x-4,F.y-2.6,10,4.4,[1.5,2.5,2.5,1.5]);ctx.fill();ctx.fillStyle=near?'#e0702a':'#7a3d16';ctx.fillRect(F.x-1.5,F.y-1.8,3,1);};
   const arm=i=>{if(arms){drawPiece(ua,sh,el[i],ua.anchors.shoulder,ua.anchors.elbow,kr);drawPiece(fa,el[i],hand[i],fa.anchors.elbow,fa.anchors.hand,kr);}};
-  thigh(knee[0],false); shin(knee[0],foot[0],false);                            // kaukainen jalka ja käsi tummempina
-  ctx.save(); ctx.filter='brightness(0.72)'; arm(0); ctx.restore();
+  thigh(knee[0],false); shin(knee[0],foot[0],false);                            // kaukainen jalka tummempana
   ctx.save();ctx.rotate(rot);ctx.scale(kr,kr);ctx.drawImage(rd.img,-hipS[0],-hipS[1]);ctx.restore();
   if(def.dh)drawHelmet(O,rot,kr,rd,hipS,hdS);
   thigh(knee[1],true); shin(knee[1],foot[1],true);
-  arm(1);
+  arm(0);                                                                       // vain lähempi käsi, kuten satulassa
   ctx.restore();
 }
 // Ragdoll piirretyssä tyylissä: kehys lantiossa, Y ylös kuten satulassa; torso on kehyksen pystyakselilla, pää kiertyy niskan mukaan.
@@ -2039,13 +2042,14 @@ function drawRagdollVector(b){
   const N=L(rg.sh), hd=L(rg.head), el=rg.el.map(L), hand=rg.hand.map(L), knee=rg.knee.map(L), foot=rg.foot.map(L);
   const leg=(i,near)=>{ctx.strokeStyle=near?'#e8339a':'#a8236f';ctx.lineWidth=5.5;line(0,0,knee[i].x,knee[i].y);line(knee[i].x,knee[i].y,foot[i].x,foot[i].y);ctx.fillStyle='#1a1a1a';circ(foot[i].x,foot[i].y,3);};
   const arm=(i,near)=>{ctx.strokeStyle=near?'#1c1c22':'#111114';ctx.lineWidth=4.8;line(N.x,N.y,el[i].x,el[i].y);ctx.strokeStyle=near?'#e8b892':'#b08a6a';ctx.lineWidth=4;line(el[i].x,el[i].y,hand[i].x,hand[i].y);ctx.fillStyle=near?'#6b7a45':'#4e5a33';circ(hand[i].x,hand[i].y,2.6);};
-  leg(0,false); arm(0,false);
+  leg(0,false);
   ctx.save();ctx.translate(N.x/2,N.y/2);ctx.rotate(Math.atan2(N.y,N.x)-Math.PI/2);                 // reppu selässä
   ctx.fillStyle='#5a6a3a';rr(-12,-10,10,19,3);ctx.fill();ctx.fillStyle='#48562e';ctx.fillRect(-12,-2,10,2.2);ctx.fillStyle='#2fc4d6';ctx.fillRect(-10,-7,3,3);
   ctx.restore();
   ctx.strokeStyle='#1c1c22';ctx.lineWidth=9;line(0,0,N.x,N.y);
   ctx.strokeStyle='#3a3a46';ctx.lineWidth=1.6;line(2.5,3,N.x+2.5,N.y+3);
-  leg(1,true); arm(1,true);
+  ctx.strokeStyle='#e8b892';ctx.lineWidth=5;line(N.x,N.y,hd.x,hd.y);                              // kaula
+  leg(1,true); arm(0,true);
   ctx.save();ctx.translate(hd.x,hd.y);ctx.rotate(Math.atan2(hd.y-N.y,hd.x-N.x)-Math.PI/2);         // pää ja kypärä niskan suuntaan
   ctx.fillStyle='#e8b892';circ(0,0,7);
   ctx.fillStyle='#f4f4f0';ctx.beginPath();ctx.arc(0,1,8.6,0,Math.PI,false);ctx.fill();ctx.fillRect(-8.6,-1,17.2,2.4);
@@ -2092,7 +2096,7 @@ function drawBikeIllustrated(b){
     crank(p2,false);
     ctx.save();ctx.translate(-WB*.47,0);ctx.rotate(-ang);ctx.scale(k,k);ctx.drawImage(bk.img,-rear[0],-rear[1]);ctx.restore();
     crank(p1,true); ctx.restore();
-    drawRagdollIllustrated(b,{rd,ua,fa,kr,hipS,hdS:RS(ra.head)}); return;
+    drawRagdollIllustrated(b,{rd,ua,fa,kr,hipS,shS,hdS:RS(ra.head)}); return;
   }
   const LF=legOf(p2), LN=legOf(p1);
   crank(p2,false); thigh(LF,false); shin(LF,false);
