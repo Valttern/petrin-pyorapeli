@@ -23,17 +23,17 @@ Run on yksi yö korvessa: 7 lyhyttä pätkää iltahämärästä yön kautta aam
 | 5 | yö | .94 moonlit | Korpi (jahti, reviiri, pakollinen) |
 | 6 | aamu | dh:true | Lasku laaksoon (finaali, pisteet vauhdista) |
 
-Pätkän mitta on sekunteja, ei kilometrejä: tavoite 60–110 s. Generaattori hakee pituuden tyypin vauhtiprofiilista (tekniikka ~900 px... lasku ~2 800 px). Rytmi on sahalaita: kaksi kevyttä, yksi raskas, jahti aina kartoituspätkän jälkeen. [E]
+Pätkän mitta kalibroitiin mittaamalla (12.9.2026, tools/runbank.js): pelin "km" on 1 000 px, ja tekniikkakuski ajaa Kotimetsän (4,2 km) 14 s:ssa, Kalliopolun (7,2 km) 34 s:ssa; karhupaon 60 km kestää flow-kuskilla noin 77 s. Agenttien arviot "1 km = 20 s … 3 min" olivat vääriä. Pätkät ovat siksi nykyisten kenttien kokoluokkaa: tavalliset 6–8 km (tekniikkakuski 15–50 s), karhupätkät 18 km ja syvällä 24 km. Pelaajan todellinen aika mitataan pelitestissä, ei arvata. Rytmi on sahalaita: kaksi kevyttä, yksi raskas, jahti aina kartoituspätkän jälkeen. [E]
 
 Pätkätyypit ja tiiviin reseptin säätimet:
 
 | Tyyppi | style | relief | erityistä |
 |---|---|---|---|
-| Harjanne | harju | .75 | 2–3 noodia, pisteet asennuksesta, akku kuluu |
-| Kalliokieleke | kallio | .55 | minGap 60–90, hidas ja tarkka, puhdas läpiajo = bonus |
-| Korpi (jahti) | kumpu | .50 | chase:true, sprayt, chase-pätkien oma este-pooli (ei töyssysarjoja, ei notkoja) |
-| Suonlaita | kumpu, biome korpi | .40 | suo: Commençalilla lähes ajokelvoton ilman leveää rengasta |
-| Lasku | lasku, descent | 1.15 | dh-valaistus, karhu ei ehdi |
+| Harjanne, 6 km | harju | .75 | 2 tyhjää + 2 uutta noodia, pisteet asennuksesta, akku kuluu |
+| Kalliokieleke, 6 km | kallio | .55 | minGap 90→60, hidas ja tarkka, puhdas läpiajo = bonus |
+| Korpi (jahti), 18/24 km | karhupaon resepti | – | chase:true, sprayt, karhupaon mitattu pooli, estemäärä vakio 1,4/km ja koko kasvaa syvyyden mukaan |
+| Suonlaita, 6,5 km | kumpu, biome korpi | .40 | suo: Commençalilla lähes ajokelvoton ilman leveää rengasta |
+| Lasku, 8 km | lasku, descent | 1.15 | dh-valaistus, biome lehto, karhu ei ehdi |
 | Mökki | ei ajoa | | cabin + campfire + lantern -assetit, valinta |
 
 Solmusta reseptiin (deterministinen):
@@ -86,7 +86,7 @@ Otsalamppu kuluttaa game.inv.bat-akkua pätkien yli: keila kapenee ja himmenee (
 ## 7. Pisteet, siemen, tallennus
 
 - Pisteet: pätkä maaliin 100 × (1+riski); noodi 60; puhdas tekniikkapätkä 120; jäljellä oleva sisu runin lopussa 200/kpl. Kuolema säilyttää siihen asti kertyneet pisteet: pisteet mittaavat ahneutta, eivät selviytymistä.
-- Siemenpankki: offline-haku levelgen.js:llä 8–12 pätkämallille × siemenet 1–60, hyväksymisportti = tekniikkakuski maaliin, kaatumiset rajassa, chase-mallit flow-kuskilla 6.5 px/askel. Hyväksytyt siemenet upotetaan taulukkona. Run arpoo mallin ja siemenen tästä pankista, joten kelvottomia pätkiä ei synny ja riskiluku on mitattu, ei toivottu. Mitattu: 2,5–3 km pätkä rakentuu 4–12 ms, latausviive ei ole riski.
+- Siemenpankki (tehty 12.9.2026): `tools/runbank.js` rakentaa 27 pätkäpaikkaa (9 mallipaikkaa × riski 0 / .5 / 1), mittaa siemenet 1–40 pelin fysiikalla ja kirjoittaa hyväksytyt `tools/runbank.json`-tiedostoon (yhteensä 774 siementä, 83 s). Portit: tavallinen pätkä = tekniikkakuski maaliin Intensellä, kaatumisia riskin mukaan 0–1 / 0–2 / 0–3, portitettuja esteitä/km riskin mukaan nousevassa haarukassa (lasku: ei porttivaatimusta), aika 15–50 s. Karhupätkä = tekniikkakuski 6,8 ja 7,5 px/askel ei kaadu eikä juutu ja pysyy karhun edellä vähintään 6 km (sama raja kuin pelin karhupako-testissä). Flow-kuski hylättiin tuomarina: se kaatuu jo kokoluokan .5 esteisiin, joihin pelaaja selviää (karhupaossa se jää kiinni 8–12 km:ssä, tekniikkakuski 13–15 km:ssä kaatumatta). Havainto: karhupätkällä riski nostaa esteiden kokoa, mutta sovitus pudottaa isoimpia, joten riskin vaikutus on pieni (kiinnijäänti keskimäärin 13,9 → 13,6 km syvyydellä 2); karhupätkän riski kannattaa myöhemmin sitoa karhun nopeuteen, ei maastoon. Run arpoo mallin ja siemenen pankista, joten kelvottomia pätkiä ei synny. Rakennusajat: 6 km 50–120 ms, 18 km karhupätkä ~35 ms.
 - Päivittäinen siemen: runSeed = YYYYMMDD, yksi yritys, oma tulostaulu. MVP:n jälkeen.
 - Tallennus: omat avaimet petri-pyorapeli-run-v1 (run-tila, kirjoitetaan pätkän lopussa) ja petri-pyorapeli-meta-v1. bestKey-tallennukseen ei kosketa; readBest suodattaisi objektit pois hiljaisesti.
 - Meta ilman tehokasvua: avautuu vain valikoimaa (varusteita, solmutyyppejä, neljäs pyörä). Lisäksi pelin oma fiktio: asennetut noodit jäävät verkkoon runien yli ja kuuluvuuskartta kasvaa. Ei MVP:ssä.
@@ -101,7 +101,7 @@ Otsalamppu kuluttaa game.inv.bat-akkua pätkien yli: keila kapenee ja himmenee (
 
 ## 9. MVP:n työvaiheet (jokainen erikseen pelitestattavissa)
 
-1. Siemenpankki offline: pätkämallit, siemenhaku, hyväksymisportti, JSON. Ei kosketa peliin.
+1. ~~Siemenpankki offline~~ tehty 12.9.2026: `tools/runbank.js`, `tools/runbank.json`. Ei koske peliin.
 2. Run-tilakone: game.run, pätkien defit siemenvirrasta, draft:true, maali → seuraava pätkä.
 3. Sisu ja runin päätösruutu #done-overlayn pohjalta, pysäytetty loppukuva.
 4. Vuorokausikaari: dusk-arvot ja dh-finaali.

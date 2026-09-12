@@ -1,0 +1,6319 @@
+{
+ "generated": "2026-09-12",
+ "seeds": "1-40",
+ "bike": "intense",
+ "gates": {
+  "normal": {
+   "0": {
+    "crashes": [
+     0,
+     1
+    ],
+    "gatedPerKm": [
+     0,
+     2.5
+    ]
+   },
+   "1": {
+    "crashes": [
+     0,
+     3
+    ],
+    "gatedPerKm": [
+     0.5,
+     5
+    ]
+   },
+   "0.5": {
+    "crashes": [
+     0,
+     2
+    ],
+    "gatedPerKm": [
+     0.5,
+     3.5
+    ]
+   }
+  },
+  "time": [
+   15,
+   50
+  ],
+  "lasku": {
+   "gatedPerKm": [
+    0,
+    5
+   ]
+  }
+ },
+ "slots": {
+  "harjanne-d0-r0": {
+   "template": "harjanne",
+   "depth": 0,
+   "risk": 0,
+   "def": {
+    "id": "harjanne-d0-r0",
+    "name": "Harjanne",
+    "tier": 9,
+    "gen": 2,
+    "length": 6000,
+    "cpEvery": 0,
+    "dusk": 0.25,
+    "style": "harju",
+    "relief": 0.75,
+    "challenge": 0.28,
+    "variation": 0.35,
+    "rhythm": "even",
+    "biome": "kangas",
+    "lowNodes": 2,
+    "okNodes": 1,
+    "newNodes": 2,
+    "rec": 1
+   },
+   "seeds": [
+    {
+     "seed": 1,
+     "score": 0.42,
+     "gated": 3,
+     "crashes": 1,
+     "time": 36
+    },
+    {
+     "seed": 3,
+     "score": 0.32,
+     "gated": 1,
+     "crashes": 0,
+     "time": 26
+    },
+    {
+     "seed": 4,
+     "score": 0.38,
+     "gated": 3,
+     "crashes": 0,
+     "time": 25
+    },
+    {
+     "seed": 5,
+     "score": 0.44,
+     "gated": 5,
+     "crashes": 0,
+     "time": 30
+    },
+    {
+     "seed": 6,
+     "score": 0.36,
+     "gated": 4,
+     "crashes": 0,
+     "time": 26
+    },
+    {
+     "seed": 7,
+     "score": 0.4,
+     "gated": 4,
+     "crashes": 0,
+     "time": 33
+    },
+    {
+     "seed": 8,
+     "score": 0.44,
+     "gated": 5,
+     "crashes": 0,
+     "time": 31
+    },
+    {
+     "seed": 10,
+     "score": 0.3,
+     "gated": 0,
+     "crashes": 0,
+     "time": 31
+    },
+    {
+     "seed": 11,
+     "score": 0.37,
+     "gated": 3,
+     "crashes": 0,
+     "time": 24
+    },
+    {
+     "seed": 12,
+     "score": 0.31,
+     "gated": 1,
+     "crashes": 0,
+     "time": 24
+    },
+    {
+     "seed": 13,
+     "score": 0.31,
+     "gated": 2,
+     "crashes": 0,
+     "time": 25
+    },
+    {
+     "seed": 14,
+     "score": 0.32,
+     "gated": 1,
+     "crashes": 0,
+     "time": 34
+    },
+    {
+     "seed": 15,
+     "score": 0.34,
+     "gated": 2,
+     "crashes": 0,
+     "time": 22
+    },
+    {
+     "seed": 17,
+     "score": 0.32,
+     "gated": 1,
+     "crashes": 0,
+     "time": 25
+    },
+    {
+     "seed": 18,
+     "score": 0.36,
+     "gated": 3,
+     "crashes": 0,
+     "time": 30
+    },
+    {
+     "seed": 20,
+     "score": 0.39,
+     "gated": 3,
+     "crashes": 0,
+     "time": 28
+    },
+    {
+     "seed": 21,
+     "score": 0.32,
+     "gated": 1,
+     "crashes": 0,
+     "time": 22
+    },
+    {
+     "seed": 23,
+     "score": 0.33,
+     "gated": 2,
+     "crashes": 0,
+     "time": 26
+    },
+    {
+     "seed": 24,
+     "score": 0.38,
+     "gated": 3,
+     "crashes": 0,
+     "time": 31
+    },
+    {
+     "seed": 25,
+     "score": 0.33,
+     "gated": 1,
+     "crashes": 0,
+     "time": 33
+    },
+    {
+     "seed": 27,
+     "score": 0.35,
+     "gated": 2,
+     "crashes": 0,
+     "time": 26
+    },
+    {
+     "seed": 28,
+     "score": 0.34,
+     "gated": 2,
+     "crashes": 0,
+     "time": 28
+    },
+    {
+     "seed": 29,
+     "score": 0.36,
+     "gated": 4,
+     "crashes": 0,
+     "time": 23
+    },
+    {
+     "seed": 30,
+     "score": 0.39,
+     "gated": 3,
+     "crashes": 0,
+     "time": 31
+    },
+    {
+     "seed": 31,
+     "score": 0.35,
+     "gated": 2,
+     "crashes": 0,
+     "time": 26
+    },
+    {
+     "seed": 33,
+     "score": 0.36,
+     "gated": 2,
+     "crashes": 1,
+     "time": 34
+    },
+    {
+     "seed": 34,
+     "score": 0.3,
+     "gated": 1,
+     "crashes": 0,
+     "time": 24
+    },
+    {
+     "seed": 35,
+     "score": 0.27,
+     "gated": 1,
+     "crashes": 0,
+     "time": 28
+    },
+    {
+     "seed": 38,
+     "score": 0.34,
+     "gated": 2,
+     "crashes": 0,
+     "time": 27
+    },
+    {
+     "seed": 39,
+     "score": 0.42,
+     "gated": 4,
+     "crashes": 0,
+     "time": 26
+    },
+    {
+     "seed": 40,
+     "score": 0.37,
+     "gated": 3,
+     "crashes": 0,
+     "time": 28
+    }
+   ]
+  },
+  "harjanne-d0-r5": {
+   "template": "harjanne",
+   "depth": 0,
+   "risk": 0.5,
+   "def": {
+    "id": "harjanne-d0-r5",
+    "name": "Harjanne",
+    "tier": 9,
+    "gen": 2,
+    "length": 6000,
+    "cpEvery": 0,
+    "dusk": 0.25,
+    "style": "harju",
+    "relief": 0.88,
+    "challenge": 0.37,
+    "variation": 0.6,
+    "rhythm": "even",
+    "biome": "kangas",
+    "lowNodes": 2,
+    "okNodes": 1,
+    "newNodes": 2,
+    "rec": 1
+   },
+   "seeds": [
+    {
+     "seed": 1,
+     "score": 0.46,
+     "gated": 6,
+     "crashes": 0,
+     "time": 25
+    },
+    {
+     "seed": 2,
+     "score": 0.47,
+     "gated": 6,
+     "crashes": 0,
+     "time": 30
+    },
+    {
+     "seed": 5,
+     "score": 0.5,
+     "gated": 6,
+     "crashes": 1,
+     "time": 42
+    },
+    {
+     "seed": 6,
+     "score": 0.41,
+     "gated": 4,
+     "crashes": 0,
+     "time": 28
+    },
+    {
+     "seed": 7,
+     "score": 0.39,
+     "gated": 3,
+     "crashes": 0,
+     "time": 31
+    },
+    {
+     "seed": 8,
+     "score": 0.51,
+     "gated": 7,
+     "crashes": 0,
+     "time": 27
+    },
+    {
+     "seed": 9,
+     "score": 0.42,
+     "gated": 4,
+     "crashes": 0,
+     "time": 31
+    },
+    {
+     "seed": 10,
+     "score": 0.5,
+     "gated": 5,
+     "crashes": 1,
+     "time": 47
+    },
+    {
+     "seed": 11,
+     "score": 0.45,
+     "gated": 5,
+     "crashes": 0,
+     "time": 26
+    },
+    {
+     "seed": 13,
+     "score": 0.43,
+     "gated": 5,
+     "crashes": 0,
+     "time": 29
+    },
+    {
+     "seed": 14,
+     "score": 0.4,
+     "gated": 3,
+     "crashes": 0,
+     "time": 38
+    },
+    {
+     "seed": 16,
+     "score": 0.39,
+     "gated": 3,
+     "crashes": 0,
+     "time": 29
+    },
+    {
+     "seed": 17,
+     "score": 0.45,
+     "gated": 5,
+     "crashes": 0,
+     "time": 25
+    },
+    {
+     "seed": 18,
+     "score": 0.49,
+     "gated": 7,
+     "crashes": 0,
+     "time": 39
+    },
+    {
+     "seed": 19,
+     "score": 0.4,
+     "gated": 3,
+     "crashes": 0,
+     "time": 30
+    },
+    {
+     "seed": 20,
+     "score": 0.38,
+     "gated": 3,
+     "crashes": 0,
+     "time": 27
+    },
+    {
+     "seed": 22,
+     "score": 0.45,
+     "gated": 5,
+     "crashes": 0,
+     "time": 30
+    },
+    {
+     "seed": 23,
+     "score": 0.39,
+     "gated": 3,
+     "crashes": 0,
+     "time": 29
+    },
+    {
+     "seed": 24,
+     "score": 0.5,
+     "gated": 5,
+     "crashes": 1,
+     "time": 30
+    },
+    {
+     "seed": 25,
+     "score": 0.43,
+     "gated": 4,
+     "crashes": 0,
+     "time": 28
+    },
+    {
+     "seed": 26,
+     "score": 0.5,
+     "gated": 6,
+     "crashes": 0,
+     "time": 34
+    },
+    {
+     "seed": 29,
+     "score": 0.4,
+     "gated": 4,
+     "crashes": 0,
+     "time": 27
+    },
+    {
+     "seed": 30,
+     "score": 0.46,
+     "gated": 5,
+     "crashes": 0,
+     "time": 30
+    },
+    {
+     "seed": 33,
+     "score": 0.46,
+     "gated": 6,
+     "crashes": 0,
+     "time": 30
+    },
+    {
+     "seed": 34,
+     "score": 0.41,
+     "gated": 4,
+     "crashes": 0,
+     "time": 27
+    },
+    {
+     "seed": 35,
+     "score": 0.36,
+     "gated": 3,
+     "crashes": 0,
+     "time": 27
+    },
+    {
+     "seed": 38,
+     "score": 0.44,
+     "gated": 6,
+     "crashes": 0,
+     "time": 26
+    },
+    {
+     "seed": 40,
+     "score": 0.42,
+     "gated": 4,
+     "crashes": 0,
+     "time": 25
+    }
+   ]
+  },
+  "harjanne-d0-r10": {
+   "template": "harjanne",
+   "depth": 0,
+   "risk": 1,
+   "def": {
+    "id": "harjanne-d0-r10",
+    "name": "Harjanne",
+    "tier": 9,
+    "gen": 2,
+    "length": 6000,
+    "cpEvery": 0,
+    "dusk": 0.25,
+    "style": "harju",
+    "relief": 1,
+    "challenge": 0.46,
+    "variation": 0.85,
+    "rhythm": "clustered",
+    "biome": "kangas",
+    "lowNodes": 2,
+    "okNodes": 1,
+    "newNodes": 2,
+    "rec": 1
+   },
+   "seeds": [
+    {
+     "seed": 1,
+     "score": 0.46,
+     "gated": 6,
+     "crashes": 0,
+     "time": 25
+    },
+    {
+     "seed": 2,
+     "score": 0.43,
+     "gated": 5,
+     "crashes": 0,
+     "time": 29
+    },
+    {
+     "seed": 6,
+     "score": 0.52,
+     "gated": 6,
+     "crashes": 1,
+     "time": 33
+    },
+    {
+     "seed": 7,
+     "score": 0.38,
+     "gated": 3,
+     "crashes": 0,
+     "time": 26
+    },
+    {
+     "seed": 14,
+     "score": 0.5,
+     "gated": 8,
+     "crashes": 0,
+     "time": 26
+    },
+    {
+     "seed": 15,
+     "score": 0.42,
+     "gated": 5,
+     "crashes": 0,
+     "time": 26
+    },
+    {
+     "seed": 17,
+     "score": 0.44,
+     "gated": 5,
+     "crashes": 0,
+     "time": 29
+    },
+    {
+     "seed": 18,
+     "score": 0.5,
+     "gated": 7,
+     "crashes": 0,
+     "time": 31
+    },
+    {
+     "seed": 19,
+     "score": 0.5,
+     "gated": 7,
+     "crashes": 0,
+     "time": 26
+    },
+    {
+     "seed": 20,
+     "score": 0.5,
+     "gated": 7,
+     "crashes": 0,
+     "time": 32
+    },
+    {
+     "seed": 25,
+     "score": 0.45,
+     "gated": 5,
+     "crashes": 0,
+     "time": 30
+    },
+    {
+     "seed": 27,
+     "score": 0.53,
+     "gated": 9,
+     "crashes": 0,
+     "time": 26
+    },
+    {
+     "seed": 30,
+     "score": 0.51,
+     "gated": 5,
+     "crashes": 1,
+     "time": 42
+    },
+    {
+     "seed": 31,
+     "score": 0.49,
+     "gated": 7,
+     "crashes": 0,
+     "time": 32
+    },
+    {
+     "seed": 33,
+     "score": 0.44,
+     "gated": 6,
+     "crashes": 0,
+     "time": 27
+    },
+    {
+     "seed": 35,
+     "score": 0.49,
+     "gated": 7,
+     "crashes": 0,
+     "time": 30
+    },
+    {
+     "seed": 37,
+     "score": 0.5,
+     "gated": 4,
+     "crashes": 1,
+     "time": 41
+    },
+    {
+     "seed": 38,
+     "score": 0.5,
+     "gated": 7,
+     "crashes": 1,
+     "time": 33
+    },
+    {
+     "seed": 39,
+     "score": 0.47,
+     "gated": 7,
+     "crashes": 0,
+     "time": 29
+    },
+    {
+     "seed": 40,
+     "score": 0.5,
+     "gated": 7,
+     "crashes": 0,
+     "time": 42
+    }
+   ]
+  },
+  "harjanne-d1-r0": {
+   "template": "harjanne",
+   "depth": 1,
+   "risk": 0,
+   "def": {
+    "id": "harjanne-d1-r0",
+    "name": "Harjanne",
+    "tier": 9,
+    "gen": 2,
+    "length": 6000,
+    "cpEvery": 0,
+    "dusk": 0.4,
+    "style": "harju",
+    "relief": 0.81,
+    "challenge": 0.34,
+    "variation": 0.35,
+    "rhythm": "even",
+    "biome": "kangas",
+    "lowNodes": 2,
+    "okNodes": 1,
+    "newNodes": 2,
+    "rec": 1
+   },
+   "seeds": [
+    {
+     "seed": 2,
+     "score": 0.35,
+     "gated": 2,
+     "crashes": 0,
+     "time": 27
+    },
+    {
+     "seed": 3,
+     "score": 0.33,
+     "gated": 1,
+     "crashes": 0,
+     "time": 31
+    },
+    {
+     "seed": 4,
+     "score": 0.43,
+     "gated": 4,
+     "crashes": 0,
+     "time": 27
+    },
+    {
+     "seed": 7,
+     "score": 0.4,
+     "gated": 3,
+     "crashes": 0,
+     "time": 28
+    },
+    {
+     "seed": 8,
+     "score": 0.36,
+     "gated": 2,
+     "crashes": 0,
+     "time": 26
+    },
+    {
+     "seed": 9,
+     "score": 0.45,
+     "gated": 4,
+     "crashes": 0,
+     "time": 31
+    },
+    {
+     "seed": 11,
+     "score": 0.37,
+     "gated": 2,
+     "crashes": 0,
+     "time": 26
+    },
+    {
+     "seed": 13,
+     "score": 0.4,
+     "gated": 4,
+     "crashes": 0,
+     "time": 30
+    },
+    {
+     "seed": 14,
+     "score": 0.41,
+     "gated": 4,
+     "crashes": 0,
+     "time": 27
+    },
+    {
+     "seed": 15,
+     "score": 0.41,
+     "gated": 4,
+     "crashes": 0,
+     "time": 26
+    },
+    {
+     "seed": 16,
+     "score": 0.42,
+     "gated": 4,
+     "crashes": 0,
+     "time": 28
+    },
+    {
+     "seed": 17,
+     "score": 0.46,
+     "gated": 5,
+     "crashes": 0,
+     "time": 30
+    },
+    {
+     "seed": 19,
+     "score": 0.41,
+     "gated": 4,
+     "crashes": 0,
+     "time": 27
+    },
+    {
+     "seed": 20,
+     "score": 0.45,
+     "gated": 5,
+     "crashes": 0,
+     "time": 28
+    },
+    {
+     "seed": 21,
+     "score": 0.45,
+     "gated": 4,
+     "crashes": 0,
+     "time": 37
+    },
+    {
+     "seed": 23,
+     "score": 0.39,
+     "gated": 3,
+     "crashes": 0,
+     "time": 33
+    },
+    {
+     "seed": 24,
+     "score": 0.5,
+     "gated": 6,
+     "crashes": 0,
+     "time": 31
+    },
+    {
+     "seed": 25,
+     "score": 0.54,
+     "gated": 7,
+     "crashes": 0,
+     "time": 34
+    },
+    {
+     "seed": 26,
+     "score": 0.43,
+     "gated": 4,
+     "crashes": 0,
+     "time": 39
+    },
+    {
+     "seed": 27,
+     "score": 0.38,
+     "gated": 3,
+     "crashes": 0,
+     "time": 29
+    },
+    {
+     "seed": 28,
+     "score": 0.46,
+     "gated": 6,
+     "crashes": 0,
+     "time": 33
+    },
+    {
+     "seed": 29,
+     "score": 0.34,
+     "gated": 3,
+     "crashes": 0,
+     "time": 24
+    },
+    {
+     "seed": 30,
+     "score": 0.46,
+     "gated": 3,
+     "crashes": 1,
+     "time": 46
+    },
+    {
+     "seed": 31,
+     "score": 0.43,
+     "gated": 4,
+     "crashes": 0,
+     "time": 31
+    },
+    {
+     "seed": 33,
+     "score": 0.44,
+     "gated": 5,
+     "crashes": 0,
+     "time": 36
+    },
+    {
+     "seed": 37,
+     "score": 0.47,
+     "gated": 4,
+     "crashes": 1,
+     "time": 48
+    },
+    {
+     "seed": 38,
+     "score": 0.37,
+     "gated": 3,
+     "crashes": 0,
+     "time": 38
+    },
+    {
+     "seed": 39,
+     "score": 0.33,
+     "gated": 1,
+     "crashes": 0,
+     "time": 26
+    },
+    {
+     "seed": 40,
+     "score": 0.38,
+     "gated": 2,
+     "crashes": 0,
+     "time": 28
+    }
+   ]
+  },
+  "harjanne-d1-r5": {
+   "template": "harjanne",
+   "depth": 1,
+   "risk": 0.5,
+   "def": {
+    "id": "harjanne-d1-r5",
+    "name": "Harjanne",
+    "tier": 9,
+    "gen": 2,
+    "length": 6000,
+    "cpEvery": 0,
+    "dusk": 0.4,
+    "style": "harju",
+    "relief": 0.94,
+    "challenge": 0.43,
+    "variation": 0.6,
+    "rhythm": "even",
+    "biome": "kangas",
+    "lowNodes": 2,
+    "okNodes": 1,
+    "newNodes": 2,
+    "rec": 1
+   },
+   "seeds": [
+    {
+     "seed": 1,
+     "score": 0.38,
+     "gated": 4,
+     "crashes": 0,
+     "time": 18
+    },
+    {
+     "seed": 2,
+     "score": 0.38,
+     "gated": 4,
+     "crashes": 0,
+     "time": 29
+    },
+    {
+     "seed": 5,
+     "score": 0.37,
+     "gated": 3,
+     "crashes": 0,
+     "time": 21
+    },
+    {
+     "seed": 11,
+     "score": 0.37,
+     "gated": 3,
+     "crashes": 0,
+     "time": 22
+    },
+    {
+     "seed": 12,
+     "score": 0.38,
+     "gated": 4,
+     "crashes": 0,
+     "time": 23
+    },
+    {
+     "seed": 14,
+     "score": 0.45,
+     "gated": 5,
+     "crashes": 1,
+     "time": 42
+    },
+    {
+     "seed": 15,
+     "score": 0.38,
+     "gated": 4,
+     "crashes": 0,
+     "time": 21
+    },
+    {
+     "seed": 18,
+     "score": 0.36,
+     "gated": 3,
+     "crashes": 0,
+     "time": 24
+    },
+    {
+     "seed": 19,
+     "score": 0.37,
+     "gated": 3,
+     "crashes": 1,
+     "time": 23
+    },
+    {
+     "seed": 25,
+     "score": 0.43,
+     "gated": 4,
+     "crashes": 0,
+     "time": 35
+    },
+    {
+     "seed": 26,
+     "score": 0.4,
+     "gated": 3,
+     "crashes": 0,
+     "time": 31
+    },
+    {
+     "seed": 29,
+     "score": 0.36,
+     "gated": 3,
+     "crashes": 0,
+     "time": 22
+    },
+    {
+     "seed": 30,
+     "score": 0.41,
+     "gated": 4,
+     "crashes": 0,
+     "time": 36
+    },
+    {
+     "seed": 32,
+     "score": 0.38,
+     "gated": 3,
+     "crashes": 1,
+     "time": 37
+    },
+    {
+     "seed": 33,
+     "score": 0.35,
+     "gated": 4,
+     "crashes": 0,
+     "time": 25
+    },
+    {
+     "seed": 34,
+     "score": 0.4,
+     "gated": 4,
+     "crashes": 0,
+     "time": 22
+    },
+    {
+     "seed": 35,
+     "score": 0.39,
+     "gated": 3,
+     "crashes": 0,
+     "time": 25
+    },
+    {
+     "seed": 38,
+     "score": 0.33,
+     "gated": 3,
+     "crashes": 0,
+     "time": 21
+    },
+    {
+     "seed": 39,
+     "score": 0.4,
+     "gated": 4,
+     "crashes": 0,
+     "time": 22
+    }
+   ]
+  },
+  "harjanne-d1-r10": {
+   "template": "harjanne",
+   "depth": 1,
+   "risk": 1,
+   "def": {
+    "id": "harjanne-d1-r10",
+    "name": "Harjanne",
+    "tier": 9,
+    "gen": 2,
+    "length": 6000,
+    "cpEvery": 0,
+    "dusk": 0.4,
+    "style": "harju",
+    "relief": 1.06,
+    "challenge": 0.52,
+    "variation": 0.85,
+    "rhythm": "clustered",
+    "biome": "kangas",
+    "lowNodes": 2,
+    "okNodes": 1,
+    "newNodes": 2,
+    "rec": 1
+   },
+   "seeds": [
+    {
+     "seed": 1,
+     "score": 0.43,
+     "gated": 5,
+     "crashes": 0,
+     "time": 33
+    },
+    {
+     "seed": 2,
+     "score": 0.45,
+     "gated": 6,
+     "crashes": 0,
+     "time": 24
+    },
+    {
+     "seed": 10,
+     "score": 0.38,
+     "gated": 3,
+     "crashes": 0,
+     "time": 40
+    },
+    {
+     "seed": 12,
+     "score": 0.4,
+     "gated": 4,
+     "crashes": 0,
+     "time": 25
+    },
+    {
+     "seed": 13,
+     "score": 0.39,
+     "gated": 4,
+     "crashes": 0,
+     "time": 26
+    },
+    {
+     "seed": 17,
+     "score": 0.42,
+     "gated": 4,
+     "crashes": 0,
+     "time": 28
+    },
+    {
+     "seed": 19,
+     "score": 0.44,
+     "gated": 6,
+     "crashes": 0,
+     "time": 28
+    },
+    {
+     "seed": 21,
+     "score": 0.46,
+     "gated": 5,
+     "crashes": 0,
+     "time": 31
+    },
+    {
+     "seed": 25,
+     "score": 0.42,
+     "gated": 4,
+     "crashes": 0,
+     "time": 31
+    },
+    {
+     "seed": 26,
+     "score": 0.4,
+     "gated": 4,
+     "crashes": 0,
+     "time": 33
+    },
+    {
+     "seed": 27,
+     "score": 0.45,
+     "gated": 6,
+     "crashes": 0,
+     "time": 31
+    },
+    {
+     "seed": 30,
+     "score": 0.44,
+     "gated": 3,
+     "crashes": 1,
+     "time": 38
+    },
+    {
+     "seed": 35,
+     "score": 0.37,
+     "gated": 3,
+     "crashes": 0,
+     "time": 30
+    },
+    {
+     "seed": 37,
+     "score": 0.41,
+     "gated": 3,
+     "crashes": 0,
+     "time": 36
+    },
+    {
+     "seed": 39,
+     "score": 0.46,
+     "gated": 6,
+     "crashes": 0,
+     "time": 29
+    }
+   ]
+  },
+  "kieleke-d1-r0": {
+   "template": "kieleke",
+   "depth": 1,
+   "risk": 0,
+   "def": {
+    "id": "kieleke-d1-r0",
+    "name": "Kalliokieleke",
+    "tier": 9,
+    "gen": 2,
+    "length": 6000,
+    "cpEvery": 0,
+    "dusk": 0.4,
+    "style": "kallio",
+    "relief": 0.61,
+    "challenge": 0.34,
+    "variation": 0.35,
+    "rhythm": "even",
+    "biome": "kallio",
+    "lowNodes": 1,
+    "okNodes": 0,
+    "newNodes": 1,
+    "rec": 1,
+    "minGap": 90
+   },
+   "seeds": [
+    {
+     "seed": 1,
+     "score": 0.32,
+     "gated": 3,
+     "crashes": 0,
+     "time": 25
+    },
+    {
+     "seed": 2,
+     "score": 0.32,
+     "gated": 3,
+     "crashes": 0,
+     "time": 30
+    },
+    {
+     "seed": 3,
+     "score": 0.35,
+     "gated": 4,
+     "crashes": 0,
+     "time": 25
+    },
+    {
+     "seed": 5,
+     "score": 0.31,
+     "gated": 3,
+     "crashes": 0,
+     "time": 28
+    },
+    {
+     "seed": 6,
+     "score": 0.3,
+     "gated": 3,
+     "crashes": 0,
+     "time": 30
+    },
+    {
+     "seed": 7,
+     "score": 0.4,
+     "gated": 4,
+     "crashes": 0,
+     "time": 30
+    },
+    {
+     "seed": 8,
+     "score": 0.33,
+     "gated": 3,
+     "crashes": 0,
+     "time": 28
+    },
+    {
+     "seed": 9,
+     "score": 0.29,
+     "gated": 1,
+     "crashes": 0,
+     "time": 26
+    },
+    {
+     "seed": 10,
+     "score": 0.31,
+     "gated": 2,
+     "crashes": 0,
+     "time": 26
+    },
+    {
+     "seed": 12,
+     "score": 0.42,
+     "gated": 4,
+     "crashes": 0,
+     "time": 34
+    },
+    {
+     "seed": 13,
+     "score": 0.33,
+     "gated": 3,
+     "crashes": 0,
+     "time": 31
+    },
+    {
+     "seed": 14,
+     "score": 0.31,
+     "gated": 3,
+     "crashes": 0,
+     "time": 21
+    },
+    {
+     "seed": 15,
+     "score": 0.36,
+     "gated": 2,
+     "crashes": 0,
+     "time": 23
+    },
+    {
+     "seed": 16,
+     "score": 0.29,
+     "gated": 2,
+     "crashes": 0,
+     "time": 24
+    },
+    {
+     "seed": 17,
+     "score": 0.26,
+     "gated": 1,
+     "crashes": 0,
+     "time": 25
+    },
+    {
+     "seed": 18,
+     "score": 0.26,
+     "gated": 1,
+     "crashes": 0,
+     "time": 27
+    },
+    {
+     "seed": 19,
+     "score": 0.31,
+     "gated": 3,
+     "crashes": 0,
+     "time": 27
+    },
+    {
+     "seed": 20,
+     "score": 0.33,
+     "gated": 3,
+     "crashes": 0,
+     "time": 30
+    },
+    {
+     "seed": 21,
+     "score": 0.39,
+     "gated": 3,
+     "crashes": 0,
+     "time": 28
+    },
+    {
+     "seed": 22,
+     "score": 0.31,
+     "gated": 3,
+     "crashes": 0,
+     "time": 29
+    },
+    {
+     "seed": 23,
+     "score": 0.29,
+     "gated": 1,
+     "crashes": 0,
+     "time": 23
+    },
+    {
+     "seed": 24,
+     "score": 0.25,
+     "gated": 0,
+     "crashes": 0,
+     "time": 23
+    },
+    {
+     "seed": 25,
+     "score": 0.26,
+     "gated": 1,
+     "crashes": 0,
+     "time": 24
+    },
+    {
+     "seed": 26,
+     "score": 0.32,
+     "gated": 3,
+     "crashes": 0,
+     "time": 25
+    },
+    {
+     "seed": 27,
+     "score": 0.28,
+     "gated": 2,
+     "crashes": 0,
+     "time": 27
+    },
+    {
+     "seed": 28,
+     "score": 0.24,
+     "gated": 0,
+     "crashes": 0,
+     "time": 22
+    },
+    {
+     "seed": 29,
+     "score": 0.27,
+     "gated": 2,
+     "crashes": 0,
+     "time": 23
+    },
+    {
+     "seed": 30,
+     "score": 0.35,
+     "gated": 4,
+     "crashes": 0,
+     "time": 24
+    },
+    {
+     "seed": 31,
+     "score": 0.24,
+     "gated": 1,
+     "crashes": 0,
+     "time": 27
+    },
+    {
+     "seed": 32,
+     "score": 0.36,
+     "gated": 4,
+     "crashes": 0,
+     "time": 30
+    },
+    {
+     "seed": 33,
+     "score": 0.26,
+     "gated": 1,
+     "crashes": 0,
+     "time": 28
+    },
+    {
+     "seed": 34,
+     "score": 0.3,
+     "gated": 2,
+     "crashes": 0,
+     "time": 24
+    },
+    {
+     "seed": 35,
+     "score": 0.28,
+     "gated": 2,
+     "crashes": 0,
+     "time": 31
+    },
+    {
+     "seed": 36,
+     "score": 0.37,
+     "gated": 2,
+     "crashes": 0,
+     "time": 26
+    },
+    {
+     "seed": 37,
+     "score": 0.32,
+     "gated": 2,
+     "crashes": 0,
+     "time": 20
+    },
+    {
+     "seed": 38,
+     "score": 0.29,
+     "gated": 3,
+     "crashes": 0,
+     "time": 23
+    },
+    {
+     "seed": 39,
+     "score": 0.27,
+     "gated": 1,
+     "crashes": 0,
+     "time": 23
+    },
+    {
+     "seed": 40,
+     "score": 0.24,
+     "gated": 1,
+     "crashes": 0,
+     "time": 27
+    }
+   ]
+  },
+  "kieleke-d1-r5": {
+   "template": "kieleke",
+   "depth": 1,
+   "risk": 0.5,
+   "def": {
+    "id": "kieleke-d1-r5",
+    "name": "Kalliokieleke",
+    "tier": 9,
+    "gen": 2,
+    "length": 6000,
+    "cpEvery": 0,
+    "dusk": 0.4,
+    "style": "kallio",
+    "relief": 0.74,
+    "challenge": 0.43,
+    "variation": 0.6,
+    "rhythm": "even",
+    "biome": "kallio",
+    "lowNodes": 1,
+    "okNodes": 0,
+    "newNodes": 1,
+    "rec": 1,
+    "minGap": 75
+   },
+   "seeds": [
+    {
+     "seed": 1,
+     "score": 0.45,
+     "gated": 5,
+     "crashes": 1,
+     "time": 35
+    },
+    {
+     "seed": 2,
+     "score": 0.34,
+     "gated": 5,
+     "crashes": 0,
+     "time": 17
+    },
+    {
+     "seed": 3,
+     "score": 0.27,
+     "gated": 3,
+     "crashes": 0,
+     "time": 15
+    },
+    {
+     "seed": 4,
+     "score": 0.32,
+     "gated": 3,
+     "crashes": 0,
+     "time": 21
+    },
+    {
+     "seed": 5,
+     "score": 0.3,
+     "gated": 4,
+     "crashes": 0,
+     "time": 17
+    },
+    {
+     "seed": 6,
+     "score": 0.35,
+     "gated": 5,
+     "crashes": 0,
+     "time": 25
+    },
+    {
+     "seed": 7,
+     "score": 0.38,
+     "gated": 3,
+     "crashes": 1,
+     "time": 24
+    },
+    {
+     "seed": 8,
+     "score": 0.31,
+     "gated": 4,
+     "crashes": 0,
+     "time": 19
+    },
+    {
+     "seed": 9,
+     "score": 0.32,
+     "gated": 3,
+     "crashes": 0,
+     "time": 19
+    },
+    {
+     "seed": 10,
+     "score": 0.39,
+     "gated": 5,
+     "crashes": 0,
+     "time": 20
+    },
+    {
+     "seed": 11,
+     "score": 0.36,
+     "gated": 5,
+     "crashes": 0,
+     "time": 17
+    },
+    {
+     "seed": 12,
+     "score": 0.33,
+     "gated": 4,
+     "crashes": 0,
+     "time": 18
+    },
+    {
+     "seed": 13,
+     "score": 0.35,
+     "gated": 5,
+     "crashes": 0,
+     "time": 20
+    },
+    {
+     "seed": 14,
+     "score": 0.32,
+     "gated": 4,
+     "crashes": 0,
+     "time": 19
+    },
+    {
+     "seed": 15,
+     "score": 0.31,
+     "gated": 4,
+     "crashes": 0,
+     "time": 19
+    },
+    {
+     "seed": 18,
+     "score": 0.37,
+     "gated": 4,
+     "crashes": 0,
+     "time": 26
+    },
+    {
+     "seed": 19,
+     "score": 0.36,
+     "gated": 4,
+     "crashes": 0,
+     "time": 21
+    },
+    {
+     "seed": 20,
+     "score": 0.31,
+     "gated": 3,
+     "crashes": 0,
+     "time": 20
+    },
+    {
+     "seed": 22,
+     "score": 0.3,
+     "gated": 3,
+     "crashes": 0,
+     "time": 16
+    },
+    {
+     "seed": 23,
+     "score": 0.34,
+     "gated": 3,
+     "crashes": 0,
+     "time": 17
+    },
+    {
+     "seed": 25,
+     "score": 0.33,
+     "gated": 4,
+     "crashes": 0,
+     "time": 15
+    },
+    {
+     "seed": 26,
+     "score": 0.36,
+     "gated": 4,
+     "crashes": 0,
+     "time": 15
+    },
+    {
+     "seed": 27,
+     "score": 0.32,
+     "gated": 4,
+     "crashes": 0,
+     "time": 19
+    },
+    {
+     "seed": 28,
+     "score": 0.34,
+     "gated": 4,
+     "crashes": 0,
+     "time": 16
+    },
+    {
+     "seed": 29,
+     "score": 0.34,
+     "gated": 5,
+     "crashes": 0,
+     "time": 21
+    },
+    {
+     "seed": 30,
+     "score": 0.4,
+     "gated": 5,
+     "crashes": 0,
+     "time": 20
+    },
+    {
+     "seed": 31,
+     "score": 0.34,
+     "gated": 4,
+     "crashes": 0,
+     "time": 18
+    },
+    {
+     "seed": 32,
+     "score": 0.35,
+     "gated": 4,
+     "crashes": 0,
+     "time": 20
+    },
+    {
+     "seed": 33,
+     "score": 0.34,
+     "gated": 5,
+     "crashes": 0,
+     "time": 15
+    },
+    {
+     "seed": 34,
+     "score": 0.37,
+     "gated": 4,
+     "crashes": 0,
+     "time": 18
+    },
+    {
+     "seed": 36,
+     "score": 0.39,
+     "gated": 4,
+     "crashes": 0,
+     "time": 23
+    },
+    {
+     "seed": 37,
+     "score": 0.35,
+     "gated": 3,
+     "crashes": 0,
+     "time": 22
+    },
+    {
+     "seed": 38,
+     "score": 0.36,
+     "gated": 5,
+     "crashes": 0,
+     "time": 17
+    }
+   ]
+  },
+  "kieleke-d1-r10": {
+   "template": "kieleke",
+   "depth": 1,
+   "risk": 1,
+   "def": {
+    "id": "kieleke-d1-r10",
+    "name": "Kalliokieleke",
+    "tier": 9,
+    "gen": 2,
+    "length": 6000,
+    "cpEvery": 0,
+    "dusk": 0.4,
+    "style": "kallio",
+    "relief": 0.86,
+    "challenge": 0.52,
+    "variation": 0.85,
+    "rhythm": "clustered",
+    "biome": "kallio",
+    "lowNodes": 1,
+    "okNodes": 0,
+    "newNodes": 1,
+    "rec": 1,
+    "minGap": 60
+   },
+   "seeds": [
+    {
+     "seed": 1,
+     "score": 0.44,
+     "gated": 6,
+     "crashes": 0,
+     "time": 32
+    },
+    {
+     "seed": 2,
+     "score": 0.36,
+     "gated": 5,
+     "crashes": 0,
+     "time": 25
+    },
+    {
+     "seed": 3,
+     "score": 0.39,
+     "gated": 6,
+     "crashes": 0,
+     "time": 27
+    },
+    {
+     "seed": 4,
+     "score": 0.35,
+     "gated": 3,
+     "crashes": 0,
+     "time": 27
+    },
+    {
+     "seed": 5,
+     "score": 0.35,
+     "gated": 4,
+     "crashes": 0,
+     "time": 25
+    },
+    {
+     "seed": 6,
+     "score": 0.29,
+     "gated": 3,
+     "crashes": 0,
+     "time": 26
+    },
+    {
+     "seed": 7,
+     "score": 0.4,
+     "gated": 5,
+     "crashes": 0,
+     "time": 31
+    },
+    {
+     "seed": 8,
+     "score": 0.37,
+     "gated": 4,
+     "crashes": 0,
+     "time": 29
+    },
+    {
+     "seed": 9,
+     "score": 0.38,
+     "gated": 5,
+     "crashes": 0,
+     "time": 31
+    },
+    {
+     "seed": 10,
+     "score": 0.4,
+     "gated": 6,
+     "crashes": 0,
+     "time": 27
+    },
+    {
+     "seed": 11,
+     "score": 0.4,
+     "gated": 5,
+     "crashes": 0,
+     "time": 36
+    },
+    {
+     "seed": 13,
+     "score": 0.34,
+     "gated": 4,
+     "crashes": 0,
+     "time": 24
+    },
+    {
+     "seed": 14,
+     "score": 0.31,
+     "gated": 3,
+     "crashes": 0,
+     "time": 23
+    },
+    {
+     "seed": 15,
+     "score": 0.44,
+     "gated": 6,
+     "crashes": 0,
+     "time": 27
+    },
+    {
+     "seed": 16,
+     "score": 0.38,
+     "gated": 5,
+     "crashes": 0,
+     "time": 25
+    },
+    {
+     "seed": 17,
+     "score": 0.4,
+     "gated": 4,
+     "crashes": 1,
+     "time": 44
+    },
+    {
+     "seed": 18,
+     "score": 0.38,
+     "gated": 4,
+     "crashes": 0,
+     "time": 27
+    },
+    {
+     "seed": 19,
+     "score": 0.36,
+     "gated": 4,
+     "crashes": 0,
+     "time": 27
+    },
+    {
+     "seed": 20,
+     "score": 0.42,
+     "gated": 5,
+     "crashes": 0,
+     "time": 27
+    },
+    {
+     "seed": 21,
+     "score": 0.43,
+     "gated": 5,
+     "crashes": 0,
+     "time": 26
+    },
+    {
+     "seed": 22,
+     "score": 0.35,
+     "gated": 4,
+     "crashes": 0,
+     "time": 25
+    },
+    {
+     "seed": 23,
+     "score": 0.41,
+     "gated": 5,
+     "crashes": 0,
+     "time": 24
+    },
+    {
+     "seed": 24,
+     "score": 0.44,
+     "gated": 6,
+     "crashes": 0,
+     "time": 30
+    },
+    {
+     "seed": 25,
+     "score": 0.37,
+     "gated": 5,
+     "crashes": 0,
+     "time": 25
+    },
+    {
+     "seed": 26,
+     "score": 0.41,
+     "gated": 5,
+     "crashes": 0,
+     "time": 27
+    },
+    {
+     "seed": 27,
+     "score": 0.32,
+     "gated": 3,
+     "crashes": 0,
+     "time": 25
+    },
+    {
+     "seed": 28,
+     "score": 0.43,
+     "gated": 6,
+     "crashes": 0,
+     "time": 29
+    },
+    {
+     "seed": 29,
+     "score": 0.42,
+     "gated": 7,
+     "crashes": 0,
+     "time": 25
+    },
+    {
+     "seed": 30,
+     "score": 0.44,
+     "gated": 6,
+     "crashes": 0,
+     "time": 26
+    },
+    {
+     "seed": 31,
+     "score": 0.38,
+     "gated": 4,
+     "crashes": 1,
+     "time": 40
+    },
+    {
+     "seed": 32,
+     "score": 0.41,
+     "gated": 5,
+     "crashes": 0,
+     "time": 29
+    },
+    {
+     "seed": 34,
+     "score": 0.38,
+     "gated": 5,
+     "crashes": 0,
+     "time": 28
+    },
+    {
+     "seed": 35,
+     "score": 0.37,
+     "gated": 5,
+     "crashes": 0,
+     "time": 28
+    },
+    {
+     "seed": 36,
+     "score": 0.42,
+     "gated": 5,
+     "crashes": 0,
+     "time": 28
+    },
+    {
+     "seed": 37,
+     "score": 0.38,
+     "gated": 4,
+     "crashes": 0,
+     "time": 28
+    },
+    {
+     "seed": 38,
+     "score": 0.35,
+     "gated": 4,
+     "crashes": 0,
+     "time": 24
+    },
+    {
+     "seed": 39,
+     "score": 0.32,
+     "gated": 3,
+     "crashes": 0,
+     "time": 27
+    }
+   ]
+  },
+  "korpi-d2-r0": {
+   "template": "korpi",
+   "depth": 2,
+   "risk": 0,
+   "def": {
+    "id": "korpi-d2-r0",
+    "name": "Korpi",
+    "tier": 9,
+    "gen": 2,
+    "length": 18000,
+    "cpEvery": 0,
+    "dusk": 0.55,
+    "chase": true,
+    "terrain": {
+     "algo": "noise",
+     "amp": 80,
+     "wl": 2200,
+     "octaves": 2,
+     "gain": 0.22,
+     "lacunarity": 4,
+     "rough": 0,
+     "maxSlope": 16,
+     "macro": 0.5,
+     "descent": 1800
+    },
+    "difficulty": {
+     "hard": 0.57,
+     "variety": 0.6,
+     "curve": [
+      0.32,
+      0.67
+     ]
+    },
+    "features": {
+     "strategy": "curve",
+     "spacing": "even",
+     "count": 25,
+     "pool": [
+      "slope",
+      "hump",
+      "kicker",
+      "tabletop",
+      "ridge",
+      "stepsdown",
+      "drop",
+      "stepdown",
+      "dropseries",
+      "doubles",
+      "roadgap",
+      "doublegap",
+      "bigair",
+      "gap"
+     ],
+     "fit": true
+    },
+    "assets": {
+     "obstacles": 0,
+     "stones": 0,
+     "forest": 1.3,
+     "biome": "korpi",
+     "glades": 0.2
+    },
+    "minGap": 220,
+    "rec": 1,
+    "lowNodes": 0,
+    "okNodes": 0,
+    "newNodes": 0
+   },
+   "seeds": [
+    {
+     "seed": 1,
+     "feats": 25,
+     "fastKm": 9.6,
+     "fastResult": "caught"
+    },
+    {
+     "seed": 3,
+     "feats": 25,
+     "fastKm": 12.9,
+     "fastResult": "caught"
+    },
+    {
+     "seed": 4,
+     "feats": 25,
+     "fastKm": 16,
+     "fastResult": "caught"
+    },
+    {
+     "seed": 5,
+     "feats": 25,
+     "fastKm": 14.2,
+     "fastResult": "caught"
+    },
+    {
+     "seed": 6,
+     "feats": 25,
+     "fastKm": 10,
+     "fastResult": "caught"
+    },
+    {
+     "seed": 8,
+     "feats": 25,
+     "fastKm": 13.7,
+     "fastResult": "caught"
+    },
+    {
+     "seed": 9,
+     "feats": 25,
+     "fastKm": 15.5,
+     "fastResult": "caught"
+    },
+    {
+     "seed": 11,
+     "feats": 25,
+     "fastKm": 14.6,
+     "fastResult": "caught"
+    },
+    {
+     "seed": 12,
+     "feats": 25,
+     "fastKm": 15.2,
+     "fastResult": "caught"
+    },
+    {
+     "seed": 13,
+     "feats": 25,
+     "fastKm": 16.5,
+     "fastResult": "caught"
+    },
+    {
+     "seed": 14,
+     "feats": 25,
+     "fastKm": 14.8,
+     "fastResult": "caught"
+    },
+    {
+     "seed": 15,
+     "feats": 25,
+     "fastKm": 12.2,
+     "fastResult": "caught"
+    },
+    {
+     "seed": 16,
+     "feats": 25,
+     "fastKm": 12.6,
+     "fastResult": "caught"
+    },
+    {
+     "seed": 18,
+     "feats": 25,
+     "fastKm": 16.1,
+     "fastResult": "caught"
+    },
+    {
+     "seed": 19,
+     "feats": 25,
+     "fastKm": 14.8,
+     "fastResult": "caught"
+    },
+    {
+     "seed": 20,
+     "feats": 25,
+     "fastKm": 13.7,
+     "fastResult": "caught"
+    },
+    {
+     "seed": 21,
+     "feats": 25,
+     "fastKm": 13.2,
+     "fastResult": "caught"
+    },
+    {
+     "seed": 22,
+     "feats": 25,
+     "fastKm": 13,
+     "fastResult": "caught"
+    },
+    {
+     "seed": 23,
+     "feats": 25,
+     "fastKm": 15.8,
+     "fastResult": "caught"
+    },
+    {
+     "seed": 26,
+     "feats": 25,
+     "fastKm": 11.5,
+     "fastResult": "caught"
+    },
+    {
+     "seed": 27,
+     "feats": 25,
+     "fastKm": 15.6,
+     "fastResult": "caught"
+    },
+    {
+     "seed": 28,
+     "feats": 25,
+     "fastKm": 13.4,
+     "fastResult": "caught"
+    },
+    {
+     "seed": 29,
+     "feats": 25,
+     "fastKm": 14.5,
+     "fastResult": "caught"
+    },
+    {
+     "seed": 31,
+     "feats": 25,
+     "fastKm": 17.4,
+     "fastResult": "caught"
+    },
+    {
+     "seed": 32,
+     "feats": 25,
+     "fastKm": 10.9,
+     "fastResult": "caught"
+    },
+    {
+     "seed": 33,
+     "feats": 25,
+     "fastKm": 14,
+     "fastResult": "caught"
+    },
+    {
+     "seed": 34,
+     "feats": 25,
+     "fastKm": 12.1,
+     "fastResult": "caught"
+    },
+    {
+     "seed": 35,
+     "feats": 25,
+     "fastKm": 15.4,
+     "fastResult": "caught"
+    },
+    {
+     "seed": 36,
+     "feats": 25,
+     "fastKm": 13.6,
+     "fastResult": "caught"
+    },
+    {
+     "seed": 38,
+     "feats": 25,
+     "fastKm": 14.7,
+     "fastResult": "caught"
+    }
+   ]
+  },
+  "korpi-d2-r5": {
+   "template": "korpi",
+   "depth": 2,
+   "risk": 0.5,
+   "def": {
+    "id": "korpi-d2-r5",
+    "name": "Korpi",
+    "tier": 9,
+    "gen": 2,
+    "length": 18000,
+    "cpEvery": 0,
+    "dusk": 0.55,
+    "chase": true,
+    "terrain": {
+     "algo": "noise",
+     "amp": 80,
+     "wl": 2200,
+     "octaves": 2,
+     "gain": 0.22,
+     "lacunarity": 4,
+     "rough": 0,
+     "maxSlope": 16,
+     "macro": 0.5,
+     "descent": 1800
+    },
+    "difficulty": {
+     "hard": 0.62,
+     "variety": 0.6,
+     "curve": [
+      0.42,
+      0.82
+     ]
+    },
+    "features": {
+     "strategy": "curve",
+     "spacing": "even",
+     "count": 25,
+     "pool": [
+      "slope",
+      "hump",
+      "kicker",
+      "tabletop",
+      "ridge",
+      "stepsdown",
+      "drop",
+      "stepdown",
+      "dropseries",
+      "doubles",
+      "roadgap",
+      "doublegap",
+      "bigair",
+      "gap"
+     ],
+     "fit": true
+    },
+    "assets": {
+     "obstacles": 0,
+     "stones": 0,
+     "forest": 1.3,
+     "biome": "korpi",
+     "glades": 0.2
+    },
+    "minGap": 220,
+    "rec": 1,
+    "lowNodes": 0,
+    "okNodes": 0,
+    "newNodes": 0
+   },
+   "seeds": [
+    {
+     "seed": 1,
+     "feats": 22,
+     "fastKm": 17.7,
+     "fastResult": "pass"
+    },
+    {
+     "seed": 2,
+     "feats": 22,
+     "fastKm": 17.7,
+     "fastResult": "pass"
+    },
+    {
+     "seed": 4,
+     "feats": 22,
+     "fastKm": 11,
+     "fastResult": "caught"
+    },
+    {
+     "seed": 5,
+     "feats": 22,
+     "fastKm": 17.7,
+     "fastResult": "pass"
+    },
+    {
+     "seed": 6,
+     "feats": 23,
+     "fastKm": 9.8,
+     "fastResult": "caught"
+    },
+    {
+     "seed": 7,
+     "feats": 23,
+     "fastKm": 17.7,
+     "fastResult": "pass"
+    },
+    {
+     "seed": 8,
+     "feats": 22,
+     "fastKm": 10.4,
+     "fastResult": "caught"
+    },
+    {
+     "seed": 9,
+     "feats": 22,
+     "fastKm": 10.8,
+     "fastResult": "caught"
+    },
+    {
+     "seed": 10,
+     "feats": 23,
+     "fastKm": 17.7,
+     "fastResult": "pass"
+    },
+    {
+     "seed": 11,
+     "feats": 21,
+     "fastKm": 17.7,
+     "fastResult": "pass"
+    },
+    {
+     "seed": 12,
+     "feats": 23,
+     "fastKm": 8.8,
+     "fastResult": "caught"
+    },
+    {
+     "seed": 14,
+     "feats": 23,
+     "fastKm": 17.7,
+     "fastResult": "pass"
+    },
+    {
+     "seed": 15,
+     "feats": 23,
+     "fastKm": 17.7,
+     "fastResult": "pass"
+    },
+    {
+     "seed": 17,
+     "feats": 24,
+     "fastKm": 9,
+     "fastResult": "caught"
+    },
+    {
+     "seed": 18,
+     "feats": 22,
+     "fastKm": 8.7,
+     "fastResult": "caught"
+    },
+    {
+     "seed": 20,
+     "feats": 24,
+     "fastKm": 7.2,
+     "fastResult": "caught"
+    },
+    {
+     "seed": 21,
+     "feats": 22,
+     "fastKm": 9.5,
+     "fastResult": "caught"
+    },
+    {
+     "seed": 22,
+     "feats": 23,
+     "fastKm": 17.7,
+     "fastResult": "pass"
+    },
+    {
+     "seed": 23,
+     "feats": 23,
+     "fastKm": 11.1,
+     "fastResult": "caught"
+    },
+    {
+     "seed": 24,
+     "feats": 23,
+     "fastKm": 12.7,
+     "fastResult": "caught"
+    },
+    {
+     "seed": 25,
+     "feats": 24,
+     "fastKm": 17.7,
+     "fastResult": "pass"
+    },
+    {
+     "seed": 26,
+     "feats": 23,
+     "fastKm": 17.7,
+     "fastResult": "pass"
+    },
+    {
+     "seed": 27,
+     "feats": 23,
+     "fastKm": 17.7,
+     "fastResult": "pass"
+    },
+    {
+     "seed": 28,
+     "feats": 23,
+     "fastKm": 17.7,
+     "fastResult": "pass"
+    },
+    {
+     "seed": 29,
+     "feats": 23,
+     "fastKm": 10.4,
+     "fastResult": "caught"
+    },
+    {
+     "seed": 30,
+     "feats": 23,
+     "fastKm": 17.7,
+     "fastResult": "pass"
+    },
+    {
+     "seed": 31,
+     "feats": 23,
+     "fastKm": 10.1,
+     "fastResult": "caught"
+    },
+    {
+     "seed": 33,
+     "feats": 23,
+     "fastKm": 10,
+     "fastResult": "caught"
+    },
+    {
+     "seed": 36,
+     "feats": 22,
+     "fastKm": 8.7,
+     "fastResult": "caught"
+    },
+    {
+     "seed": 37,
+     "feats": 23,
+     "fastKm": 8.6,
+     "fastResult": "caught"
+    },
+    {
+     "seed": 39,
+     "feats": 25,
+     "fastKm": 16.5,
+     "fastResult": "caught"
+    }
+   ]
+  },
+  "korpi-d2-r10": {
+   "template": "korpi",
+   "depth": 2,
+   "risk": 1,
+   "def": {
+    "id": "korpi-d2-r10",
+    "name": "Korpi",
+    "tier": 9,
+    "gen": 2,
+    "length": 18000,
+    "cpEvery": 0,
+    "dusk": 0.55,
+    "chase": true,
+    "terrain": {
+     "algo": "noise",
+     "amp": 80,
+     "wl": 2200,
+     "octaves": 2,
+     "gain": 0.22,
+     "lacunarity": 4,
+     "rough": 0,
+     "maxSlope": 16,
+     "macro": 0.5,
+     "descent": 1800
+    },
+    "difficulty": {
+     "hard": 0.67,
+     "variety": 0.6,
+     "curve": [
+      0.52,
+      0.97
+     ]
+    },
+    "features": {
+     "strategy": "curve",
+     "spacing": "even",
+     "count": 25,
+     "pool": [
+      "slope",
+      "hump",
+      "kicker",
+      "tabletop",
+      "ridge",
+      "stepsdown",
+      "drop",
+      "stepdown",
+      "dropseries",
+      "doubles",
+      "roadgap",
+      "doublegap",
+      "bigair",
+      "gap"
+     ],
+     "fit": true
+    },
+    "assets": {
+     "obstacles": 0,
+     "stones": 0,
+     "forest": 1.3,
+     "biome": "korpi",
+     "glades": 0.2
+    },
+    "minGap": 220,
+    "rec": 1,
+    "lowNodes": 0,
+    "okNodes": 0,
+    "newNodes": 0
+   },
+   "seeds": [
+    {
+     "seed": 1,
+     "feats": 20,
+     "fastKm": 14.6,
+     "fastResult": "caught"
+    },
+    {
+     "seed": 3,
+     "feats": 19,
+     "fastKm": 12.6,
+     "fastResult": "caught"
+    },
+    {
+     "seed": 4,
+     "feats": 19,
+     "fastKm": 14.1,
+     "fastResult": "caught"
+    },
+    {
+     "seed": 5,
+     "feats": 19,
+     "fastKm": 16.1,
+     "fastResult": "caught"
+    },
+    {
+     "seed": 6,
+     "feats": 18,
+     "fastKm": 12.1,
+     "fastResult": "caught"
+    },
+    {
+     "seed": 9,
+     "feats": 22,
+     "fastKm": 9.4,
+     "fastResult": "caught"
+    },
+    {
+     "seed": 10,
+     "feats": 19,
+     "fastKm": 15.2,
+     "fastResult": "caught"
+    },
+    {
+     "seed": 12,
+     "feats": 18,
+     "fastKm": 15.3,
+     "fastResult": "caught"
+    },
+    {
+     "seed": 13,
+     "feats": 18,
+     "fastKm": 15.5,
+     "fastResult": "caught"
+    },
+    {
+     "seed": 14,
+     "feats": 20,
+     "fastKm": 16.6,
+     "fastResult": "caught"
+    },
+    {
+     "seed": 15,
+     "feats": 19,
+     "fastKm": 9.9,
+     "fastResult": "caught"
+    },
+    {
+     "seed": 16,
+     "feats": 20,
+     "fastKm": 8.8,
+     "fastResult": "caught"
+    },
+    {
+     "seed": 17,
+     "feats": 20,
+     "fastKm": 12.6,
+     "fastResult": "caught"
+    },
+    {
+     "seed": 19,
+     "feats": 19,
+     "fastKm": 15.5,
+     "fastResult": "caught"
+    },
+    {
+     "seed": 20,
+     "feats": 19,
+     "fastKm": 14.2,
+     "fastResult": "caught"
+    },
+    {
+     "seed": 21,
+     "feats": 19,
+     "fastKm": 8.5,
+     "fastResult": "caught"
+    },
+    {
+     "seed": 22,
+     "feats": 19,
+     "fastKm": 17.7,
+     "fastResult": "pass"
+    },
+    {
+     "seed": 23,
+     "feats": 19,
+     "fastKm": 14.8,
+     "fastResult": "caught"
+    },
+    {
+     "seed": 24,
+     "feats": 18,
+     "fastKm": 16.6,
+     "fastResult": "caught"
+    },
+    {
+     "seed": 25,
+     "feats": 18,
+     "fastKm": 12.4,
+     "fastResult": "caught"
+    },
+    {
+     "seed": 26,
+     "feats": 18,
+     "fastKm": 17.7,
+     "fastResult": "pass"
+    },
+    {
+     "seed": 27,
+     "feats": 19,
+     "fastKm": 11.2,
+     "fastResult": "caught"
+    },
+    {
+     "seed": 29,
+     "feats": 19,
+     "fastKm": 17.7,
+     "fastResult": "pass"
+    },
+    {
+     "seed": 31,
+     "feats": 23,
+     "fastKm": 10.3,
+     "fastResult": "caught"
+    },
+    {
+     "seed": 32,
+     "feats": 20,
+     "fastKm": 14.8,
+     "fastResult": "caught"
+    },
+    {
+     "seed": 33,
+     "feats": 17,
+     "fastKm": 15.3,
+     "fastResult": "caught"
+    },
+    {
+     "seed": 34,
+     "feats": 18,
+     "fastKm": 12.6,
+     "fastResult": "caught"
+    },
+    {
+     "seed": 35,
+     "feats": 19,
+     "fastKm": 9.2,
+     "fastResult": "caught"
+    },
+    {
+     "seed": 36,
+     "feats": 19,
+     "fastKm": 16.7,
+     "fastResult": "caught"
+    },
+    {
+     "seed": 37,
+     "feats": 19,
+     "fastKm": 12.6,
+     "fastResult": "caught"
+    },
+    {
+     "seed": 38,
+     "feats": 18,
+     "fastKm": 17.7,
+     "fastResult": "pass"
+    },
+    {
+     "seed": 39,
+     "feats": 18,
+     "fastKm": 17.7,
+     "fastResult": "pass"
+    }
+   ]
+  },
+  "suonlaita-d2-r0": {
+   "template": "suonlaita",
+   "depth": 2,
+   "risk": 0,
+   "def": {
+    "id": "suonlaita-d2-r0",
+    "name": "Suonlaita",
+    "tier": 9,
+    "gen": 2,
+    "length": 6500,
+    "cpEvery": 0,
+    "dusk": 0.55,
+    "style": "kumpu",
+    "relief": 0.52,
+    "challenge": 0.39,
+    "variation": 0.35,
+    "rhythm": "even",
+    "biome": "korpi",
+    "lowNodes": 1,
+    "okNodes": 1,
+    "newNodes": 1,
+    "rec": 1,
+    "assets": {
+     "biome": "korpi",
+     "obstacles": 1,
+     "stones": 1,
+     "forest": 1,
+     "glades": 0.3,
+     "bog": 1
+    }
+   },
+   "seeds": [
+    {
+     "seed": 1,
+     "score": 0.28,
+     "gated": 2,
+     "crashes": 0,
+     "time": 22
+    },
+    {
+     "seed": 2,
+     "score": 0.32,
+     "gated": 4,
+     "crashes": 0,
+     "time": 26
+    },
+    {
+     "seed": 3,
+     "score": 0.44,
+     "gated": 8,
+     "crashes": 1,
+     "time": 42
+    },
+    {
+     "seed": 4,
+     "score": 0.27,
+     "gated": 2,
+     "crashes": 0,
+     "time": 25
+    },
+    {
+     "seed": 5,
+     "score": 0.29,
+     "gated": 3,
+     "crashes": 0,
+     "time": 25
+    },
+    {
+     "seed": 6,
+     "score": 0.26,
+     "gated": 3,
+     "crashes": 0,
+     "time": 22
+    },
+    {
+     "seed": 7,
+     "score": 0.32,
+     "gated": 4,
+     "crashes": 0,
+     "time": 26
+    },
+    {
+     "seed": 8,
+     "score": 0.36,
+     "gated": 6,
+     "crashes": 0,
+     "time": 25
+    },
+    {
+     "seed": 9,
+     "score": 0.34,
+     "gated": 4,
+     "crashes": 0,
+     "time": 25
+    },
+    {
+     "seed": 10,
+     "score": 0.27,
+     "gated": 2,
+     "crashes": 0,
+     "time": 25
+    },
+    {
+     "seed": 11,
+     "score": 0.37,
+     "gated": 6,
+     "crashes": 0,
+     "time": 25
+    },
+    {
+     "seed": 12,
+     "score": 0.32,
+     "gated": 4,
+     "crashes": 0,
+     "time": 26
+    },
+    {
+     "seed": 13,
+     "score": 0.39,
+     "gated": 7,
+     "crashes": 0,
+     "time": 25
+    },
+    {
+     "seed": 14,
+     "score": 0.3,
+     "gated": 4,
+     "crashes": 0,
+     "time": 27
+    },
+    {
+     "seed": 15,
+     "score": 0.31,
+     "gated": 4,
+     "crashes": 0,
+     "time": 27
+    },
+    {
+     "seed": 16,
+     "score": 0.3,
+     "gated": 4,
+     "crashes": 0,
+     "time": 25
+    },
+    {
+     "seed": 17,
+     "score": 0.32,
+     "gated": 3,
+     "crashes": 0,
+     "time": 28
+    },
+    {
+     "seed": 18,
+     "score": 0.26,
+     "gated": 3,
+     "crashes": 0,
+     "time": 28
+    },
+    {
+     "seed": 19,
+     "score": 0.32,
+     "gated": 4,
+     "crashes": 0,
+     "time": 30
+    },
+    {
+     "seed": 20,
+     "score": 0.29,
+     "gated": 2,
+     "crashes": 0,
+     "time": 25
+    },
+    {
+     "seed": 21,
+     "score": 0.34,
+     "gated": 4,
+     "crashes": 0,
+     "time": 30
+    },
+    {
+     "seed": 22,
+     "score": 0.23,
+     "gated": 0,
+     "crashes": 0,
+     "time": 23
+    },
+    {
+     "seed": 23,
+     "score": 0.26,
+     "gated": 2,
+     "crashes": 0,
+     "time": 27
+    },
+    {
+     "seed": 24,
+     "score": 0.33,
+     "gated": 4,
+     "crashes": 0,
+     "time": 24
+    },
+    {
+     "seed": 25,
+     "score": 0.31,
+     "gated": 4,
+     "crashes": 0,
+     "time": 24
+    },
+    {
+     "seed": 26,
+     "score": 0.34,
+     "gated": 5,
+     "crashes": 0,
+     "time": 23
+    },
+    {
+     "seed": 27,
+     "score": 0.34,
+     "gated": 5,
+     "crashes": 0,
+     "time": 25
+    },
+    {
+     "seed": 28,
+     "score": 0.24,
+     "gated": 1,
+     "crashes": 0,
+     "time": 25
+    },
+    {
+     "seed": 29,
+     "score": 0.37,
+     "gated": 8,
+     "crashes": 0,
+     "time": 27
+    },
+    {
+     "seed": 30,
+     "score": 0.32,
+     "gated": 4,
+     "crashes": 0,
+     "time": 30
+    },
+    {
+     "seed": 31,
+     "score": 0.29,
+     "gated": 2,
+     "crashes": 0,
+     "time": 24
+    },
+    {
+     "seed": 32,
+     "score": 0.31,
+     "gated": 3,
+     "crashes": 0,
+     "time": 25
+    },
+    {
+     "seed": 33,
+     "score": 0.3,
+     "gated": 4,
+     "crashes": 0,
+     "time": 25
+    },
+    {
+     "seed": 34,
+     "score": 0.3,
+     "gated": 4,
+     "crashes": 0,
+     "time": 24
+    },
+    {
+     "seed": 35,
+     "score": 0.37,
+     "gated": 7,
+     "crashes": 0,
+     "time": 24
+    },
+    {
+     "seed": 36,
+     "score": 0.38,
+     "gated": 3,
+     "crashes": 0,
+     "time": 26
+    },
+    {
+     "seed": 37,
+     "score": 0.34,
+     "gated": 4,
+     "crashes": 0,
+     "time": 28
+    },
+    {
+     "seed": 38,
+     "score": 0.27,
+     "gated": 4,
+     "crashes": 0,
+     "time": 23
+    },
+    {
+     "seed": 39,
+     "score": 0.38,
+     "gated": 5,
+     "crashes": 0,
+     "time": 24
+    },
+    {
+     "seed": 40,
+     "score": 0.37,
+     "gated": 7,
+     "crashes": 0,
+     "time": 26
+    }
+   ]
+  },
+  "suonlaita-d2-r5": {
+   "template": "suonlaita",
+   "depth": 2,
+   "risk": 0.5,
+   "def": {
+    "id": "suonlaita-d2-r5",
+    "name": "Suonlaita",
+    "tier": 9,
+    "gen": 2,
+    "length": 6500,
+    "cpEvery": 0,
+    "dusk": 0.55,
+    "style": "kumpu",
+    "relief": 0.65,
+    "challenge": 0.48,
+    "variation": 0.6,
+    "rhythm": "even",
+    "biome": "korpi",
+    "lowNodes": 1,
+    "okNodes": 1,
+    "newNodes": 1,
+    "rec": 1,
+    "assets": {
+     "biome": "korpi",
+     "obstacles": 1,
+     "stones": 1,
+     "forest": 1,
+     "glades": 0.3,
+     "bog": 1
+    }
+   },
+   "seeds": [
+    {
+     "seed": 1,
+     "score": 0.4,
+     "gated": 5,
+     "crashes": 0,
+     "time": 29
+    },
+    {
+     "seed": 3,
+     "score": 0.43,
+     "gated": 8,
+     "crashes": 0,
+     "time": 27
+    },
+    {
+     "seed": 4,
+     "score": 0.44,
+     "gated": 8,
+     "crashes": 0,
+     "time": 28
+    },
+    {
+     "seed": 5,
+     "score": 0.51,
+     "gated": 11,
+     "crashes": 0,
+     "time": 26
+    },
+    {
+     "seed": 6,
+     "score": 0.46,
+     "gated": 10,
+     "crashes": 0,
+     "time": 26
+    },
+    {
+     "seed": 8,
+     "score": 0.51,
+     "gated": 10,
+     "crashes": 1,
+     "time": 46
+    },
+    {
+     "seed": 9,
+     "score": 0.48,
+     "gated": 8,
+     "crashes": 1,
+     "time": 28
+    },
+    {
+     "seed": 11,
+     "score": 0.55,
+     "gated": 10,
+     "crashes": 1,
+     "time": 38
+    },
+    {
+     "seed": 12,
+     "score": 0.54,
+     "gated": 10,
+     "crashes": 0,
+     "time": 28
+    },
+    {
+     "seed": 13,
+     "score": 0.47,
+     "gated": 10,
+     "crashes": 0,
+     "time": 25
+    },
+    {
+     "seed": 14,
+     "score": 0.37,
+     "gated": 7,
+     "crashes": 0,
+     "time": 25
+    },
+    {
+     "seed": 15,
+     "score": 0.39,
+     "gated": 7,
+     "crashes": 0,
+     "time": 23
+    },
+    {
+     "seed": 16,
+     "score": 0.4,
+     "gated": 6,
+     "crashes": 0,
+     "time": 30
+    },
+    {
+     "seed": 17,
+     "score": 0.54,
+     "gated": 8,
+     "crashes": 1,
+     "time": 50
+    },
+    {
+     "seed": 18,
+     "score": 0.44,
+     "gated": 9,
+     "crashes": 0,
+     "time": 29
+    },
+    {
+     "seed": 20,
+     "score": 0.45,
+     "gated": 8,
+     "crashes": 0,
+     "time": 28
+    },
+    {
+     "seed": 21,
+     "score": 0.44,
+     "gated": 7,
+     "crashes": 0,
+     "time": 31
+    },
+    {
+     "seed": 22,
+     "score": 0.52,
+     "gated": 9,
+     "crashes": 0,
+     "time": 30
+    },
+    {
+     "seed": 25,
+     "score": 0.43,
+     "gated": 8,
+     "crashes": 0,
+     "time": 28
+    },
+    {
+     "seed": 26,
+     "score": 0.4,
+     "gated": 7,
+     "crashes": 0,
+     "time": 26
+    },
+    {
+     "seed": 27,
+     "score": 0.42,
+     "gated": 8,
+     "crashes": 0,
+     "time": 28
+    },
+    {
+     "seed": 28,
+     "score": 0.45,
+     "gated": 9,
+     "crashes": 0,
+     "time": 30
+    },
+    {
+     "seed": 29,
+     "score": 0.43,
+     "gated": 9,
+     "crashes": 0,
+     "time": 28
+    },
+    {
+     "seed": 30,
+     "score": 0.43,
+     "gated": 8,
+     "crashes": 0,
+     "time": 30
+    },
+    {
+     "seed": 31,
+     "score": 0.51,
+     "gated": 10,
+     "crashes": 0,
+     "time": 31
+    },
+    {
+     "seed": 32,
+     "score": 0.41,
+     "gated": 6,
+     "crashes": 0,
+     "time": 28
+    },
+    {
+     "seed": 34,
+     "score": 0.43,
+     "gated": 7,
+     "crashes": 0,
+     "time": 29
+    },
+    {
+     "seed": 35,
+     "score": 0.49,
+     "gated": 10,
+     "crashes": 0,
+     "time": 29
+    },
+    {
+     "seed": 37,
+     "score": 0.34,
+     "gated": 4,
+     "crashes": 0,
+     "time": 25
+    },
+    {
+     "seed": 38,
+     "score": 0.45,
+     "gated": 8,
+     "crashes": 1,
+     "time": 38
+    },
+    {
+     "seed": 39,
+     "score": 0.41,
+     "gated": 6,
+     "crashes": 0,
+     "time": 28
+    },
+    {
+     "seed": 40,
+     "score": 0.44,
+     "gated": 9,
+     "crashes": 0,
+     "time": 29
+    }
+   ]
+  },
+  "suonlaita-d2-r10": {
+   "template": "suonlaita",
+   "depth": 2,
+   "risk": 1,
+   "def": {
+    "id": "suonlaita-d2-r10",
+    "name": "Suonlaita",
+    "tier": 9,
+    "gen": 2,
+    "length": 6500,
+    "cpEvery": 0,
+    "dusk": 0.55,
+    "style": "kumpu",
+    "relief": 0.77,
+    "challenge": 0.57,
+    "variation": 0.85,
+    "rhythm": "clustered",
+    "biome": "korpi",
+    "lowNodes": 1,
+    "okNodes": 1,
+    "newNodes": 1,
+    "rec": 1,
+    "assets": {
+     "biome": "korpi",
+     "obstacles": 1,
+     "stones": 1,
+     "forest": 1,
+     "glades": 0.3,
+     "bog": 1
+    }
+   },
+   "seeds": [
+    {
+     "seed": 1,
+     "score": 0.44,
+     "gated": 5,
+     "crashes": 0,
+     "time": 28
+    },
+    {
+     "seed": 2,
+     "score": 0.34,
+     "gated": 5,
+     "crashes": 0,
+     "time": 20
+    },
+    {
+     "seed": 3,
+     "score": 0.34,
+     "gated": 4,
+     "crashes": 1,
+     "time": 19
+    },
+    {
+     "seed": 5,
+     "score": 0.39,
+     "gated": 4,
+     "crashes": 1,
+     "time": 22
+    },
+    {
+     "seed": 6,
+     "score": 0.35,
+     "gated": 4,
+     "crashes": 0,
+     "time": 17
+    },
+    {
+     "seed": 7,
+     "score": 0.35,
+     "gated": 4,
+     "crashes": 0,
+     "time": 21
+    },
+    {
+     "seed": 9,
+     "score": 0.44,
+     "gated": 6,
+     "crashes": 0,
+     "time": 29
+    },
+    {
+     "seed": 10,
+     "score": 0.35,
+     "gated": 4,
+     "crashes": 0,
+     "time": 21
+    },
+    {
+     "seed": 11,
+     "score": 0.42,
+     "gated": 4,
+     "crashes": 1,
+     "time": 42
+    },
+    {
+     "seed": 13,
+     "score": 0.36,
+     "gated": 5,
+     "crashes": 0,
+     "time": 17
+    },
+    {
+     "seed": 14,
+     "score": 0.35,
+     "gated": 5,
+     "crashes": 0,
+     "time": 16
+    },
+    {
+     "seed": 15,
+     "score": 0.45,
+     "gated": 6,
+     "crashes": 1,
+     "time": 31
+    },
+    {
+     "seed": 16,
+     "score": 0.39,
+     "gated": 4,
+     "crashes": 0,
+     "time": 21
+    },
+    {
+     "seed": 17,
+     "score": 0.35,
+     "gated": 4,
+     "crashes": 0,
+     "time": 23
+    },
+    {
+     "seed": 18,
+     "score": 0.4,
+     "gated": 4,
+     "crashes": 0,
+     "time": 24
+    },
+    {
+     "seed": 19,
+     "score": 0.38,
+     "gated": 4,
+     "crashes": 0,
+     "time": 22
+    },
+    {
+     "seed": 20,
+     "score": 0.36,
+     "gated": 4,
+     "crashes": 0,
+     "time": 17
+    },
+    {
+     "seed": 24,
+     "score": 0.46,
+     "gated": 7,
+     "crashes": 0,
+     "time": 22
+    },
+    {
+     "seed": 25,
+     "score": 0.36,
+     "gated": 5,
+     "crashes": 0,
+     "time": 21
+    },
+    {
+     "seed": 26,
+     "score": 0.36,
+     "gated": 4,
+     "crashes": 0,
+     "time": 21
+    },
+    {
+     "seed": 27,
+     "score": 0.39,
+     "gated": 5,
+     "crashes": 0,
+     "time": 20
+    },
+    {
+     "seed": 28,
+     "score": 0.4,
+     "gated": 6,
+     "crashes": 0,
+     "time": 24
+    },
+    {
+     "seed": 32,
+     "score": 0.41,
+     "gated": 5,
+     "crashes": 0,
+     "time": 28
+    },
+    {
+     "seed": 33,
+     "score": 0.4,
+     "gated": 4,
+     "crashes": 0,
+     "time": 22
+    },
+    {
+     "seed": 34,
+     "score": 0.41,
+     "gated": 4,
+     "crashes": 1,
+     "time": 23
+    },
+    {
+     "seed": 35,
+     "score": 0.42,
+     "gated": 5,
+     "crashes": 0,
+     "time": 18
+    },
+    {
+     "seed": 37,
+     "score": 0.38,
+     "gated": 4,
+     "crashes": 0,
+     "time": 23
+    },
+    {
+     "seed": 40,
+     "score": 0.35,
+     "gated": 4,
+     "crashes": 0,
+     "time": 21
+    }
+   ]
+  },
+  "harjanne-d3-r0": {
+   "template": "harjanne",
+   "depth": 3,
+   "risk": 0,
+   "def": {
+    "id": "harjanne-d3-r0",
+    "name": "Harjanne",
+    "tier": 9,
+    "gen": 2,
+    "length": 6000,
+    "cpEvery": 0,
+    "dusk": 0.7,
+    "style": "harju",
+    "relief": 0.93,
+    "challenge": 0.45,
+    "variation": 0.35,
+    "rhythm": "even",
+    "biome": "kangas",
+    "lowNodes": 2,
+    "okNodes": 1,
+    "newNodes": 2,
+    "rec": 1
+   },
+   "seeds": [
+    {
+     "seed": 1,
+     "score": 0.36,
+     "gated": 3,
+     "crashes": 0,
+     "time": 22
+    },
+    {
+     "seed": 2,
+     "score": 0.39,
+     "gated": 3,
+     "crashes": 1,
+     "time": 42
+    },
+    {
+     "seed": 4,
+     "score": 0.33,
+     "gated": 2,
+     "crashes": 0,
+     "time": 24
+    },
+    {
+     "seed": 5,
+     "score": 0.42,
+     "gated": 5,
+     "crashes": 0,
+     "time": 30
+    },
+    {
+     "seed": 6,
+     "score": 0.32,
+     "gated": 1,
+     "crashes": 0,
+     "time": 35
+    },
+    {
+     "seed": 7,
+     "score": 0.35,
+     "gated": 2,
+     "crashes": 0,
+     "time": 24
+    },
+    {
+     "seed": 8,
+     "score": 0.41,
+     "gated": 4,
+     "crashes": 0,
+     "time": 27
+    },
+    {
+     "seed": 9,
+     "score": 0.35,
+     "gated": 3,
+     "crashes": 0,
+     "time": 30
+    },
+    {
+     "seed": 10,
+     "score": 0.38,
+     "gated": 3,
+     "crashes": 0,
+     "time": 35
+    },
+    {
+     "seed": 11,
+     "score": 0.36,
+     "gated": 3,
+     "crashes": 0,
+     "time": 19
+    },
+    {
+     "seed": 12,
+     "score": 0.34,
+     "gated": 3,
+     "crashes": 0,
+     "time": 26
+    },
+    {
+     "seed": 13,
+     "score": 0.32,
+     "gated": 2,
+     "crashes": 0,
+     "time": 20
+    },
+    {
+     "seed": 14,
+     "score": 0.42,
+     "gated": 5,
+     "crashes": 0,
+     "time": 21
+    },
+    {
+     "seed": 15,
+     "score": 0.4,
+     "gated": 5,
+     "crashes": 0,
+     "time": 24
+    },
+    {
+     "seed": 24,
+     "score": 0.41,
+     "gated": 4,
+     "crashes": 0,
+     "time": 31
+    },
+    {
+     "seed": 25,
+     "score": 0.42,
+     "gated": 4,
+     "crashes": 0,
+     "time": 35
+    },
+    {
+     "seed": 27,
+     "score": 0.33,
+     "gated": 2,
+     "crashes": 0,
+     "time": 25
+    },
+    {
+     "seed": 28,
+     "score": 0.42,
+     "gated": 6,
+     "crashes": 0,
+     "time": 27
+    },
+    {
+     "seed": 29,
+     "score": 0.37,
+     "gated": 3,
+     "crashes": 0,
+     "time": 23
+    },
+    {
+     "seed": 30,
+     "score": 0.37,
+     "gated": 2,
+     "crashes": 0,
+     "time": 41
+    },
+    {
+     "seed": 33,
+     "score": 0.37,
+     "gated": 3,
+     "crashes": 0,
+     "time": 31
+    },
+    {
+     "seed": 34,
+     "score": 0.41,
+     "gated": 4,
+     "crashes": 0,
+     "time": 26
+    },
+    {
+     "seed": 35,
+     "score": 0.37,
+     "gated": 1,
+     "crashes": 1,
+     "time": 32
+    },
+    {
+     "seed": 38,
+     "score": 0.39,
+     "gated": 3,
+     "crashes": 1,
+     "time": 24
+    },
+    {
+     "seed": 39,
+     "score": 0.37,
+     "gated": 3,
+     "crashes": 0,
+     "time": 24
+    },
+    {
+     "seed": 40,
+     "score": 0.37,
+     "gated": 3,
+     "crashes": 0,
+     "time": 27
+    }
+   ]
+  },
+  "harjanne-d3-r5": {
+   "template": "harjanne",
+   "depth": 3,
+   "risk": 0.5,
+   "def": {
+    "id": "harjanne-d3-r5",
+    "name": "Harjanne",
+    "tier": 9,
+    "gen": 2,
+    "length": 6000,
+    "cpEvery": 0,
+    "dusk": 0.7,
+    "style": "harju",
+    "relief": 1.05,
+    "challenge": 0.54,
+    "variation": 0.6,
+    "rhythm": "even",
+    "biome": "kangas",
+    "lowNodes": 2,
+    "okNodes": 1,
+    "newNodes": 2,
+    "rec": 1
+   },
+   "seeds": [
+    {
+     "seed": 1,
+     "score": 0.43,
+     "gated": 5,
+     "crashes": 0,
+     "time": 22
+    },
+    {
+     "seed": 8,
+     "score": 0.38,
+     "gated": 3,
+     "crashes": 0,
+     "time": 30
+    },
+    {
+     "seed": 10,
+     "score": 0.55,
+     "gated": 7,
+     "crashes": 1,
+     "time": 41
+    },
+    {
+     "seed": 11,
+     "score": 0.45,
+     "gated": 5,
+     "crashes": 0,
+     "time": 30
+    },
+    {
+     "seed": 13,
+     "score": 0.44,
+     "gated": 6,
+     "crashes": 0,
+     "time": 23
+    },
+    {
+     "seed": 14,
+     "score": 0.4,
+     "gated": 3,
+     "crashes": 1,
+     "time": 22
+    },
+    {
+     "seed": 15,
+     "score": 0.4,
+     "gated": 3,
+     "crashes": 0,
+     "time": 29
+    },
+    {
+     "seed": 16,
+     "score": 0.38,
+     "gated": 3,
+     "crashes": 0,
+     "time": 23
+    },
+    {
+     "seed": 18,
+     "score": 0.4,
+     "gated": 3,
+     "crashes": 0,
+     "time": 35
+    },
+    {
+     "seed": 19,
+     "score": 0.41,
+     "gated": 4,
+     "crashes": 0,
+     "time": 30
+    },
+    {
+     "seed": 27,
+     "score": 0.47,
+     "gated": 7,
+     "crashes": 0,
+     "time": 21
+    },
+    {
+     "seed": 28,
+     "score": 0.41,
+     "gated": 4,
+     "crashes": 0,
+     "time": 34
+    },
+    {
+     "seed": 29,
+     "score": 0.5,
+     "gated": 5,
+     "crashes": 2,
+     "time": 34
+    },
+    {
+     "seed": 37,
+     "score": 0.43,
+     "gated": 4,
+     "crashes": 0,
+     "time": 35
+    },
+    {
+     "seed": 38,
+     "score": 0.37,
+     "gated": 3,
+     "crashes": 0,
+     "time": 26
+    },
+    {
+     "seed": 39,
+     "score": 0.41,
+     "gated": 5,
+     "crashes": 0,
+     "time": 21
+    },
+    {
+     "seed": 40,
+     "score": 0.38,
+     "gated": 3,
+     "crashes": 0,
+     "time": 32
+    }
+   ]
+  },
+  "harjanne-d3-r10": {
+   "template": "harjanne",
+   "depth": 3,
+   "risk": 1,
+   "def": {
+    "id": "harjanne-d3-r10",
+    "name": "Harjanne",
+    "tier": 9,
+    "gen": 2,
+    "length": 6000,
+    "cpEvery": 0,
+    "dusk": 0.7,
+    "style": "harju",
+    "relief": 1.18,
+    "challenge": 0.63,
+    "variation": 0.85,
+    "rhythm": "clustered",
+    "biome": "kangas",
+    "lowNodes": 2,
+    "okNodes": 1,
+    "newNodes": 2,
+    "rec": 1
+   },
+   "seeds": [
+    {
+     "seed": 2,
+     "score": 0.42,
+     "gated": 4,
+     "crashes": 0,
+     "time": 26
+    },
+    {
+     "seed": 3,
+     "score": 0.42,
+     "gated": 3,
+     "crashes": 1,
+     "time": 26
+    },
+    {
+     "seed": 7,
+     "score": 0.4,
+     "gated": 3,
+     "crashes": 0,
+     "time": 27
+    },
+    {
+     "seed": 8,
+     "score": 0.44,
+     "gated": 4,
+     "crashes": 1,
+     "time": 29
+    },
+    {
+     "seed": 12,
+     "score": 0.45,
+     "gated": 4,
+     "crashes": 1,
+     "time": 43
+    },
+    {
+     "seed": 13,
+     "score": 0.38,
+     "gated": 3,
+     "crashes": 0,
+     "time": 19
+    },
+    {
+     "seed": 14,
+     "score": 0.46,
+     "gated": 4,
+     "crashes": 1,
+     "time": 40
+    },
+    {
+     "seed": 16,
+     "score": 0.42,
+     "gated": 3,
+     "crashes": 1,
+     "time": 24
+    },
+    {
+     "seed": 22,
+     "score": 0.44,
+     "gated": 4,
+     "crashes": 0,
+     "time": 28
+    },
+    {
+     "seed": 25,
+     "score": 0.45,
+     "gated": 3,
+     "crashes": 0,
+     "time": 29
+    },
+    {
+     "seed": 28,
+     "score": 0.43,
+     "gated": 4,
+     "crashes": 0,
+     "time": 32
+    },
+    {
+     "seed": 32,
+     "score": 0.46,
+     "gated": 3,
+     "crashes": 1,
+     "time": 33
+    },
+    {
+     "seed": 33,
+     "score": 0.44,
+     "gated": 4,
+     "crashes": 0,
+     "time": 26
+    },
+    {
+     "seed": 39,
+     "score": 0.4,
+     "gated": 4,
+     "crashes": 0,
+     "time": 23
+    },
+    {
+     "seed": 40,
+     "score": 0.42,
+     "gated": 4,
+     "crashes": 0,
+     "time": 24
+    }
+   ]
+  },
+  "kieleke-d3-r0": {
+   "template": "kieleke",
+   "depth": 3,
+   "risk": 0,
+   "def": {
+    "id": "kieleke-d3-r0",
+    "name": "Kalliokieleke",
+    "tier": 9,
+    "gen": 2,
+    "length": 6000,
+    "cpEvery": 0,
+    "dusk": 0.7,
+    "style": "kallio",
+    "relief": 0.73,
+    "challenge": 0.45,
+    "variation": 0.35,
+    "rhythm": "even",
+    "biome": "kallio",
+    "lowNodes": 1,
+    "okNodes": 0,
+    "newNodes": 1,
+    "rec": 1,
+    "minGap": 90
+   },
+   "seeds": [
+    {
+     "seed": 1,
+     "score": 0.27,
+     "gated": 2,
+     "crashes": 0,
+     "time": 23
+    },
+    {
+     "seed": 2,
+     "score": 0.31,
+     "gated": 4,
+     "crashes": 0,
+     "time": 16
+    },
+    {
+     "seed": 3,
+     "score": 0.27,
+     "gated": 3,
+     "crashes": 0,
+     "time": 19
+    },
+    {
+     "seed": 4,
+     "score": 0.31,
+     "gated": 3,
+     "crashes": 0,
+     "time": 17
+    },
+    {
+     "seed": 5,
+     "score": 0.32,
+     "gated": 3,
+     "crashes": 1,
+     "time": 26
+    },
+    {
+     "seed": 6,
+     "score": 0.3,
+     "gated": 3,
+     "crashes": 0,
+     "time": 25
+    },
+    {
+     "seed": 7,
+     "score": 0.37,
+     "gated": 4,
+     "crashes": 0,
+     "time": 26
+    },
+    {
+     "seed": 8,
+     "score": 0.29,
+     "gated": 3,
+     "crashes": 0,
+     "time": 22
+    },
+    {
+     "seed": 9,
+     "score": 0.34,
+     "gated": 4,
+     "crashes": 0,
+     "time": 20
+    },
+    {
+     "seed": 10,
+     "score": 0.39,
+     "gated": 5,
+     "crashes": 0,
+     "time": 23
+    },
+    {
+     "seed": 11,
+     "score": 0.35,
+     "gated": 5,
+     "crashes": 0,
+     "time": 16
+    },
+    {
+     "seed": 12,
+     "score": 0.3,
+     "gated": 3,
+     "crashes": 0,
+     "time": 18
+    },
+    {
+     "seed": 13,
+     "score": 0.33,
+     "gated": 4,
+     "crashes": 0,
+     "time": 21
+    },
+    {
+     "seed": 14,
+     "score": 0.33,
+     "gated": 4,
+     "crashes": 0,
+     "time": 21
+    },
+    {
+     "seed": 15,
+     "score": 0.29,
+     "gated": 3,
+     "crashes": 0,
+     "time": 18
+    },
+    {
+     "seed": 16,
+     "score": 0.36,
+     "gated": 4,
+     "crashes": 0,
+     "time": 19
+    },
+    {
+     "seed": 17,
+     "score": 0.35,
+     "gated": 3,
+     "crashes": 0,
+     "time": 27
+    },
+    {
+     "seed": 18,
+     "score": 0.32,
+     "gated": 3,
+     "crashes": 0,
+     "time": 26
+    },
+    {
+     "seed": 19,
+     "score": 0.33,
+     "gated": 4,
+     "crashes": 0,
+     "time": 22
+    },
+    {
+     "seed": 20,
+     "score": 0.3,
+     "gated": 2,
+     "crashes": 0,
+     "time": 22
+    },
+    {
+     "seed": 21,
+     "score": 0.33,
+     "gated": 2,
+     "crashes": 0,
+     "time": 21
+    },
+    {
+     "seed": 22,
+     "score": 0.31,
+     "gated": 3,
+     "crashes": 0,
+     "time": 17
+    },
+    {
+     "seed": 23,
+     "score": 0.31,
+     "gated": 3,
+     "crashes": 0,
+     "time": 17
+    },
+    {
+     "seed": 24,
+     "score": 0.34,
+     "gated": 3,
+     "crashes": 0,
+     "time": 23
+    },
+    {
+     "seed": 25,
+     "score": 0.35,
+     "gated": 4,
+     "crashes": 0,
+     "time": 16
+    },
+    {
+     "seed": 26,
+     "score": 0.31,
+     "gated": 3,
+     "crashes": 0,
+     "time": 21
+    },
+    {
+     "seed": 27,
+     "score": 0.34,
+     "gated": 4,
+     "crashes": 0,
+     "time": 26
+    },
+    {
+     "seed": 29,
+     "score": 0.36,
+     "gated": 5,
+     "crashes": 0,
+     "time": 20
+    },
+    {
+     "seed": 30,
+     "score": 0.31,
+     "gated": 3,
+     "crashes": 0,
+     "time": 21
+    },
+    {
+     "seed": 31,
+     "score": 0.35,
+     "gated": 4,
+     "crashes": 0,
+     "time": 17
+    },
+    {
+     "seed": 32,
+     "score": 0.29,
+     "gated": 2,
+     "crashes": 0,
+     "time": 19
+    },
+    {
+     "seed": 33,
+     "score": 0.3,
+     "gated": 4,
+     "crashes": 0,
+     "time": 16
+    },
+    {
+     "seed": 34,
+     "score": 0.36,
+     "gated": 4,
+     "crashes": 0,
+     "time": 20
+    },
+    {
+     "seed": 35,
+     "score": 0.31,
+     "gated": 3,
+     "crashes": 0,
+     "time": 15
+    },
+    {
+     "seed": 36,
+     "score": 0.38,
+     "gated": 4,
+     "crashes": 0,
+     "time": 21
+    },
+    {
+     "seed": 37,
+     "score": 0.38,
+     "gated": 4,
+     "crashes": 0,
+     "time": 21
+    },
+    {
+     "seed": 39,
+     "score": 0.28,
+     "gated": 2,
+     "crashes": 0,
+     "time": 18
+    }
+   ]
+  },
+  "kieleke-d3-r5": {
+   "template": "kieleke",
+   "depth": 3,
+   "risk": 0.5,
+   "def": {
+    "id": "kieleke-d3-r5",
+    "name": "Kalliokieleke",
+    "tier": 9,
+    "gen": 2,
+    "length": 6000,
+    "cpEvery": 0,
+    "dusk": 0.7,
+    "style": "kallio",
+    "relief": 0.85,
+    "challenge": 0.54,
+    "variation": 0.6,
+    "rhythm": "even",
+    "biome": "kallio",
+    "lowNodes": 1,
+    "okNodes": 0,
+    "newNodes": 1,
+    "rec": 1,
+    "minGap": 75
+   },
+   "seeds": [
+    {
+     "seed": 1,
+     "score": 0.41,
+     "gated": 6,
+     "crashes": 0,
+     "time": 22
+    },
+    {
+     "seed": 2,
+     "score": 0.36,
+     "gated": 5,
+     "crashes": 0,
+     "time": 20
+    },
+    {
+     "seed": 3,
+     "score": 0.38,
+     "gated": 5,
+     "crashes": 0,
+     "time": 17
+    },
+    {
+     "seed": 4,
+     "score": 0.39,
+     "gated": 5,
+     "crashes": 0,
+     "time": 19
+    },
+    {
+     "seed": 5,
+     "score": 0.39,
+     "gated": 5,
+     "crashes": 0,
+     "time": 23
+    },
+    {
+     "seed": 7,
+     "score": 0.41,
+     "gated": 5,
+     "crashes": 0,
+     "time": 21
+    },
+    {
+     "seed": 8,
+     "score": 0.45,
+     "gated": 5,
+     "crashes": 1,
+     "time": 46
+    },
+    {
+     "seed": 10,
+     "score": 0.46,
+     "gated": 7,
+     "crashes": 0,
+     "time": 24
+    },
+    {
+     "seed": 11,
+     "score": 0.45,
+     "gated": 7,
+     "crashes": 0,
+     "time": 19
+    },
+    {
+     "seed": 13,
+     "score": 0.41,
+     "gated": 6,
+     "crashes": 0,
+     "time": 23
+    },
+    {
+     "seed": 14,
+     "score": 0.4,
+     "gated": 6,
+     "crashes": 0,
+     "time": 25
+    },
+    {
+     "seed": 15,
+     "score": 0.41,
+     "gated": 6,
+     "crashes": 0,
+     "time": 21
+    },
+    {
+     "seed": 17,
+     "score": 0.43,
+     "gated": 6,
+     "crashes": 0,
+     "time": 19
+    },
+    {
+     "seed": 18,
+     "score": 0.41,
+     "gated": 5,
+     "crashes": 0,
+     "time": 22
+    },
+    {
+     "seed": 19,
+     "score": 0.41,
+     "gated": 6,
+     "crashes": 0,
+     "time": 25
+    },
+    {
+     "seed": 20,
+     "score": 0.36,
+     "gated": 4,
+     "crashes": 0,
+     "time": 26
+    },
+    {
+     "seed": 21,
+     "score": 0.41,
+     "gated": 6,
+     "crashes": 0,
+     "time": 25
+    },
+    {
+     "seed": 22,
+     "score": 0.36,
+     "gated": 4,
+     "crashes": 0,
+     "time": 20
+    },
+    {
+     "seed": 23,
+     "score": 0.43,
+     "gated": 6,
+     "crashes": 0,
+     "time": 20
+    },
+    {
+     "seed": 24,
+     "score": 0.42,
+     "gated": 4,
+     "crashes": 1,
+     "time": 35
+    },
+    {
+     "seed": 25,
+     "score": 0.4,
+     "gated": 6,
+     "crashes": 0,
+     "time": 25
+    },
+    {
+     "seed": 26,
+     "score": 0.35,
+     "gated": 4,
+     "crashes": 0,
+     "time": 20
+    },
+    {
+     "seed": 27,
+     "score": 0.34,
+     "gated": 4,
+     "crashes": 0,
+     "time": 29
+    },
+    {
+     "seed": 29,
+     "score": 0.37,
+     "gated": 5,
+     "crashes": 0,
+     "time": 19
+    },
+    {
+     "seed": 30,
+     "score": 0.44,
+     "gated": 6,
+     "crashes": 0,
+     "time": 19
+    },
+    {
+     "seed": 31,
+     "score": 0.3,
+     "gated": 3,
+     "crashes": 0,
+     "time": 20
+    },
+    {
+     "seed": 32,
+     "score": 0.42,
+     "gated": 7,
+     "crashes": 0,
+     "time": 20
+    },
+    {
+     "seed": 33,
+     "score": 0.35,
+     "gated": 3,
+     "crashes": 0,
+     "time": 21
+    },
+    {
+     "seed": 34,
+     "score": 0.38,
+     "gated": 4,
+     "crashes": 0,
+     "time": 26
+    },
+    {
+     "seed": 35,
+     "score": 0.4,
+     "gated": 6,
+     "crashes": 0,
+     "time": 25
+    },
+    {
+     "seed": 37,
+     "score": 0.39,
+     "gated": 5,
+     "crashes": 0,
+     "time": 19
+    },
+    {
+     "seed": 38,
+     "score": 0.35,
+     "gated": 4,
+     "crashes": 0,
+     "time": 22
+    },
+    {
+     "seed": 39,
+     "score": 0.35,
+     "gated": 4,
+     "crashes": 0,
+     "time": 21
+    },
+    {
+     "seed": 40,
+     "score": 0.37,
+     "gated": 4,
+     "crashes": 0,
+     "time": 22
+    }
+   ]
+  },
+  "kieleke-d3-r10": {
+   "template": "kieleke",
+   "depth": 3,
+   "risk": 1,
+   "def": {
+    "id": "kieleke-d3-r10",
+    "name": "Kalliokieleke",
+    "tier": 9,
+    "gen": 2,
+    "length": 6000,
+    "cpEvery": 0,
+    "dusk": 0.7,
+    "style": "kallio",
+    "relief": 0.98,
+    "challenge": 0.63,
+    "variation": 0.85,
+    "rhythm": "clustered",
+    "biome": "kallio",
+    "lowNodes": 1,
+    "okNodes": 0,
+    "newNodes": 1,
+    "rec": 1,
+    "minGap": 60
+   },
+   "seeds": [
+    {
+     "seed": 1,
+     "score": 0.38,
+     "gated": 4,
+     "crashes": 0,
+     "time": 20
+    },
+    {
+     "seed": 2,
+     "score": 0.4,
+     "gated": 4,
+     "crashes": 0,
+     "time": 17
+    },
+    {
+     "seed": 3,
+     "score": 0.43,
+     "gated": 6,
+     "crashes": 0,
+     "time": 18
+    },
+    {
+     "seed": 5,
+     "score": 0.37,
+     "gated": 4,
+     "crashes": 0,
+     "time": 20
+    },
+    {
+     "seed": 6,
+     "score": 0.4,
+     "gated": 5,
+     "crashes": 0,
+     "time": 19
+    },
+    {
+     "seed": 7,
+     "score": 0.48,
+     "gated": 5,
+     "crashes": 1,
+     "time": 35
+    },
+    {
+     "seed": 8,
+     "score": 0.38,
+     "gated": 4,
+     "crashes": 0,
+     "time": 17
+    },
+    {
+     "seed": 10,
+     "score": 0.46,
+     "gated": 6,
+     "crashes": 0,
+     "time": 21
+    },
+    {
+     "seed": 11,
+     "score": 0.41,
+     "gated": 4,
+     "crashes": 0,
+     "time": 20
+    },
+    {
+     "seed": 13,
+     "score": 0.46,
+     "gated": 5,
+     "crashes": 1,
+     "time": 28
+    },
+    {
+     "seed": 14,
+     "score": 0.41,
+     "gated": 5,
+     "crashes": 0,
+     "time": 22
+    },
+    {
+     "seed": 15,
+     "score": 0.38,
+     "gated": 4,
+     "crashes": 0,
+     "time": 20
+    },
+    {
+     "seed": 16,
+     "score": 0.47,
+     "gated": 5,
+     "crashes": 1,
+     "time": 29
+    },
+    {
+     "seed": 18,
+     "score": 0.48,
+     "gated": 6,
+     "crashes": 0,
+     "time": 20
+    },
+    {
+     "seed": 20,
+     "score": 0.38,
+     "gated": 4,
+     "crashes": 0,
+     "time": 21
+    },
+    {
+     "seed": 23,
+     "score": 0.44,
+     "gated": 5,
+     "crashes": 0,
+     "time": 20
+    },
+    {
+     "seed": 25,
+     "score": 0.45,
+     "gated": 5,
+     "crashes": 1,
+     "time": 41
+    },
+    {
+     "seed": 26,
+     "score": 0.45,
+     "gated": 6,
+     "crashes": 0,
+     "time": 20
+    },
+    {
+     "seed": 27,
+     "score": 0.37,
+     "gated": 4,
+     "crashes": 0,
+     "time": 20
+    },
+    {
+     "seed": 29,
+     "score": 0.41,
+     "gated": 4,
+     "crashes": 0,
+     "time": 18
+    },
+    {
+     "seed": 31,
+     "score": 0.4,
+     "gated": 5,
+     "crashes": 0,
+     "time": 19
+    },
+    {
+     "seed": 32,
+     "score": 0.45,
+     "gated": 5,
+     "crashes": 0,
+     "time": 21
+    },
+    {
+     "seed": 33,
+     "score": 0.42,
+     "gated": 4,
+     "crashes": 1,
+     "time": 24
+    },
+    {
+     "seed": 34,
+     "score": 0.44,
+     "gated": 5,
+     "crashes": 0,
+     "time": 18
+    },
+    {
+     "seed": 35,
+     "score": 0.37,
+     "gated": 4,
+     "crashes": 0,
+     "time": 16
+    },
+    {
+     "seed": 37,
+     "score": 0.46,
+     "gated": 5,
+     "crashes": 0,
+     "time": 25
+    },
+    {
+     "seed": 38,
+     "score": 0.43,
+     "gated": 5,
+     "crashes": 0,
+     "time": 20
+    },
+    {
+     "seed": 39,
+     "score": 0.39,
+     "gated": 4,
+     "crashes": 0,
+     "time": 22
+    },
+    {
+     "seed": 40,
+     "score": 0.41,
+     "gated": 4,
+     "crashes": 1,
+     "time": 27
+    }
+   ]
+  },
+  "korpi-d5-r0": {
+   "template": "korpi",
+   "depth": 5,
+   "risk": 0,
+   "def": {
+    "id": "korpi-d5-r0",
+    "name": "Korpi",
+    "tier": 9,
+    "gen": 2,
+    "length": 24000,
+    "cpEvery": 0,
+    "dusk": 0.94,
+    "chase": true,
+    "terrain": {
+     "algo": "noise",
+     "amp": 80,
+     "wl": 2200,
+     "octaves": 2,
+     "gain": 0.22,
+     "lacunarity": 4,
+     "rough": 0,
+     "maxSlope": 16,
+     "macro": 0.5,
+     "descent": 2400
+    },
+    "difficulty": {
+     "hard": 0.67,
+     "variety": 0.6,
+     "curve": [
+      0.49,
+      0.92
+     ]
+    },
+    "features": {
+     "strategy": "curve",
+     "spacing": "even",
+     "count": 34,
+     "pool": [
+      "slope",
+      "hump",
+      "kicker",
+      "tabletop",
+      "ridge",
+      "stepsdown",
+      "drop",
+      "stepdown",
+      "dropseries",
+      "doubles",
+      "roadgap",
+      "doublegap",
+      "bigair",
+      "gap"
+     ],
+     "fit": true
+    },
+    "assets": {
+     "obstacles": 0,
+     "stones": 0,
+     "forest": 1.3,
+     "biome": "korpi",
+     "glades": 0.2
+    },
+    "minGap": 220,
+    "rec": 1,
+    "lowNodes": 0,
+    "okNodes": 0,
+    "newNodes": 0
+   },
+   "seeds": [
+    {
+     "seed": 1,
+     "feats": 26,
+     "fastKm": 15.4,
+     "fastResult": "caught"
+    },
+    {
+     "seed": 3,
+     "feats": 29,
+     "fastKm": 14.3,
+     "fastResult": "caught"
+    },
+    {
+     "seed": 5,
+     "feats": 26,
+     "fastKm": 14.8,
+     "fastResult": "caught"
+    },
+    {
+     "seed": 6,
+     "feats": 29,
+     "fastKm": 12.9,
+     "fastResult": "caught"
+    },
+    {
+     "seed": 7,
+     "feats": 28,
+     "fastKm": 17.7,
+     "fastResult": "caught"
+    },
+    {
+     "seed": 10,
+     "feats": 28,
+     "fastKm": 18.1,
+     "fastResult": "caught"
+    },
+    {
+     "seed": 12,
+     "feats": 27,
+     "fastKm": 18.2,
+     "fastResult": "caught"
+    },
+    {
+     "seed": 13,
+     "feats": 28,
+     "fastKm": 22.9,
+     "fastResult": "caught"
+    },
+    {
+     "seed": 14,
+     "feats": 28,
+     "fastKm": 16.4,
+     "fastResult": "caught"
+    },
+    {
+     "seed": 15,
+     "feats": 27,
+     "fastKm": 21.4,
+     "fastResult": "caught"
+    },
+    {
+     "seed": 17,
+     "feats": 27,
+     "fastKm": 18.7,
+     "fastResult": "caught"
+    },
+    {
+     "seed": 19,
+     "feats": 26,
+     "fastKm": 19.1,
+     "fastResult": "caught"
+    },
+    {
+     "seed": 20,
+     "feats": 26,
+     "fastKm": 18.1,
+     "fastResult": "caught"
+    },
+    {
+     "seed": 21,
+     "feats": 30,
+     "fastKm": 15.7,
+     "fastResult": "caught"
+    },
+    {
+     "seed": 22,
+     "feats": 26,
+     "fastKm": 17.2,
+     "fastResult": "caught"
+    },
+    {
+     "seed": 23,
+     "feats": 29,
+     "fastKm": 12.3,
+     "fastResult": "caught"
+    },
+    {
+     "seed": 26,
+     "feats": 28,
+     "fastKm": 18.1,
+     "fastResult": "caught"
+    },
+    {
+     "seed": 27,
+     "feats": 28,
+     "fastKm": 16.3,
+     "fastResult": "caught"
+    },
+    {
+     "seed": 30,
+     "feats": 27,
+     "fastKm": 19.6,
+     "fastResult": "caught"
+    },
+    {
+     "seed": 32,
+     "feats": 28,
+     "fastKm": 18.7,
+     "fastResult": "caught"
+    },
+    {
+     "seed": 36,
+     "feats": 28,
+     "fastKm": 16.7,
+     "fastResult": "caught"
+    },
+    {
+     "seed": 39,
+     "feats": 27,
+     "fastKm": 18.2,
+     "fastResult": "caught"
+    },
+    {
+     "seed": 40,
+     "feats": 26,
+     "fastKm": 19.4,
+     "fastResult": "caught"
+    }
+   ]
+  },
+  "korpi-d5-r5": {
+   "template": "korpi",
+   "depth": 5,
+   "risk": 0.5,
+   "def": {
+    "id": "korpi-d5-r5",
+    "name": "Korpi",
+    "tier": 9,
+    "gen": 2,
+    "length": 24000,
+    "cpEvery": 0,
+    "dusk": 0.94,
+    "chase": true,
+    "terrain": {
+     "algo": "noise",
+     "amp": 80,
+     "wl": 2200,
+     "octaves": 2,
+     "gain": 0.22,
+     "lacunarity": 4,
+     "rough": 0,
+     "maxSlope": 16,
+     "macro": 0.5,
+     "descent": 2400
+    },
+    "difficulty": {
+     "hard": 0.72,
+     "variety": 0.6,
+     "curve": [
+      0.59,
+      1.07
+     ]
+    },
+    "features": {
+     "strategy": "curve",
+     "spacing": "even",
+     "count": 34,
+     "pool": [
+      "slope",
+      "hump",
+      "kicker",
+      "tabletop",
+      "ridge",
+      "stepsdown",
+      "drop",
+      "stepdown",
+      "dropseries",
+      "doubles",
+      "roadgap",
+      "doublegap",
+      "bigair",
+      "gap"
+     ],
+     "fit": true
+    },
+    "assets": {
+     "obstacles": 0,
+     "stones": 0,
+     "forest": 1.3,
+     "biome": "korpi",
+     "glades": 0.2
+    },
+    "minGap": 220,
+    "rec": 1,
+    "lowNodes": 0,
+    "okNodes": 0,
+    "newNodes": 0
+   },
+   "seeds": [
+    {
+     "seed": 1,
+     "feats": 22,
+     "fastKm": 11.1,
+     "fastResult": "caught"
+    },
+    {
+     "seed": 2,
+     "feats": 23,
+     "fastKm": 15.2,
+     "fastResult": "caught"
+    },
+    {
+     "seed": 3,
+     "feats": 22,
+     "fastKm": 12,
+     "fastResult": "caught"
+    },
+    {
+     "seed": 5,
+     "feats": 23,
+     "fastKm": 14.8,
+     "fastResult": "caught"
+    },
+    {
+     "seed": 6,
+     "feats": 21,
+     "fastKm": 15.7,
+     "fastResult": "caught"
+    },
+    {
+     "seed": 7,
+     "feats": 23,
+     "fastKm": 11.8,
+     "fastResult": "caught"
+    },
+    {
+     "seed": 10,
+     "feats": 22,
+     "fastKm": 8.7,
+     "fastResult": "caught"
+    },
+    {
+     "seed": 11,
+     "feats": 25,
+     "fastKm": 9.5,
+     "fastResult": "caught"
+    },
+    {
+     "seed": 13,
+     "feats": 21,
+     "fastKm": 12.3,
+     "fastResult": "caught"
+    },
+    {
+     "seed": 17,
+     "feats": 23,
+     "fastKm": 16.8,
+     "fastResult": "caught"
+    },
+    {
+     "seed": 20,
+     "feats": 22,
+     "fastKm": 10.3,
+     "fastResult": "caught"
+    },
+    {
+     "seed": 21,
+     "feats": 24,
+     "fastKm": 13,
+     "fastResult": "caught"
+    },
+    {
+     "seed": 22,
+     "feats": 22,
+     "fastKm": 7.8,
+     "fastResult": "caught"
+    },
+    {
+     "seed": 23,
+     "feats": 24,
+     "fastKm": 7.3,
+     "fastResult": "caught"
+    },
+    {
+     "seed": 24,
+     "feats": 24,
+     "fastKm": 11.6,
+     "fastResult": "caught"
+    },
+    {
+     "seed": 27,
+     "feats": 21,
+     "fastKm": 11.6,
+     "fastResult": "caught"
+    },
+    {
+     "seed": 28,
+     "feats": 22,
+     "fastKm": 15.9,
+     "fastResult": "caught"
+    },
+    {
+     "seed": 29,
+     "feats": 24,
+     "fastKm": 12.5,
+     "fastResult": "caught"
+    },
+    {
+     "seed": 30,
+     "feats": 21,
+     "fastKm": 15,
+     "fastResult": "caught"
+    },
+    {
+     "seed": 31,
+     "feats": 23,
+     "fastKm": 10.6,
+     "fastResult": "caught"
+    },
+    {
+     "seed": 33,
+     "feats": 24,
+     "fastKm": 16.7,
+     "fastResult": "caught"
+    },
+    {
+     "seed": 34,
+     "feats": 21,
+     "fastKm": 12.3,
+     "fastResult": "caught"
+    },
+    {
+     "seed": 36,
+     "feats": 23,
+     "fastKm": 9.8,
+     "fastResult": "caught"
+    },
+    {
+     "seed": 38,
+     "feats": 23,
+     "fastKm": 11.2,
+     "fastResult": "caught"
+    },
+    {
+     "seed": 39,
+     "feats": 22,
+     "fastKm": 15.8,
+     "fastResult": "caught"
+    },
+    {
+     "seed": 40,
+     "feats": 21,
+     "fastKm": 13,
+     "fastResult": "caught"
+    }
+   ]
+  },
+  "korpi-d5-r10": {
+   "template": "korpi",
+   "depth": 5,
+   "risk": 1,
+   "def": {
+    "id": "korpi-d5-r10",
+    "name": "Korpi",
+    "tier": 9,
+    "gen": 2,
+    "length": 24000,
+    "cpEvery": 0,
+    "dusk": 0.94,
+    "chase": true,
+    "terrain": {
+     "algo": "noise",
+     "amp": 80,
+     "wl": 2200,
+     "octaves": 2,
+     "gain": 0.22,
+     "lacunarity": 4,
+     "rough": 0,
+     "maxSlope": 16,
+     "macro": 0.5,
+     "descent": 2400
+    },
+    "difficulty": {
+     "hard": 0.77,
+     "variety": 0.6,
+     "curve": [
+      0.69,
+      1.22
+     ]
+    },
+    "features": {
+     "strategy": "curve",
+     "spacing": "even",
+     "count": 34,
+     "pool": [
+      "slope",
+      "hump",
+      "kicker",
+      "tabletop",
+      "ridge",
+      "stepsdown",
+      "drop",
+      "stepdown",
+      "dropseries",
+      "doubles",
+      "roadgap",
+      "doublegap",
+      "bigair",
+      "gap"
+     ],
+     "fit": true
+    },
+    "assets": {
+     "obstacles": 0,
+     "stones": 0,
+     "forest": 1.3,
+     "biome": "korpi",
+     "glades": 0.2
+    },
+    "minGap": 220,
+    "rec": 1,
+    "lowNodes": 0,
+    "okNodes": 0,
+    "newNodes": 0
+   },
+   "seeds": [
+    {
+     "seed": 1,
+     "feats": 19,
+     "fastKm": 10.7,
+     "fastResult": "caught"
+    },
+    {
+     "seed": 6,
+     "feats": 20,
+     "fastKm": 13.5,
+     "fastResult": "caught"
+    },
+    {
+     "seed": 8,
+     "feats": 20,
+     "fastKm": 17.3,
+     "fastResult": "caught"
+    },
+    {
+     "seed": 10,
+     "feats": 20,
+     "fastKm": 6.9,
+     "fastResult": "caught"
+    },
+    {
+     "seed": 17,
+     "feats": 19,
+     "fastKm": 6,
+     "fastResult": "caught"
+    },
+    {
+     "seed": 18,
+     "feats": 20,
+     "fastKm": 10.3,
+     "fastResult": "caught"
+    },
+    {
+     "seed": 23,
+     "feats": 20,
+     "fastKm": 7.8,
+     "fastResult": "caught"
+    },
+    {
+     "seed": 36,
+     "feats": 20,
+     "fastKm": 12.6,
+     "fastResult": "caught"
+    },
+    {
+     "seed": 37,
+     "feats": 18,
+     "fastKm": 7.8,
+     "fastResult": "caught"
+    },
+    {
+     "seed": 38,
+     "feats": 19,
+     "fastKm": 15.3,
+     "fastResult": "caught"
+    }
+   ]
+  },
+  "lasku-d6-r0": {
+   "template": "lasku",
+   "depth": 6,
+   "risk": 0,
+   "def": {
+    "id": "lasku-d6-r0",
+    "name": "Lasku laaksoon",
+    "tier": 9,
+    "gen": 2,
+    "length": 8000,
+    "cpEvery": 0,
+    "style": "lasku",
+    "relief": 1.51,
+    "challenge": 0.61,
+    "variation": 0.35,
+    "rhythm": "rising",
+    "biome": "lehto",
+    "lowNodes": 0,
+    "okNodes": 1,
+    "newNodes": 1,
+    "rec": 2,
+    "dh": true
+   },
+   "seeds": [
+    {
+     "seed": 1,
+     "score": 0.3,
+     "gated": 4,
+     "crashes": 0,
+     "time": 28
+    },
+    {
+     "seed": 2,
+     "score": 0.31,
+     "gated": 4,
+     "crashes": 0,
+     "time": 25
+    },
+    {
+     "seed": 3,
+     "score": 0.24,
+     "gated": 1,
+     "crashes": 0,
+     "time": 22
+    },
+    {
+     "seed": 4,
+     "score": 0.26,
+     "gated": 2,
+     "crashes": 0,
+     "time": 27
+    },
+    {
+     "seed": 5,
+     "score": 0.31,
+     "gated": 3,
+     "crashes": 0,
+     "time": 30
+    },
+    {
+     "seed": 6,
+     "score": 0.26,
+     "gated": 2,
+     "crashes": 0,
+     "time": 30
+    },
+    {
+     "seed": 7,
+     "score": 0.28,
+     "gated": 3,
+     "crashes": 0,
+     "time": 26
+    },
+    {
+     "seed": 8,
+     "score": 0.24,
+     "gated": 1,
+     "crashes": 0,
+     "time": 25
+    },
+    {
+     "seed": 9,
+     "score": 0.31,
+     "gated": 4,
+     "crashes": 0,
+     "time": 28
+    },
+    {
+     "seed": 10,
+     "score": 0.35,
+     "gated": 4,
+     "crashes": 1,
+     "time": 44
+    },
+    {
+     "seed": 11,
+     "score": 0.31,
+     "gated": 4,
+     "crashes": 0,
+     "time": 30
+    },
+    {
+     "seed": 12,
+     "score": 0.33,
+     "gated": 5,
+     "crashes": 0,
+     "time": 26
+    },
+    {
+     "seed": 13,
+     "score": 0.34,
+     "gated": 4,
+     "crashes": 1,
+     "time": 43
+    },
+    {
+     "seed": 14,
+     "score": 0.28,
+     "gated": 3,
+     "crashes": 0,
+     "time": 22
+    },
+    {
+     "seed": 15,
+     "score": 0.25,
+     "gated": 3,
+     "crashes": 0,
+     "time": 25
+    },
+    {
+     "seed": 16,
+     "score": 0.28,
+     "gated": 3,
+     "crashes": 0,
+     "time": 27
+    },
+    {
+     "seed": 17,
+     "score": 0.26,
+     "gated": 3,
+     "crashes": 0,
+     "time": 27
+    },
+    {
+     "seed": 18,
+     "score": 0.27,
+     "gated": 2,
+     "crashes": 0,
+     "time": 25
+    },
+    {
+     "seed": 20,
+     "score": 0.25,
+     "gated": 2,
+     "crashes": 0,
+     "time": 23
+    },
+    {
+     "seed": 21,
+     "score": 0.24,
+     "gated": 1,
+     "crashes": 0,
+     "time": 27
+    },
+    {
+     "seed": 22,
+     "score": 0.23,
+     "gated": 1,
+     "crashes": 0,
+     "time": 24
+    },
+    {
+     "seed": 23,
+     "score": 0.26,
+     "gated": 2,
+     "crashes": 0,
+     "time": 26
+    },
+    {
+     "seed": 24,
+     "score": 0.29,
+     "gated": 3,
+     "crashes": 0,
+     "time": 26
+    },
+    {
+     "seed": 25,
+     "score": 0.27,
+     "gated": 2,
+     "crashes": 0,
+     "time": 25
+    },
+    {
+     "seed": 26,
+     "score": 0.25,
+     "gated": 2,
+     "crashes": 0,
+     "time": 21
+    },
+    {
+     "seed": 27,
+     "score": 0.26,
+     "gated": 2,
+     "crashes": 0,
+     "time": 27
+    },
+    {
+     "seed": 28,
+     "score": 0.24,
+     "gated": 1,
+     "crashes": 0,
+     "time": 26
+    },
+    {
+     "seed": 29,
+     "score": 0.23,
+     "gated": 1,
+     "crashes": 0,
+     "time": 27
+    },
+    {
+     "seed": 30,
+     "score": 0.26,
+     "gated": 4,
+     "crashes": 0,
+     "time": 29
+    },
+    {
+     "seed": 31,
+     "score": 0.25,
+     "gated": 1,
+     "crashes": 0,
+     "time": 27
+    },
+    {
+     "seed": 32,
+     "score": 0.26,
+     "gated": 1,
+     "crashes": 0,
+     "time": 28
+    },
+    {
+     "seed": 33,
+     "score": 0.27,
+     "gated": 3,
+     "crashes": 0,
+     "time": 26
+    },
+    {
+     "seed": 34,
+     "score": 0.26,
+     "gated": 2,
+     "crashes": 0,
+     "time": 26
+    },
+    {
+     "seed": 35,
+     "score": 0.26,
+     "gated": 2,
+     "crashes": 0,
+     "time": 22
+    },
+    {
+     "seed": 36,
+     "score": 0.27,
+     "gated": 2,
+     "crashes": 0,
+     "time": 20
+    },
+    {
+     "seed": 37,
+     "score": 0.31,
+     "gated": 3,
+     "crashes": 0,
+     "time": 29
+    },
+    {
+     "seed": 38,
+     "score": 0.27,
+     "gated": 3,
+     "crashes": 0,
+     "time": 24
+    },
+    {
+     "seed": 39,
+     "score": 0.23,
+     "gated": 1,
+     "crashes": 0,
+     "time": 27
+    },
+    {
+     "seed": 40,
+     "score": 0.3,
+     "gated": 4,
+     "crashes": 0,
+     "time": 21
+    }
+   ]
+  },
+  "lasku-d6-r5": {
+   "template": "lasku",
+   "depth": 6,
+   "risk": 0.5,
+   "def": {
+    "id": "lasku-d6-r5",
+    "name": "Lasku laaksoon",
+    "tier": 9,
+    "gen": 2,
+    "length": 8000,
+    "cpEvery": 0,
+    "style": "lasku",
+    "relief": 1.63,
+    "challenge": 0.7,
+    "variation": 0.6,
+    "rhythm": "rising",
+    "biome": "lehto",
+    "lowNodes": 0,
+    "okNodes": 1,
+    "newNodes": 1,
+    "rec": 2,
+    "dh": true
+   },
+   "seeds": [
+    {
+     "seed": 1,
+     "score": 0.3,
+     "gated": 3,
+     "crashes": 0,
+     "time": 27
+    },
+    {
+     "seed": 2,
+     "score": 0.28,
+     "gated": 2,
+     "crashes": 0,
+     "time": 25
+    },
+    {
+     "seed": 3,
+     "score": 0.29,
+     "gated": 3,
+     "crashes": 0,
+     "time": 24
+    },
+    {
+     "seed": 4,
+     "score": 0.35,
+     "gated": 4,
+     "crashes": 1,
+     "time": 38
+    },
+    {
+     "seed": 5,
+     "score": 0.32,
+     "gated": 3,
+     "crashes": 0,
+     "time": 30
+    },
+    {
+     "seed": 6,
+     "score": 0.28,
+     "gated": 2,
+     "crashes": 0,
+     "time": 26
+    },
+    {
+     "seed": 7,
+     "score": 0.27,
+     "gated": 2,
+     "crashes": 0,
+     "time": 23
+    },
+    {
+     "seed": 8,
+     "score": 0.35,
+     "gated": 4,
+     "crashes": 1,
+     "time": 27
+    },
+    {
+     "seed": 9,
+     "score": 0.3,
+     "gated": 4,
+     "crashes": 0,
+     "time": 31
+    },
+    {
+     "seed": 10,
+     "score": 0.23,
+     "gated": 1,
+     "crashes": 0,
+     "time": 25
+    },
+    {
+     "seed": 11,
+     "score": 0.35,
+     "gated": 5,
+     "crashes": 0,
+     "time": 26
+    },
+    {
+     "seed": 12,
+     "score": 0.27,
+     "gated": 2,
+     "crashes": 0,
+     "time": 21
+    },
+    {
+     "seed": 13,
+     "score": 0.28,
+     "gated": 2,
+     "crashes": 0,
+     "time": 25
+    },
+    {
+     "seed": 14,
+     "score": 0.3,
+     "gated": 4,
+     "crashes": 0,
+     "time": 25
+    },
+    {
+     "seed": 15,
+     "score": 0.26,
+     "gated": 3,
+     "crashes": 0,
+     "time": 25
+    },
+    {
+     "seed": 16,
+     "score": 0.29,
+     "gated": 3,
+     "crashes": 0,
+     "time": 24
+    },
+    {
+     "seed": 17,
+     "score": 0.3,
+     "gated": 3,
+     "crashes": 0,
+     "time": 24
+    },
+    {
+     "seed": 18,
+     "score": 0.29,
+     "gated": 3,
+     "crashes": 0,
+     "time": 25
+    },
+    {
+     "seed": 19,
+     "score": 0.27,
+     "gated": 3,
+     "crashes": 0,
+     "time": 26
+    },
+    {
+     "seed": 20,
+     "score": 0.29,
+     "gated": 3,
+     "crashes": 0,
+     "time": 22
+    },
+    {
+     "seed": 21,
+     "score": 0.31,
+     "gated": 4,
+     "crashes": 0,
+     "time": 22
+    },
+    {
+     "seed": 22,
+     "score": 0.26,
+     "gated": 2,
+     "crashes": 0,
+     "time": 26
+    },
+    {
+     "seed": 23,
+     "score": 0.32,
+     "gated": 4,
+     "crashes": 0,
+     "time": 24
+    },
+    {
+     "seed": 24,
+     "score": 0.27,
+     "gated": 2,
+     "crashes": 0,
+     "time": 26
+    },
+    {
+     "seed": 25,
+     "score": 0.31,
+     "gated": 4,
+     "crashes": 0,
+     "time": 23
+    },
+    {
+     "seed": 26,
+     "score": 0.33,
+     "gated": 5,
+     "crashes": 0,
+     "time": 28
+    },
+    {
+     "seed": 27,
+     "score": 0.29,
+     "gated": 3,
+     "crashes": 0,
+     "time": 25
+    },
+    {
+     "seed": 28,
+     "score": 0.31,
+     "gated": 4,
+     "crashes": 0,
+     "time": 27
+    },
+    {
+     "seed": 29,
+     "score": 0.36,
+     "gated": 6,
+     "crashes": 0,
+     "time": 26
+    },
+    {
+     "seed": 30,
+     "score": 0.33,
+     "gated": 5,
+     "crashes": 0,
+     "time": 22
+    },
+    {
+     "seed": 31,
+     "score": 0.26,
+     "gated": 2,
+     "crashes": 0,
+     "time": 24
+    },
+    {
+     "seed": 32,
+     "score": 0.28,
+     "gated": 2,
+     "crashes": 0,
+     "time": 28
+    },
+    {
+     "seed": 33,
+     "score": 0.33,
+     "gated": 4,
+     "crashes": 0,
+     "time": 28
+    },
+    {
+     "seed": 34,
+     "score": 0.31,
+     "gated": 4,
+     "crashes": 0,
+     "time": 24
+    },
+    {
+     "seed": 35,
+     "score": 0.23,
+     "gated": 1,
+     "crashes": 0,
+     "time": 24
+    },
+    {
+     "seed": 36,
+     "score": 0.4,
+     "gated": 6,
+     "crashes": 1,
+     "time": 37
+    },
+    {
+     "seed": 37,
+     "score": 0.3,
+     "gated": 2,
+     "crashes": 0,
+     "time": 26
+    },
+    {
+     "seed": 38,
+     "score": 0.27,
+     "gated": 2,
+     "crashes": 0,
+     "time": 24
+    },
+    {
+     "seed": 39,
+     "score": 0.31,
+     "gated": 3,
+     "crashes": 0,
+     "time": 27
+    },
+    {
+     "seed": 40,
+     "score": 0.27,
+     "gated": 2,
+     "crashes": 0,
+     "time": 22
+    }
+   ]
+  },
+  "lasku-d6-r10": {
+   "template": "lasku",
+   "depth": 6,
+   "risk": 1,
+   "def": {
+    "id": "lasku-d6-r10",
+    "name": "Lasku laaksoon",
+    "tier": 9,
+    "gen": 2,
+    "length": 8000,
+    "cpEvery": 0,
+    "style": "lasku",
+    "relief": 1.76,
+    "challenge": 0.79,
+    "variation": 0.85,
+    "rhythm": "clustered",
+    "biome": "lehto",
+    "lowNodes": 0,
+    "okNodes": 1,
+    "newNodes": 1,
+    "rec": 2,
+    "dh": true
+   },
+   "seeds": [
+    {
+     "seed": 1,
+     "score": 0.27,
+     "gated": 2,
+     "crashes": 0,
+     "time": 27
+    },
+    {
+     "seed": 2,
+     "score": 0.27,
+     "gated": 2,
+     "crashes": 0,
+     "time": 21
+    },
+    {
+     "seed": 4,
+     "score": 0.32,
+     "gated": 4,
+     "crashes": 0,
+     "time": 24
+    },
+    {
+     "seed": 5,
+     "score": 0.29,
+     "gated": 2,
+     "crashes": 0,
+     "time": 25
+    },
+    {
+     "seed": 6,
+     "score": 0.26,
+     "gated": 2,
+     "crashes": 0,
+     "time": 25
+    },
+    {
+     "seed": 7,
+     "score": 0.25,
+     "gated": 2,
+     "crashes": 0,
+     "time": 20
+    },
+    {
+     "seed": 8,
+     "score": 0.27,
+     "gated": 3,
+     "crashes": 0,
+     "time": 23
+    },
+    {
+     "seed": 9,
+     "score": 0.27,
+     "gated": 2,
+     "crashes": 0,
+     "time": 25
+    },
+    {
+     "seed": 10,
+     "score": 0.3,
+     "gated": 2,
+     "crashes": 1,
+     "time": 33
+    },
+    {
+     "seed": 11,
+     "score": 0.28,
+     "gated": 2,
+     "crashes": 0,
+     "time": 23
+    },
+    {
+     "seed": 12,
+     "score": 0.32,
+     "gated": 2,
+     "crashes": 1,
+     "time": 31
+    },
+    {
+     "seed": 13,
+     "score": 0.35,
+     "gated": 3,
+     "crashes": 1,
+     "time": 28
+    },
+    {
+     "seed": 14,
+     "score": 0.28,
+     "gated": 2,
+     "crashes": 0,
+     "time": 22
+    },
+    {
+     "seed": 15,
+     "score": 0.28,
+     "gated": 3,
+     "crashes": 0,
+     "time": 22
+    },
+    {
+     "seed": 16,
+     "score": 0.28,
+     "gated": 2,
+     "crashes": 0,
+     "time": 20
+    },
+    {
+     "seed": 17,
+     "score": 0.31,
+     "gated": 2,
+     "crashes": 1,
+     "time": 26
+    },
+    {
+     "seed": 18,
+     "score": 0.34,
+     "gated": 3,
+     "crashes": 1,
+     "time": 22
+    },
+    {
+     "seed": 20,
+     "score": 0.25,
+     "gated": 2,
+     "crashes": 0,
+     "time": 21
+    },
+    {
+     "seed": 21,
+     "score": 0.26,
+     "gated": 2,
+     "crashes": 0,
+     "time": 20
+    },
+    {
+     "seed": 22,
+     "score": 0.26,
+     "gated": 2,
+     "crashes": 0,
+     "time": 22
+    },
+    {
+     "seed": 23,
+     "score": 0.27,
+     "gated": 2,
+     "crashes": 0,
+     "time": 22
+    },
+    {
+     "seed": 24,
+     "score": 0.28,
+     "gated": 2,
+     "crashes": 0,
+     "time": 20
+    },
+    {
+     "seed": 25,
+     "score": 0.29,
+     "gated": 3,
+     "crashes": 0,
+     "time": 20
+    },
+    {
+     "seed": 26,
+     "score": 0.32,
+     "gated": 4,
+     "crashes": 0,
+     "time": 23
+    },
+    {
+     "seed": 28,
+     "score": 0.27,
+     "gated": 2,
+     "crashes": 0,
+     "time": 21
+    },
+    {
+     "seed": 30,
+     "score": 0.3,
+     "gated": 3,
+     "crashes": 0,
+     "time": 21
+    },
+    {
+     "seed": 31,
+     "score": 0.28,
+     "gated": 2,
+     "crashes": 0,
+     "time": 20
+    },
+    {
+     "seed": 32,
+     "score": 0.29,
+     "gated": 2,
+     "crashes": 0,
+     "time": 24
+    },
+    {
+     "seed": 33,
+     "score": 0.3,
+     "gated": 2,
+     "crashes": 0,
+     "time": 20
+    },
+    {
+     "seed": 34,
+     "score": 0.27,
+     "gated": 2,
+     "crashes": 0,
+     "time": 23
+    },
+    {
+     "seed": 35,
+     "score": 0.27,
+     "gated": 2,
+     "crashes": 0,
+     "time": 22
+    },
+    {
+     "seed": 36,
+     "score": 0.28,
+     "gated": 3,
+     "crashes": 0,
+     "time": 23
+    },
+    {
+     "seed": 37,
+     "score": 0.3,
+     "gated": 2,
+     "crashes": 0,
+     "time": 26
+    },
+    {
+     "seed": 38,
+     "score": 0.29,
+     "gated": 2,
+     "crashes": 0,
+     "time": 21
+    },
+    {
+     "seed": 40,
+     "score": 0.27,
+     "gated": 2,
+     "crashes": 0,
+     "time": 21
+    }
+   ]
+  }
+ }
+}
